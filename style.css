@@ -349,6 +349,7 @@ body {
     }
     #bk-ticker-inner {
         animation-duration: 12s;
+        will-change: transform;
     }
     .bk-tick-item {
         padding: 0 20px;

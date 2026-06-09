@@ -211,9 +211,9 @@
                         });          
                         </script>
                         <script>
-                        const ticker = document.getElementById('bk-ticker-inner');
-                        const clone = ticker.cloneNode(true);
-                        ticker.parentNode.appendChild(clone);
+                            const inner = document.getElementById('bk-ticker-inner');
+                            const items = inner.innerHTML;
+                            inner.innerHTML = items + items;
                         </script>
                     </body>
                  </html>
