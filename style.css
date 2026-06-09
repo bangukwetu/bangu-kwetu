@@ -116,7 +116,7 @@ body {
     align-items: center;
     height: 100%;
     white-space: nowrap;
-    animation: bk-scroll 30s linear infinite;
+    animation: bk-scroll 10s linear infinite;
 }
 .bk-tick-item {
     color: #ffffff;
