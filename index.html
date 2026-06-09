@@ -33,11 +33,11 @@
          <div id="bk-ticker-bar">
             <div id="bk-ticker-label">BREAKING</div>
             <div id="bk-ticker-track">
-                <div id="bk-ticker-inner">
-                    <span class="bk-tick-item"=>Ward Bursary applications now open</span>
-                    <span class="bk-tick-item"=>Business expo - June, Kariobangi</span>
-                    <span class="bk-tick-item"=>Mathare derby this weekend</span>
-                </div>
+                <marquee behaviour="scroll" direction="left" scrollamount="3"
+                    <span class="bk-tick-item">Ward Bursary apps now open</span>
+                    <span class="bk-tick-item">Business Expo - June, Kariobangi</span>
+                    <span class="bk-tick-item">Mathare Derby this weekend</span>
+                </marquee>
             </div>
         </div>
         <!-- NEWS SECTION -->
@@ -209,10 +209,6 @@
                                 nav.classList.remove('active');
                             });
                         });          
-                        </script>
-                        <script>
-                            const inner = document.getElementById('bk-ticker-inner');
-                            inner.innerHTML = inner.innerHTML + inner.innerHTML;
                         </script>
                     </body>
                  </html>
