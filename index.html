@@ -37,9 +37,6 @@
                     <span class="bk-tick-item"=>Ward Bursary applications now open</span>
                     <span class="bk-tick-item"=>Business expo - June, Kariobangi</span>
                     <span class="bk-tick-item"=>Mathare derby this weekend</span>
-                    <span class="bk-tick-item"=>Ward Bursary applications now open</span>
-                    <span class="bk-tick-item"=>Business expo - June, Kariobangi</span>
-                    <span class="bk-tick-item"=>Mathare derby this weekend</span>
                 </div>
             </div>
         </div>
@@ -213,6 +210,11 @@
                                 nav.classList.remove('active');
                             });
                         });          
+                        </script>
+                        <script>
+                        const ticker = document.getElementById('bk-ticker-inner');
+                        const clone = ticker.cloneNode(true);
+                        ticker.parentNode.appendChild(clone);
                         </script>
                     </body>
                  </html>
