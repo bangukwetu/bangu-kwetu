@@ -113,7 +113,6 @@ body {
 #bk-ticker-inner {
     display: inline block;
     white-space: nowrap;
-    padding-right: 100%;
     will-change: transform;
     animation: bk-scroll 20s linear infinite;
 }
