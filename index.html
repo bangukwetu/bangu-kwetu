@@ -33,7 +33,11 @@
             <div class="bk-logo">
                 <h1><span class="bk-logo-black">Bangu </span><span class="bk-logo-red">Kwetu</span></h1>
             </div>
-            <button class="bk-hamburger" id="bk-hamburger">&#9776;</button>
+            <button class="bk-hamburger" id="bk-hamburger">
+                 <span></span>
+                 <span></span>
+                 <span></span>
+            </button>
             <nav class="bk-nav">
                 <a href="#home">Home</a>
                 <a href="#news">News</a>
@@ -42,8 +46,15 @@
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </nav>
-    </div>
-        </header>
+            <button class="bk-search-btn" id="bk-search-btn">🔍</button>
+                    </div>
+                </header>
+                <!-- SEARCH OVERLAY -->
+                <div id="bk-search-overlay">
+                    <div class="bk-container">
+                         <input type="search" id="bk-search-input" placeholder="Search Bangu Kwetu...">
+                   </div>
+                </div>
         <!-- CATEGORY NAV -->
 <nav id="bk-cat-nav">
     <div class="bk-container">
@@ -232,19 +243,75 @@
                             </div>
                         </footer>
                         <script>
-                        const btn = document.getElementById('bk-hamburger');
-                        const nav = document.querySelector('.bk-nav');
-                        btn.addEventListener('click', function() {
-                            nav.classList.toggle('active');
-                        });
-                        nav.querySelectorAll('a').forEach(function(link) {
-                            link.addEventListener('click', function() {
-                                nav.classList.remove('active');
-                            });
-                        });          
-                        </script>
-                    </body>
-                 </html>
+// ── 1. HAMBURGER — X animation + drawer ──────────
+const hamburgerBtn = document.getElementById('bk-hamburger');
+const bkNav = document.querySelector('.bk-nav');
+
+hamburgerBtn.addEventListener('click', function() {
+    hamburgerBtn.classList.toggle('open');
+    bkNav.classList.toggle('active');
+});
+
+bkNav.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+        hamburgerBtn.classList.remove('open');
+        bkNav.classList.remove('active');
+    });
+});
+
+// ── 2. SEARCH TOGGLE ─────────────────────────────
+const searchBtn = document.getElementById('bk-search-btn');
+const searchOverlay = document.getElementById('bk-search-overlay');
+const searchInput = document.getElementById('bk-search-input');
+
+searchBtn.addEventListener('click', function() {
+    const isOpen = searchOverlay.classList.toggle('open');
+    if (isOpen) {
+        setTimeout(function() { searchInput.focus(); }, 50);
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        searchOverlay.classList.remove('open');
+        hamburgerBtn.classList.remove('open');
+        bkNav.classList.remove('active');
+    }
+});
+
+// ── 3. SMART STICKY CATEGORY NAV ─────────────────
+const catNav = document.getElementById('bk-cat-nav');
+let lastScrollY = window.scrollY;
+let ticking = false;
+
+window.addEventListener('scroll', function() {
+    if (!ticking) {
+        requestAnimationFrame(function() {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 150) {
+                catNav.classList.add('hidden');
+            } else {
+                catNav.classList.remove('hidden');
+            }
+            lastScrollY = currentScrollY;
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
+
+// ── 4. ACTIVE CATEGORY LINK ──────────────────────
+document.querySelectorAll('.bk-cat-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+        document.querySelectorAll('.bk-cat-link').forEach(function(l) {
+            l.classList.remove('active');
+        });
+        link.classList.add('active');
+    });
+});
+</script>
+  </body>
+     </html>
 
 
                                  
