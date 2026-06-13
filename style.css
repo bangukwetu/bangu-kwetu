@@ -584,7 +584,7 @@ body {
     display: flex;
 }
 #bk-search-input {
-    width: 110px;
+    width: 90px;
     background: #f0f0f0;
     border: none;
     border-bottom: 2px solid #D62828;
