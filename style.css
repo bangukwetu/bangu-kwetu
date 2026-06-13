@@ -499,11 +499,10 @@ body {
     align-items: center;
     gap: 0;
     margin-left: auto;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
     flex-shrink: 0;
-    max-width: 80px;
 }
 .bk-header-spacer {
     flex: 1;
@@ -521,13 +520,16 @@ body {
     }
     .bk-hamburger {
         display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
         background: none;
         border: none;
-        border-right: 1px solid #e0e0e0;
         cursor: pointer;
         padding: 8px 10px;
         color: #1a1a1a;
-        font-size: unset;
+        flex-shrink: 0;
+        margin-right: auto;
     }
     .bk-nav {
         display: none;
@@ -582,7 +584,7 @@ body {
     align-items: center;
     gap: 4px;
     position: absolute;
-    right: 16px;
+    right: 50px;
     top: 50%;
     transform: translateY(-50%);
     width: 160px;
@@ -590,7 +592,7 @@ body {
     background: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-    padding: 2px 4px;
+    padding: 2px 6px;
 }
 #bk-search-box.open {
     display: flex;
