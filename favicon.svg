@@ -1,15 +1,7 @@
-<svg xmlns="http://w3.org" viewBox="0 0 512 512" width="100%" height="100%">
-  <!-- Outer Brand Canvas Container (Steel Blue) -->
-  <rect width="512" height="512" rx="128" fill="#2E6DA4"/>
-  
-  <!-- Subtle Editorial Line Accent (Ice Blue Tint) -->
-  <path d="M64 160 H448 M64 352 H448" stroke="#EBF1F5" stroke-width="8" opacity="0.15" stroke-linecap="round"/>
-  
-  <g transform="translate(10, 0)">
-    <!-- 'B' Initial (Pure White for Bangu) -->
-    <path d="M120 130 H220 C260 130 280 150 280 185 C280 215 260 235 220 240 C270 245 290 270 290 305 C290 345 265 370 215 370 H120 V130 Z M175 175 V215 H210 C230 215 240 205 240 195 C240 185 230 175 210 175 H175 Z M175 260 V325 H215 C235 325 248 315 248 292 C248 270 235 260 215 260 H175 Z" fill="#FFFFFF"/>
-    
-    <!-- 'K' Initial (Vibrant Orange for Kwetu) -->
-    <path d="M305 130 H360 V225 L420 130 H485 L405 240 L490 370 H425 L360 265 V370 H305 V130 Z" fill="#FF7A00"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="20" fill="#2E6DA4"/>
+  <text x="18" y="72" font-family="Arial Black" font-weight="900" 
+        font-size="58" fill="#ffffff">B</text>
+  <text x="52" y="72" font-family="Arial Black" font-weight="900" 
+        font-size="58" fill="#E87722">K</text>
 </svg>
