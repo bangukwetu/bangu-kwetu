@@ -1,250 +1,262 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bangu Kwetu</title>
-    <link rel="preconnect" href="https://fonts.googleapsis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
-    <link href="https://fonts.google.com/css2?family=oswald:wght@400;600;700&family=IBM+plex+sans:wght@400;500;600&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- TICKER -->
-<div id="bk-ticker-bar">
-    <div id="bk-ticker-label">
-        <span id="bk-ticker-dot">●</span> BREAKING
-    </div>
-    <div id="bk-ticker-track">
-        <div id="bk-ticker-inner">
-            <span class="bk-tick-item">Ward Bursary apps now open</span>
-            <span class="bk-tick-item">Business Expo - June, Kariobangi</span>
-            <span class="bk-tick-item">Mathare Derby this weekend</span>
-            <span class="bk-tick-item">Ward Bursary apps now open</span>
-            <span class="bk-tick-item">Business Expo - June, Kariobangi</span>
-            <span class="bk-tick-item">Mathare Derby this weekend</span>
-        </div>
-    </div>
-</div>
-    <!-- HEADER -->
-     <header class="bk-header">
-        <div class="bk-container">
-            <button class="bk-hamburger" id="bk-hamburger">
-                 <span></span>
-                 <span></span>
-                 <span></span>
-            </button>
-            <div class="bk-logo">
-                <h1><span class="bk-logo-black">Bangu </span><span class="bk-logo-red">Kwetu</span></h1>
-            </div>
-            <nav class="bk-nav">
-                <a href="#home">Home</a>
-                <a href="#news">News</a>
-                <a href="#sports">Sports</a>
-                <a href="#business">Business</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav> 
-        <div id="bk-search-box">
-             <input type="search" id="bk-search-input" placeholder="search">
-             <button id="bk-search-close">X</button>
-        </div>    
-            <div class="bk-header-actions">
-               <button class="bk-search-btn" id="bk-search-btn">🔍</button>
-            </div>
-    </header>  
-        <!-- CATEGORY NAV -->
-<nav id="bk-cat-nav">
-    <div class="bk-container">
-        <div id="bk-cat-nav-inner">
-            <a href="#news" class="bk-cat-link active">News</a>
-            <a href="#sports" class="bk-cat-link">Sports</a>
-            <a href="#business" class="bk-cat-link">Business</a>
-            <a href="#news" class="bk-cat-link">Nairobi</a>
-            <a href="#news" class="bk-cat-link">Kenya</a>
-            <a href="#news" class="bk-cat-link">Health</a>
-            <a href="#news" class="bk-cat-link">Education</a>
-            <a href="#news" class="bk-cat-link">Entertainment</a>
-        </div>
-    </div>
-</nav>
-<!-- SHUJAA WA SIKU -->
-<div id="bk-shujaa-section">
-    <div class="bk-container">
-        <div id="bk-shujaa-card">
-            <div id="bk-shujaa-badge">Shujaa wa Siku</div>
-            <div id="bk-shujaa-avatar">👤</div>
-            <div id="bk-shujaa-body">
-                <span id="bk-shujaa-eyebrow">June 11, 2026 · Kariobangi North</span>
-                <h3 id="bk-shujaa-name">Omar Juma, Bodaboda Operator</h3>
-                <p id="bk-shujaa-desc">Risked everything to pull a child from a flooded drainage channel on Outer Ring Road — asked for nothing in return.</p>
-                <a href="#" id="bk-shujaa-link">Read his story →</a>
-            </div>
-        </div>
-    </div>
-</div>
-        <!-- NEWS SECTION -->
-         <section id="news" class="bk-section bk-section--news">
+
+    <!-- HEADER BLOCK — unified steel blue -->
+
+    <div class="bk-header-block">
+
+
+        <!-- Main header -->
+        <header class="bk-header">
             <div class="bk-container">
-                <h2 class="bk-section-title">News</h2>
+                <button class="bk-hamburger" id="bk-hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="bk-logo">
+                    <h1><span class="bk-logo-white">Bangu </span><span class="bk-logo-ice">Kwetu</span></h1>
+                </div>
+                <nav class="bk-nav" id="bk-nav">
+                    <a href="#news">News</a>
+                    <a href="#sports">Sports</a>
+                    <a href="#business">Business</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <div id="bk-search-box">
+                    <input type="search" id="bk-search-input" placeholder="Search Bangu Kwetu...">
+                    <button id="bk-search-close">✕</button>
+                </div>
+                <div class="bk-header-actions">
+                    <button class="bk-search-btn" id="bk-search-btn">🔍</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Category nav — outside header block for proper sticky on mobile -->
+        </div><!-- end header block -->
+
+        <nav id="bk-cat-nav">
+            <div class="bk-container">
+                <div id="bk-cat-nav-inner">
+                    <a href="#news" class="bk-cat-link active">News</a>
+                    <a href="#sports" class="bk-cat-link">Sports</a>
+                    <a href="#business" class="bk-cat-link">Business</a>
+                    <a href="#" class="bk-cat-link">Nairobi</a>
+                    <a href="#" class="bk-cat-link">Kenya</a>
+                    <a href="#" class="bk-cat-link">Health</a>
+                    <a href="#" class="bk-cat-link">Education</a>
+                    <a href="#" class="bk-cat-link">Entertainment</a>
+                </div>
+            </div>
+        </nav>
+
+    <!-- SHUJAA WA SIKU -->
+    <div id="bk-shujaa-section">
+        <div class="bk-container">
+            <div id="bk-shujaa-card">
+                <div id="bk-shujaa-badge">Shujaa wa Siku</div>
+                <div id="bk-shujaa-avatar">👤</div>
+                <div id="bk-shujaa-body">
+                    <span id="bk-shujaa-eyebrow">June 25, 2026 · Kariobangi North</span>
+                    <h3 id="bk-shujaa-name">Omar Juma, Bodaboda Operator</h3>
+                    <p id="bk-shujaa-desc">Risked everything to pull a child from a flooded drainage channel on Outer Ring Road — asked for nothing in return.</p>
+                    <a href="#" id="bk-shujaa-link">Read his story →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHITE CANVAS -->
+    <div class="bk-canvas">
+
+        <!-- NEWS SECTION -->
+        <section id="news" class="bk-section">
+            <div class="bk-container">
+                <div class="bk-section-head">
+                    <h2 class="bk-section-title">News</h2>
+                    <a href="#" class="bk-see-all">See all →</a>
+                </div>
                 <div class="bk-card-grid">
                     <article class="bk-card">
                         <div class="bk-card-image">
-                            <img src="images/news-1.jpg" alt="Kariobangi North Residence Raise Concern Over Rising Insecurity">
-                        </div>   
+                            <img src="images/news-1.jpg" alt="Kariobangi North Residents Raise Concern Over Rising Insecurity">
+                        </div>
                         <div class="bk-card-body">
                             <span class="bk-card-cat">News</span>
-                            <h3 class="bk-card-title">Kariobangi North Residence Raise Concern Over Rising Insecurity</h3>
+                            <h3 class="bk-card-title">Kariobangi North Residents Raise Concern Over Rising Insecurity</h3>
                             <p class="bk-card-date">May 22, 2026</p>
                         </div>
                     </article>
                     <article class="bk-card">
                         <div class="bk-card-image">
                             <img src="images/news-2.jpg" alt="Nairobi Intensifies Clean-up Campaign Across Estates">
-                        </div>   
+                        </div>
                         <div class="bk-card-body">
                             <span class="bk-card-cat">News</span>
                             <h3 class="bk-card-title">Nairobi Intensifies Clean-up Campaign Across Estates</h3>
                             <p class="bk-card-date">May 21, 2026</p>
                         </div>
                     </article>
-                        <article class="bk-card">
-                            <div class="bk-card-image">
-                                <img src="images/news-3.jpg" alt="Ward Bursary Applications Now Open 2026">
-                            </div>   
-                            <div class="bk-card-body">
-                                <span class="bk-card-cat">News</span>
-                                <h3 class="bk-card-title">Ward Bursary Applications Now Open 2026</h3>
-                                <p class="bk-card-date">May 20, 2026</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </section>
-            <!-- SPORTS SECTION -->
-            <section id="sports" class="bk-section bk-section--sports">
-                <div class="bk-container">
-                    <h2 class="bk-section-title">Sports</h2>
-                    <div class="bk-card-grid">
-                     <article class="bk-card">
+                    <article class="bk-card">
                         <div class="bk-card-image">
-                           <img src="images/sports-1.jpg" alt="Mathare Derby Set For This Weekend At Kasarani">
-                        </div>    
+                            <img src="images/news-3.jpg" alt="Ward Bursary Applications Now Open 2026">
+                        </div>
+                        <div class="bk-card-body">
+                            <span class="bk-card-cat">News</span>
+                            <h3 class="bk-card-title">Ward Bursary Applications Now Open 2026</h3>
+                            <p class="bk-card-date">May 20, 2026</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPORTS SECTION -->
+        <section id="sports" class="bk-section">
+            <div class="bk-container">
+                <div class="bk-section-head">
+                    <h2 class="bk-section-title">Sports</h2>
+                    <a href="#" class="bk-see-all">See all →</a>
+                </div>
+                <div class="bk-card-grid">
+                    <article class="bk-card">
+                        <div class="bk-card-image">
+                            <img src="images/sports-1.jpg" alt="Mathare Derby Set For This Weekend At Kasarani">
+                        </div>
                         <div class="bk-card-body">
                             <span class="bk-card-cat">Sports</span>
                             <h3 class="bk-card-title">Mathare Derby Set For This Weekend At Kasarani</h3>
                             <p class="bk-card-date">May 24, 2026</p>
                         </div>
                     </article>
-                            <article class="bk-card">
-                                <div class="bk-card-image">
-                                    <img src="images/sports-2.jpg" alt="Kariobangi Sharks Eye Top Four Finish This Season">
-                                </div>    
-                                <div class="bk-card-body">
-                                    <span class="bk-card-cat">Sports</span>
-                                    <h3 class="bk-card-title">Kariobangi Sharks Eye Top Four Finish This Season</h3>
-                                    <p class="bk-card-date">May 23, 2026</p>
-                                </div>
-                            </article>
-                                <article class="bk-card">
-                                    <div class="bk-card-image">
-                                        <img src="images/sports-3.jpg" alt="Ward Athletics Championships Planned For June">
-                                    </div>    
-                                    <div class="bk-card-body">
-                                        <span class="bk-card-cat">Sports</span>
-                                        <h3 class="bk-card-title">Ward Athletics Championships Planned For June</h3>
-                                        <p class="bk-card-date">May 21, 2026</p>
-                                    </div>
-                                </article>
-                            </div>
+                    <article class="bk-card">
+                        <div class="bk-card-image">
+                            <img src="images/sports-2.jpg" alt="Kariobangi Sharks Eye Top Four Finish This Season">
                         </div>
-                    </section>
-                    <!-- BUSINESS SECTION -->
-                    <section id="business" class="bk-section bk-section--business">
-                        <div class="bk-container">
-                            <h2 class="bk-section-title">Business</h2>
-                            <div class="bk-card-grid">
-                                <article class="bk-card">
-                                    <div class="bk-card-image">
-                                        <img src="images/business-1.jpg" alt="Local Business Expo Planned For June At Kariobangi Grounds">
-                                    </div>    
-                                    <div class="bk-card-body">
-                                        <span class="bk-card-cat">Business</span>
-                                        <h3 class="bk-card-title">Local Business Expo Planned For June At Kariobangi Grounds</h3>
-                                        <p class="bk-card-date">May 22, 2026</p>
-                                    </div>
-                                </article>
-                                <article class="bk-card">
-                                    <div class="bk-card-image">
-                                        <img src="images/business-2.jpg" alt="Youth Entrpreneurs Seek Ward Fund Support For Startups">
-                                    </div>    
-                                    <div class="bk-card-body">
-                                        <span class="bk-card-cat">Business</span>
-                                        <h3 class="bk-card-title">Youth Entrepreneurs Seek Ward Fund Support For Startups</h3>
-                                        <p class="bk-card-date">May 21, 2026</p>
-                                    </div>
-                                </article>
-                                <article class="bk-card">
-                                    <div class="bk-card-image">
-                                        <img src="images/business-3.jpg" alt="Jua Kali Sector Gets New Working Space In Sector">
-                                    </div>    
-                                    <div class="bk-card-body">
-                                        <span class="bk-card-cat">Business</span>
-                                        <h3 class="bk-card-title">Jua Kali Sector Gets New Working Space In Sector 4</h3>
-                                        <p class="bk-card-date">May 20, 2026</p>
-                                    </div>
-                                </article>
-                            </div>
-                        <div>
-                    </section>
-                    <!-- F00TER -->
-                    <footer class="bk-footer">
-                        <div class="bk-container">
-                            <div class="bk-footer-grid">
-                                <div class="bk-footer-col">
-                                    <h3 class="bk-footer-logo">Bangu Kwetu</h3>
-                                    <p class="bk-footer-about">Bringing you news, sports and business from the base.</p>
-                                </div>
-                                <div class="bk-footer-col">
-                                    <h4 class="bk-footer-heading">Quick Links</h4>
-                                    <ul class="bk-footer-links">
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">News</a></li>
-                                        <li><a href="#">Sports</a></li>
-                                        <li><a href="#">Business</a></li>
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="#">Contact</a></li>
-                                    </ul>
-                                    </div>
-                                    <div class="bk-footer-col">
-                                        <h4 class="bk-footer-heading">Contact</h4>
-                                        <ul class="bk-footer-links">
-                                            <li>Nairobi, Kenya</li>
-                                            <li>info@bangukwetu.co.ke</li>
-                                        <ul>
-                                    </div>
-                                    <div class="bk-footer-col">
-                                        <h4 class="bk-footer-heading">Follow Us</h4>
-                                        <div class="bk-social-links">
-                                            <a href="#" class="bk-social">Facebook</a>
-                                            <a href="#" class="bk-social">X</a>
-                                            <a href="#" class="bk-social">Whatsapp</a>
-                                            <a href="#" class="bk-social">Youtube</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bk-footer-bottom">
-                                <div class="bk-container">
-                                    <p>&copy; 2026 Bangu Kwetu - Sauti ya Base.</p>
-                                </div>
-                            </div>
-                        </footer>
-                        <script>
-// ── 1. HAMBURGER — X animation + drawer ──────────
+                        <div class="bk-card-body">
+                            <span class="bk-card-cat">Sports</span>
+                            <h3 class="bk-card-title">Kariobangi Sharks Eye Top Four Finish This Season</h3>
+                            <p class="bk-card-date">May 23, 2026</p>
+                        </div>
+                    </article>
+                    <article class="bk-card">
+                        <div class="bk-card-image">
+                            <img src="images/sports-3.jpg" alt="Ward Athletics Championships Planned For June">
+                        </div>
+                        <div class="bk-card-body">
+                            <span class="bk-card-cat">Sports</span>
+                            <h3 class="bk-card-title">Ward Athletics Championships Planned For June</h3>
+                            <p class="bk-card-date">May 21, 2026</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUSINESS SECTION -->
+        <section id="business" class="bk-section">
+            <div class="bk-container">
+                <div class="bk-section-head">
+                    <h2 class="bk-section-title">Business</h2>
+                    <a href="#" class="bk-see-all">See all →</a>
+                </div>
+                <div class="bk-card-grid">
+                    <article class="bk-card">
+                        <div class="bk-card-image">
+                            <img src="images/business-1.jpg" alt="Local Business Expo Planned For June At Kariobangi Grounds">
+                        </div>
+                        <div class="bk-card-body">
+                            <span class="bk-card-cat">Business</span>
+                            <h3 class="bk-card-title">Local Business Expo Planned For June At Kariobangi Grounds</h3>
+                            <p class="bk-card-date">May 22, 2026</p>
+                        </div>
+                    </article>
+                    <article class="bk-card">
+                        <div class="bk-card-image">
+                            <img src="images/business-2.jpg" alt="Youth Entrepreneurs Seek Ward Fund Support For Startups">
+                        </div>
+                        <div class="bk-card-body">
+                            <span class="bk-card-cat">Business</span>
+                            <h3 class="bk-card-title">Youth Entrepreneurs Seek Ward Fund Support For Startups</h3>
+                            <p class="bk-card-date">May 21, 2026</p>
+                        </div>
+                    </article>
+                    <article class="bk-card">
+                        <div class="bk-card-image">
+                            <img src="images/business-3.jpg" alt="Jua Kali Sector Gets New Working Space In Sector 4">
+                        </div>
+                        <div class="bk-card-body">
+                            <span class="bk-card-cat">Business</span>
+                            <h3 class="bk-card-title">Jua Kali Sector Gets New Working Space In Sector 4</h3>
+                            <p class="bk-card-date">May 20, 2026</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- end canvas -->
+
+    <!-- FOOTER -->
+    <footer class="bk-footer">
+        <div class="bk-container">
+            <div class="bk-footer-grid">
+                <div class="bk-footer-col">
+                    <h3 class="bk-footer-logo">Bangu <span>Kwetu</span></h3>
+                    <p class="bk-footer-about">Bringing you news, sports and business from the base.</p>
+                </div>
+                <div class="bk-footer-col">
+                    <h4 class="bk-footer-heading">Quick Links</h4>
+                    <ul class="bk-footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">News</a></li>
+                        <li><a href="#">Sports</a></li>
+                        <li><a href="#">Business</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="bk-footer-col">
+                    <h4 class="bk-footer-heading">Contact</h4>
+                    <ul class="bk-footer-links">
+                        <li>Nairobi, Kenya</li>
+                        <li>info@bangukwetu.co.ke</li>
+                    </ul>
+                </div>
+                <div class="bk-footer-col">
+                    <h4 class="bk-footer-heading">Follow Us</h4>
+                    <div class="bk-social-links">
+                        <a href="#" class="bk-social">Facebook</a>
+                        <a href="#" class="bk-social">X</a>
+                        <a href="#" class="bk-social">WhatsApp</a>
+                        <a href="#" class="bk-social">YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bk-footer-bottom">
+            <div class="bk-container">
+                <p>&copy; 2026 Bangu Kwetu · Kariobangi North, Nairobi</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+// ── 1. HAMBURGER ──────────────────────────────────
 const hamburgerBtn = document.getElementById('bk-hamburger');
-const bkNav = document.querySelector('.bk-nav');
+const bkNav = document.getElementById('bk-nav');
 
 hamburgerBtn.addEventListener('click', function() {
     hamburgerBtn.classList.toggle('open');
@@ -258,7 +270,7 @@ bkNav.querySelectorAll('a').forEach(function(link) {
     });
 });
 
-// ── 2. SEARCH TOGGLE — inline ─────────────────────
+// ── 2. SEARCH TOGGLE ──────────────────────────────
 const searchBtn   = document.getElementById('bk-search-btn');
 const searchClose = document.getElementById('bk-search-close');
 const searchBox   = document.getElementById('bk-search-box');
@@ -286,28 +298,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// ── 3. SMART STICKY CATEGORY NAV ─────────────────
-const catNav = document.getElementById('bk-cat-nav');
-let lastScrollY = window.scrollY;
-let ticking = false;
-
-window.addEventListener('scroll', function() {
-    if (!ticking) {
-        requestAnimationFrame(function() {
-            const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 150) {
-                catNav.classList.add('hidden');
-            } else {
-                catNav.classList.remove('hidden');
-            }
-            lastScrollY = currentScrollY;
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-
-// ── 4. ACTIVE CATEGORY LINK ──────────────────────
+// ── 3. ACTIVE CATEGORY LINK ───────────────────────
 document.querySelectorAll('.bk-cat-link').forEach(function(link) {
     link.addEventListener('click', function() {
         document.querySelectorAll('.bk-cat-link').forEach(function(l) {
@@ -316,14 +307,7 @@ document.querySelectorAll('.bk-cat-link').forEach(function(link) {
         link.classList.add('active');
     });
 });
-</script>
-  </body>
-     </html>
+    </script>
 
-
-                                 
-
-
-
-
-
+</body>
+</html>
