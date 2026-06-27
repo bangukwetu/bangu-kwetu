@@ -507,6 +507,17 @@ body {
     color: rgba(255,255,255,0.25);
     text-align: center;
 }
+/* ══════════════════════════════════════
+   HOME GROUPS
+   ══════════════════════════════════════ */
+.bk-home-group {
+    margin-bottom: 44px;
+}
+#bk-main-grid .bk-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
 
 /* ══════════════════════════════════════
    MOBILE

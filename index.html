@@ -51,11 +51,12 @@
         <nav id="bk-cat-nav">
             <div class="bk-container">
                 <div id="bk-cat-nav-inner">
-                    <a href="#news" class="bk-cat-link active">News</a>
-                    <a href="#sports" class="bk-cat-link">Sports</a>
-                    <a href="#business" class="bk-cat-link">Business</a>
-                    <a href="#" class="bk-cat-link">Nairobi</a>
-                    <a href="#" class="bk-cat-link">Community</a>
+                    <a href="#" class="bk-cat-link active" data-cat="home">Home</a>
+                    <a href="#news" class="bk-cat-link" data-cat="news">News</a>
+                    <a href="#sports" class="bk-cat-link" data-cat="sports">Sports</a>
+                    <a href="#business" class="bk-cat-link" data-cat="business">Business</a>
+                    <a href="#" class="bk-cat-link" data-cat="nairobi">Nairobi</a>
+                    <a href="#" class="bk-cat-link" data-cat="community">Community</a>
                 </div>
             </div>
         </nav>
@@ -79,38 +80,16 @@
     <!-- WHITE CANVAS -->
     <div class="bk-canvas">
 
-        <!-- NEWS SECTION -->
-        <section id="news" class="bk-section">
-            <div class="bk-container">
-                <div class="bk-section-head">
-                    <h2 class="bk-section-title">News</h2>
-                    <a href="#" class="bk-see-all">See all →</a>
-                </div>
-                <div class="bk-card-grid"></div>
-            </div>
-        </section>
-
-        <!-- SPORTS SECTION -->
-        <section id="sports" class="bk-section">
-            <div class="bk-container">
-                <div class="bk-section-head">
-                    <h2 class="bk-section-title">Sports</h2>
-                    <a href="#" class="bk-see-all">See all →</a>
-                </div>
-                <div class="bk-card-grid"></div>
-            </div>
-        </section>
-
-        <!-- BUSINESS SECTION -->
-        <section id="business" class="bk-section">
-            <div class="bk-container">
-                <div class="bk-section-head">
-                    <h2 class="bk-section-title">Business</h2>
-                    <a href="#" class="bk-see-all">See all →</a>
-                </div>
-                <div class="bk-card-grid"></div>
-            </div>
-        </section>
+        <!-- CONTENT SECTION -->
+<section id="bk-content" class="bk-section">
+    <div class="bk-container">
+        <div class="bk-section-head">
+            <h2 class="bk-section-title" id="bk-active-label">News</h2>
+            <a href="#" class="bk-see-all">See all →</a>
+        </div>
+        <div class="bk-card-grid" id="bk-main-grid"></div>
+    </div>
+</section>
 
     </div><!-- end canvas -->
 

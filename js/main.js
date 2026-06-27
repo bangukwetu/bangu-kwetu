@@ -52,37 +52,101 @@ document.querySelectorAll('.bk-cat-link').forEach(function(link) {
     });
 });
 // ── 4. FETCH & RENDER ARTICLES ────────────────────
+let allArticles = [];
+
 async function loadArticles() {
     const response = await fetch('data/articles.json');
-    const articles = await response.json();
+    allArticles = await response.json();
+    renderHome();
+}
 
-    const sections = ['news', 'sports', 'business'];
+function renderHome() {
+    const grid = document.getElementById('bk-main-grid');
+    const label = document.getElementById('bk-active-label');
+    document.querySelector('#bk-content .bk-section-head').style.display = 'none';
 
-    sections.forEach(function(cat) {
-        const grid = document.querySelector('#' + cat + ' .bk-card-grid');
-        if (!grid) return;
+    const categories = ['news', 'sports', 'business'];
+    let html = '';
 
-        const filtered = articles.filter(function(a) {
+    categories.forEach(function(cat) {
+        const cards = allArticles.filter(function(a) {
             return a.category === cat;
         });
 
-        grid.innerHTML = filtered.map(function(a) {
-            return `
-            <article class="bk-card" data-category="${a.category}">
-                <div class="bk-card-image">
-                    <img src="${a.image}" alt="${a.title}">
-                </div>
-                <div class="bk-card-body">
-                    <span class="bk-card-cat">${a.category}</span>
-                    <h3 class="bk-card-title">${a.title}</h3>
-                    <p class="bk-card-date">${a.date}</p>
-                </div>
-            </article>`;
-        }).join('');
+        html += `
+        <div class="bk-home-group">
+            <div class="bk-section-head">
+                <h3 class="bk-section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
+                <a href="#" class="bk-see-all">See all →</a>
+            </div>
+            <div class="bk-card-grid">
+                ${cards.map(function(a) {
+                    return `
+                    <article class="bk-card" data-category="${a.category}">
+                        <div class="bk-card-image">
+                            <img src="${a.image}" alt="${a.title}">
+                        </div>
+                        <div class="bk-card-body">
+                            <span class="bk-card-cat">${a.category}</span>
+                            <h3 class="bk-card-title">${a.title}</h3>
+                            <p class="bk-card-date">${a.date}</p>
+                        </div>
+                    </article>`;
+                }).join('')}
+            </div>
+        </div>`;
     });
+
+    grid.innerHTML = html;
+    grid.style.display = 'block'
+}
+
+function filterArticles(category) {
+    const grid = document.getElementById('bk-main-grid');
+    const label = document.getElementById('bk-active-label');
+    document.querySelector('#bk-content .bk-section-head').style.display = '';
+
+    label.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+
+    const filtered = allArticles.filter(function(a) {
+        return a.category === category;
+    });
+
+    grid.innerHTML = filtered.map(function(a) {
+        return `
+        <article class="bk-card" data-category="${a.category}">
+            <div class="bk-card-image">
+                <img src="${a.image}" alt="${a.title}">
+            </div>
+            <div class="bk-card-body">
+                <span class="bk-card-cat">${a.category}</span>
+                <h3 class="bk-card-title">${a.title}</h3>
+                <p class="bk-card-date">${a.date}</p>
+            </div>
+        </article>`;
+    }).join('');
+    grid.style.display = 'grid';
 }
 
 loadArticles();
+
+// ── CATEGORY NAV CLICKS ───────────────────────────
+document.querySelectorAll('.bk-cat-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.bk-cat-link').forEach(function(l) {
+            l.classList.remove('active');
+        });
+        link.classList.add('active');
+
+        const cat = link.getAttribute('data-cat');
+        if (cat === 'home') {
+            renderHome();
+        } else {
+            filterArticles(cat);
+        }
+    });
+});
 // ── 5. FETCH & RENDER SHUJAA ──────────────────────
 async function loadShujaa() {
     const response = await fetch('data/shujaa.json');
