@@ -615,4 +615,7 @@ body {
         padding: 0 16px !important;
         width: 100% !important;
     }
+    .bk-home-group .bk-card-grid {
+        grid-template-columns: 1fr !important;
+    }
 }
