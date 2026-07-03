@@ -10,27 +10,38 @@ public_folder: /images
 collections:
   - name: articles
     label: Articles
-    folder: data
-    create: true
-    format: json
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: string }
-      - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi, community] }
-      - { label: Image, name: image, widget: image }
-      - { label: Excerpt, name: desc, widget: text }
-      - { label: Body, name: body, widget: markdown }
-      - { label: Breaking News, name: breaking, widget: boolean, default: false }
+    files:
+      - name: articles
+        label: All Articles
+        file: data/articles.json
+        fields:
+          - label: Articles
+            name: articles
+            widget: list
+            fields:
+              - { label: ID, name: id, widget: string, hint: "Unique, e.g. news-004, no spaces" }
+              - { label: Title, name: title, widget: string }
+              - { label: Date, name: date, widget: string }
+              - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi, community] }
+              - { label: Image, name: image, widget: image }
+              - { label: Excerpt, name: desc, widget: text, required: false }
+              - { label: Body, name: content, widget: markdown, required: false }
+              - { label: Breaking News, name: breaking, widget: boolean, default: false }
 
   - name: shujaa
     label: Shujaa wa Siku
-    folder: data
-    create: true
-    format: json
-    fields:
-      - { label: Name, name: name, widget: string }
-      - { label: Eyebrow, name: eyebrow, widget: string }
-      - { label: Description, name: desc, widget: text }
-      - { label: Full Story, name: story, widget: markdown }
-      - { label: Photo, name: photo, widget: image }
-      - { label: Link, name: link, widget: string, default: shujaa.html }
+    files:
+      - name: shujaa
+        label: All Shujaa
+        file: data/shujaa.json
+        fields:
+          - label: Shujaa
+            name: shujaa
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Eyebrow, name: eyebrow, widget: string }
+              - { label: Description, name: desc, widget: text }
+              - { label: Full Story, name: story, widget: markdown, required: false }
+              - { label: Photo, name: photo, widget: image, required: false }
+              - { label: Link, name: link, widget: string, default: shujaa.html }

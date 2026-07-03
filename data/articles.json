@@ -1,65 +1,67 @@
-[
-  {
-    "id": "news-001",
-    "category": "news",
-    "title": "Kariobangi North Residents Raise Concern Over Rising Insecurity",
-    "date": "May 22, 2026",
-    "image": "images/news-1.jpg"
-  },
-  {
-    "id": "news-002",
-    "category": "news",
-    "title": "Nairobi Intensifies Clean-up Campaign Across Estates",
-    "date": "May 21, 2026",
-    "image": "images/news-2.jpg"
-  },
-  {
-    "id": "news-003",
-    "category": "news",
-    "title": "Ward Bursary Applications Now Open 2026",
-    "date": "May 20, 2026",
-    "image": "images/news-3.jpg"
-  },
-  {
-    "id": "sports-001",
-    "category": "sports",
-    "title": "Mathare Derby Set For This Weekend At Kasarani",
-    "date": "May 24, 2026",
-    "image": "images/sports-1.jpg"
-  },
-  {
-    "id": "sports-002",
-    "category": "sports",
-    "title": "Kariobangi Sharks Eye Top Four Finish This Season",
-    "date": "May 23, 2026",
-    "image": "images/sports-2.jpg"
-  },
-  {
-    "id": "sports-003",
-    "category": "sports",
-    "title": "Ward Athletics Championships Planned For June",
-    "date": "May 21, 2026",
-    "image": "images/sports-3.jpg"
-  },
-  {
-    "id": "business-001",
-    "category": "business",
-    "title": "Local Business Expo Planned For June At Kariobangi Grounds",
-    "date": "May 22, 2026",
-    "image": "images/business-1.jpg"
-  },
-  {
-    "id": "business-002",
-    "category": "business",
-    "title": "Youth Entrepreneurs Seek Ward Fund Support For Startups",
-    "date": "May 21, 2026",
-    "image": "images/business-2.jpg"
-  },
-  {
-    "id": "business-003",
-    "category": "business",
-    "title": "Jua Kali Sector Gets New Working Space In Sector 4",
-    "date": "May 20, 2026",
-    "image": "images/business-3.jpg"
-  }
-]
+{
+  "articles": [
+    {
+      "id": "news-001",
+      "category": "news",
+      "title": "Kariobangi North Residents Raise Concern Over Rising Insecurity",
+      "date": "May 22, 2026",
+      "image": "images/news-1.jpg"
+    },
+    {
+      "id": "news-002",
+      "category": "news",
+      "title": "Nairobi Intensifies Clean-up Campaign Across Estates",
+      "date": "May 21, 2026",
+      "image": "images/news-2.jpg"
+    },
+    {
+      "id": "news-003",
+      "category": "news",
+      "title": "Ward Bursary Applications Now Open 2026",
+      "date": "May 20, 2026",
+      "image": "images/news-3.jpg"
+    },
+    {
+      "id": "sports-001",
+      "category": "sports",
+      "title": "Mathare Derby Set For This Weekend At Kasarani",
+      "date": "May 24, 2026",
+      "image": "images/sports-1.jpg"
+    },
+    {
+      "id": "sports-002",
+      "category": "sports",
+      "title": "Kariobangi Sharks Eye Top Four Finish This Season",
+      "date": "May 23, 2026",
+      "image": "images/sports-2.jpg"
+    },
+    {
+      "id": "sports-003",
+      "category": "sports",
+      "title": "Ward Athletics Championships Planned For June",
+      "date": "May 21, 2026",
+      "image": "images/sports-3.jpg"
+    },
+    {
+      "id": "business-001",
+      "category": "business",
+      "title": "Local Business Expo Planned For June At Kariobangi Grounds",
+      "date": "May 22, 2026",
+      "image": "images/business-1.jpg"
+    },
+    {
+      "id": "business-002",
+      "category": "business",
+      "title": "Youth Entrepreneurs Seek Ward Fund Support For Startups",
+      "date": "May 21, 2026",
+      "image": "images/business-2.jpg"
+    },
+    {
+      "id": "business-003",
+      "category": "business",
+      "title": "Jua Kali Sector Gets New Working Space In Sector 4",
+      "date": "May 20, 2026",
+      "image": "images/business-3.jpg"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangu Kwetu</title>
+    <title id="bk-page-title">Bangu Kwetu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -12,22 +12,19 @@
 </head>
 <body>
 
-    <!-- HEADER BLOCK — unified steel blue -->
-
     <div class="bk-header-block">
-
-
-        <!-- Main header -->
         <header class="bk-header">
             <div class="bk-container">
                 <div class="bk-date" id="bk-date"></div>
                 <div class="bk-logo">
-                    <h1><span class="bk-logo-white">Bangu </span><span class="bk-logo-ice">Kwetu</span></h1>
+                    <a href="index.html" style="text-decoration:none;">
+                        <h1><span class="bk-logo-white">Bangu </span><span class="bk-logo-ice">Kwetu</span></h1>
+                    </a>
                 </div>
                 <nav class="bk-nav" id="bk-nav">
-                    <a href="#about.html">About</a>
-                    <a href="#contact.html">Contact</a>
-                    <a href="#privacy.html">Privacy policy</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy policy</a>
                     <a href="#">Advertise with Us</a>
                 </nav>
                 <div id="bk-search-box">
@@ -39,7 +36,7 @@
                           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="11" cy="11" r="7"></circle>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                           </svg>     
+                           </svg>
                     </button>
                     <button class="bk-hamburger" id="bk-hamburger">
                         <span></span>
@@ -49,56 +46,55 @@
                 </div>
             </div>
         </header>
+    </div>
 
-        <!-- Category nav — outside header block for proper sticky on mobile -->
-        </div><!-- end header block -->
-
-        <nav id="bk-cat-nav">
-            <div class="bk-container">
-                <div id="bk-cat-nav-inner">
-                    <a href="#" class="bk-cat-link active" data-cat="home">Home</a>
-                    <a href="#news" class="bk-cat-link" data-cat="news">News</a>
-                    <a href="#sports" class="bk-cat-link" data-cat="sports">Sports</a>
-                    <a href="#business" class="bk-cat-link" data-cat="business">Business</a>
-                    <a href="#" class="bk-cat-link" data-cat="nairobi">Nairobi</a>
-                    <a href="#" class="bk-cat-link" data-cat="community">Community</a>
-                </div>
-            </div>
-        </nav>
-
-    <!-- SHUJAA WA SIKU -->
-    <div id="bk-shujaa-section">
+    <nav id="bk-cat-nav">
         <div class="bk-container">
-            <div id="bk-shujaa-card">
-                <div id="bk-shujaa-badge">Shujaa wa Siku</div>
-                <img id="bk-shujaa-avatar" src="" alt="">
-                <div id="bk-shujaa-body">
-                    <span id="bk-shujaa-eyebrow"></span>
-                    <h3 id="bk-shujaa-name"></h3>
-                    <p id="bk-shujaa-desc"></p>
-                    <a href="#" id="bk-shujaa-link">Read his story →</a>
-                </div>
+            <div id="bk-cat-nav-inner">
+                <a href="index.html" class="bk-cat-link" data-cat="home">Home</a>
+                <a href="index.html#news" class="bk-cat-link" data-cat="news">News</a>
+                <a href="index.html#sports" class="bk-cat-link" data-cat="sports">Sports</a>
+                <a href="index.html#business" class="bk-cat-link" data-cat="business">Business</a>
+                <a href="#" class="bk-cat-link" data-cat="nairobi">Nairobi</a>
+                <a href="#" class="bk-cat-link" data-cat="community">Community</a>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- WHITE CANVAS -->
     <div class="bk-canvas">
+        <section class="bk-article-section">
+            <div class="bk-container bk-article-container">
 
-        <!-- CONTENT SECTION -->
-<section id="bk-content" class="bk-section">
-    <div class="bk-container">
-        <div class="bk-section-head">
-            <h2 class="bk-section-title" id="bk-active-label">News</h2>
-            <a href="#" class="bk-see-all">See all →</a>
-        </div>
-        <div class="bk-card-grid" id="bk-main-grid"></div>
+                <a href="index.html" class="bk-back-link">← Back to Home</a>
+
+                <div id="bk-article-notfound" class="bk-article-notfound" style="display:none;">
+                    <h2>Story not found</h2>
+                    <p>This article may have been moved or no longer exists.</p>
+                    <a href="index.html" class="bk-back-link">← Return to Home</a>
+                </div>
+
+                <article id="bk-article-content" style="display:none;">
+                    <span class="bk-article-cat" id="bk-article-cat"></span>
+                    <h1 class="bk-article-title" id="bk-article-title"></h1>
+                    <p class="bk-article-date" id="bk-article-date"></p>
+
+                    <div class="bk-article-image">
+                        <img id="bk-article-image" src="" alt="">
+                    </div>
+
+                    <div class="bk-article-body" id="bk-article-body"></div>
+
+                    <div class="bk-article-share">
+                        <a href="#" class="bk-share-whatsapp" id="bk-share-whatsapp" target="_blank" rel="noopener">
+                            Share this story on WhatsApp
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
     </div>
-</section>
 
-    </div><!-- end canvas -->
-
-    <!-- FOOTER -->
     <footer class="bk-footer">
         <div class="bk-container">
             <div class="bk-footer-grid">
@@ -108,12 +104,11 @@
                 <div class="bk-footer-col">
                     <h4 class="bk-footer-heading">Quick Links</h4>
                     <ul class="bk-footer-links">
-                        <li><a href="#">Shujaa Wa Siku</a></li>
+                        <li><a href="index.html">Shujaa Wa Siku</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="privacy.html">Privacy policy</a></li>
                         <li><a href="#">Advertise with Us</a></li>
-
                     </ul>
                 </div>
                 <div class="bk-footer-col">
@@ -126,7 +121,7 @@
                 <div class="bk-footer-col">
                     <h4 class="bk-footer-heading">Follow Us</h4>
                     <div class="bk-social-links">
-                        <a href="https://wa.me/254772859206?text=Hello%20Bangu%20Kwetu%2C%20I%20got%20news%20and%20story%20to%20share" target="_blank" rel="noopener" class="bk-social">WhatsApp</a>
+                        <a href="https://wa.me/254772859206?text=Hi%20Bangu%20Kwetu%2C%20I%20saw%20your%20news%20and%20wanted%20to%20reach%20out" target="_blank" rel="noopener" class="bk-social">WhatsApp</a>
                     </div>
                 </div>
             </div>
@@ -137,12 +132,13 @@
             </div>
         </div>
     </footer>
-    <a href="https://wa.me/254772859206?text=Hello%20Bangu%20Kwetu%2C%20I%20got%20news%20and%20story%20to%20share" target="_blank" rel="noopener" class="bk-whatsapp-float" id="bk-whatsapp-float" aria-label="Chat with Bangu Kwetu on WhatsApp">
+
+    <a href="https://wa.me/254772859206?text=Hi%20Bangu%20Kwetu%2C%20I%20saw%20your%20news%20and%20wanted%20to%20reach%20out" target="_blank" rel="noopener" class="bk-whatsapp-float" id="bk-whatsapp-float" aria-label="Chat with Bangu Kwetu on WhatsApp">
          <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff">
              <path d="M16.004 3C9.377 3 4 8.377 4 15.004c0 2.548.79 4.913 2.135 6.868L4.6 28.4l6.68-1.503A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.623 28 15.004 28 8.377 22.63 3 16.004 3zm0 21.802a9.72 9.72 0 0 1-4.95-1.35l-.355-.21-3.96.891.847-3.858-.232-.396a9.716 9.716 0 0 1-1.494-5.875C6.86 9.53 10.986 5.4 16.004 5.4c5.017 0 9.14 4.13 9.14 9.604 0 5.475-4.123 9.798-9.14 9.798zm5.32-7.246c-.29-.145-1.717-.847-1.983-.944-.266-.097-.46-.145-.653.146-.194.29-.75.943-.92 1.137-.17.194-.34.218-.63.073-.29-.146-1.226-.452-2.335-1.44-.863-.77-1.446-1.72-1.615-2.01-.17-.29-.018-.447.128-.591.13-.13.29-.34.435-.51.145-.17.194-.29.29-.485.096-.194.048-.363-.024-.508-.073-.146-.653-1.573-.895-2.155-.236-.567-.475-.49-.653-.5l-.556-.01c-.194 0-.508.073-.774.363-.266.29-1.014.99-1.014 2.418s1.038 2.807 1.183 3.001c.145.194 2.043 3.122 4.95 4.379.692.298 1.232.476 1.653.61.694.221 1.325.19 1.824.115.556-.083 1.717-.702 1.96-1.38.242-.678.242-1.259.17-1.38-.073-.121-.266-.194-.556-.339z"/>
         </svg>
     </a>
-    <script src="js/main.js"></script>
 
+    <script src="js/article.js"></script>
 </body>
 </html>

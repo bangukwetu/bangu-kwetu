@@ -56,7 +56,7 @@ let allArticles = [];
 
 async function loadArticles() {
     const response = await fetch('data/articles.json');
-    allArticles = await response.json();
+    allArticles = (await response.json()).articles;
     renderHome();
 }
 
@@ -82,6 +82,7 @@ function renderHome() {
             <div class="bk-card-grid">
                 ${cards.map(function(a) {
                     return `
+                    <a href="article.html?id=${a.id}" class="bk-card-link">
                     <article class="bk-card" data-category="${a.category}">
                         <div class="bk-card-image">
                             <img src="${a.image}" alt="${a.title}">
@@ -91,7 +92,8 @@ function renderHome() {
                             <h3 class="bk-card-title">${a.title}</h3>
                             <p class="bk-card-date">${a.date}</p>
                         </div>
-                    </article>`;
+                    </article>
+                    </a>`;
                 }).join('')}
             </div>
         </div>`;
@@ -114,6 +116,7 @@ function filterArticles(category) {
 
     grid.innerHTML = filtered.map(function(a) {
         return `
+        <a href="article.html?id=${a.id}" class="bk-card-link">
         <article class="bk-card" data-category="${a.category}">
             <div class="bk-card-image">
                 <img src="${a.image}" alt="${a.title}">
@@ -123,7 +126,8 @@ function filterArticles(category) {
                 <h3 class="bk-card-title">${a.title}</h3>
                 <p class="bk-card-date">${a.date}</p>
             </div>
-        </article>`;
+        </article>
+        </a>`;
     }).join('');
     grid.style.display = 'grid';
 }
@@ -150,13 +154,15 @@ document.querySelectorAll('.bk-cat-link').forEach(function(link) {
 // ── 5. FETCH & RENDER SHUJAA ──────────────────────
 async function loadShujaa() {
     const response = await fetch('data/shujaa.json');
-    const s = await response.json();
+    const data = await response.json();
+    const s = data.shujaa[0];
 
     document.getElementById('bk-shujaa-name').textContent = s.name;
     document.getElementById('bk-shujaa-eyebrow').textContent = s.eyebrow;
     document.getElementById('bk-shujaa-desc').textContent = s.desc;
     document.getElementById('bk-shujaa-link').href = s.link;
-    document.getElementById('bk-shujaa-avatar').textContent = s.avatar;
+    document.getElementById('bk-shujaa-avatar').src = s.photo;
+    document.getElementById('bk-shujaa-avatar').alt = s.name;
 }
 
 loadShujaa();
