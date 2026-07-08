@@ -72,7 +72,14 @@ body {
     line-height: 1;
 }
 .bk-logo-white { color: #ffffff; }
-.bk-logo-ice   { color: #E87722; }
+.bk-logo-ice   { 
+    color: #E87722;
+    text-shadow: 
+         -1px -1px 0 #2B2D42,
+          1px -1px 0 #2B2D42,
+         -1px  1px 0 #2B2D42,
+          1px  1px 0  #2B2D42;
+}
 .bk-logo-sub {
     font-size: 7px;
     letter-spacing: 0.25em;
@@ -305,7 +312,7 @@ body {
 }
 #bk-shujaa-badge {
     background: #E87722;
-    color: #ffffff;
+    color: #2B2D42;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     font-size: 9px;
@@ -442,7 +449,7 @@ body {
     top: 10px;
     left: 10px;
     z-index: 2;
-    background: #E87722;
+    background: #C8202E;
     color: #ffffff;
     font-family: 'IBM Plex Sans' , sans-serif;
     font-size: 11px;
