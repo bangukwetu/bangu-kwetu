@@ -84,6 +84,7 @@ function renderHome() {
                     return `
                     <a href="article.html?id=${a.id}" class="bk-card-link">
                     <article class="bk-card" data-category="${a.category}">
+                          ${a.breaking ? '<span class="bk-badge-breaking">Breaking</span>' : ''}
                         <div class="bk-card-image">
                             <img src="${a.image}" alt="${a.title}">
                         </div>
@@ -118,6 +119,7 @@ function filterArticles(category) {
         return `
         <a href="article.html?id=${a.id}" class="bk-card-link">
         <article class="bk-card" data-category="${a.category}">
+              ${a.breaking ? '<span class="bk-badge-breaking">Breaking</span>' : ''}
             <div class="bk-card-image">
                 <img src="${a.image}" alt="${a.title}">
             </div>

@@ -7,6 +7,14 @@ backend:
 media_folder: images
 public_folder: /images
 
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+
 collections:
   - name: articles
     label: Articles

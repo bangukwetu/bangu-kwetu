@@ -111,6 +111,35 @@ body {
 .bk-nav {
     display: none;
 }
+.bk-utility-bar {
+    display: none;
+}
+@media (min-width: 769px) {
+    .bk-utility-bar {
+        display: block;
+        background: #1a4f7a;
+    }
+    .bk-utility-bar .bk-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 6px 16px;
+        top: 90px;
+    }
+    .bk-desktop-nav {
+        display: flex;
+        gap: 20px;
+    }
+    .bk-desktop-nav a {
+        color: rgba(255,255,255,0.7);
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .bk-desktop-nav a:hover { color: #ffffff; }
+}
 
 /* Header actions */
 .bk-header-actions {
@@ -219,28 +248,27 @@ body {
     transform: translateY(-50%);
     width: 260px;
     z-index: 102;
-    background: #1a4f7a;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 4px;
-    padding: 4px 8px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    background: #ffffff;
+    border: 1px solid #dde5ed;
+    border-radius: 24px;
+    padding: 6px 6px 6px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 #bk-search-box.open { display: flex; }
 #bk-search-input {
     flex: 1;
     background: transparent;
     border: none;
-    border-bottom: 2px solid #E87722;
-    color: #fff;
-    padding: 7px 12px;
+    color: #2B2D42;
+    padding: 7px 4px;
     font-size: 13px;
     outline: none;
     font-family: 'IBM Plex Sans', sans-serif;
     min-width: 160px;
 }
 #bk-search-input::placeholder {
-    color: #ffffff;
-    font-weight: 700;
+    color: #999;
+    font-weight: 500;
     opacity: 1;
 }
 #bk-search-close {
@@ -248,11 +276,11 @@ body {
     border: none;
     cursor: pointer;
     font-size: 14px;
-    color: rgba(255,255,255,0.5);
-    padding: 4px;
+    color: #999;
+    padding: 4px 8px;
     transition: color 0.2s;
 }
-#bk-search-close:hover { color: #ffff; }
+#bk-search-close:hover { color: #2B2D42; }
 
 /* ══════════════════════════════════════
    SHUJAA WA SIKU
@@ -276,8 +304,8 @@ body {
     box-shadow: 0 4px 16px rgba(46,109,164,0.15);
 }
 #bk-shujaa-badge {
-    background: #2E6DA4;
-    color: #E87722;
+    background: #E87722;
+    color: #ffffff;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     font-size: 9px;
@@ -401,6 +429,7 @@ body {
     gap: 20px;
 }
 .bk-card {
+    position: relative;
     background: #ffffff;
     border: 1px solid #dde5ed;
     border-radius: 4px;
@@ -408,6 +437,22 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
 }
+.bk-badge-breaking {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    background: #E87722;
+    color: #ffffff;
+    font-family: 'IBM Plex Sans' , sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 3px;
+}
+
 .bk-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 20px rgba(46,109,164,0.1);
@@ -521,17 +566,12 @@ body {
 }
 .bk-social:hover { color: #ffffff; }
 .bk-footer-bottom {
-    background: #1a4f7a;
-    padding: 14px 0;
-}
-.bk-footer-bottom {
     background: #ffffff;
     padding: 14px 0;
     border-top: 1px solid #dde5ed;
 }
 .bk-footer-bottom p {
     font-size: 11.5px;
-    color: #2B2D42;
     color: #000000;
     text-align: center;
 }
@@ -634,20 +674,14 @@ body {
         top: 64px;
         left: 0;
         right: 0;
-        width: 100%;
+        width: calc(100% - 24px);
+        margin: 8px 12px;
         transform: none;
-        border-radius: 0;
-        border: none;
-        border-bottom: 2px solid #EBF1F5;
-        background: #1a4f7a;
-        padding: 8px 16px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        border-radius: 24px;
+        background: #ffffff;
+        padding: 6px 6px 6px 16px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
         z-index: 150;
-    }
-
-    #bk-shujaa-avatar {
-        width: 72px;
-        font-size: 28px;
     }
 
     .bk-card-grid {
@@ -668,6 +702,22 @@ body {
     }
     .bk-home-group .bk-card-grid {
         grid-template-columns: 1fr !important;
+    }
+
+    /* Shujaa card — mobile only */
+    #bk-shujaa-card {
+        flex-wrap: wrap;
+    }
+    #bk-shujaa-badge {
+        writing-mode: horizontal-tb;
+        transform: none;
+        width: 100%;
+        padding: 6px 12px;
+    }
+    #bk-shujaa-avatar {
+        width: 100%;
+        min-height: 140px;
+        object-fit: cover;
     }
 }
 /* ══════════════════════════════════════
