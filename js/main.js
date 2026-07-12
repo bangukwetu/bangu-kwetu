@@ -51,18 +51,76 @@ document.querySelectorAll('.bk-cat-link').forEach(function(link) {
         link.classList.add('active');
     });
 });
+
 // ── 4. FETCH & RENDER ARTICLES ────────────────────
 let allArticles = [];
 
 async function loadArticles() {
     const response = await fetch('data/articles.json');
     allArticles = (await response.json()).articles;
+    renderBreakingBanner();
+    renderLatest();
     renderHome();
+}
+
+function getLatestArticles(articles, count) {
+    return [...articles]
+        .sort(function(a, b) { return new Date(b.date) - new Date(a.date); })
+        .slice(0, count);
+}
+
+function getLatestBreaking(articles) {
+    return [...articles]
+        .filter(function(a) { return a.breaking; })
+        .sort(function(a, b) { return new Date(b.date) - new Date(a.date); })[0] || null;
+}
+
+function renderBreakingBanner() {
+    const container = document.getElementById('bk-breaking-banner');
+    const breaking = getLatestBreaking(allArticles);
+
+    if (!breaking) {
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = `
+    <a href="article.html?id=${breaking.id}" class="bk-breaking-card">
+        <span class="bk-badge-breaking">Breaking</span>
+        <div class="bk-breaking-image">
+            <img src="${breaking.image}" alt="${breaking.title}">
+        </div>
+        <div class="bk-breaking-body">
+            <span class="bk-breaking-cat">${breaking.category}</span>
+            <h2 class="bk-breaking-title">${breaking.title}</h2>
+            <span class="bk-breaking-date">${breaking.date}</span>
+        </div>
+    </a>`;
+}
+
+function renderLatest() {
+    const grid = document.getElementById('bk-latest-grid');
+    const nonBreaking = allArticles.filter(function(a) { return !a.breaking; });
+    const latest = getLatestArticles(nonBreaking, 4);
+
+    grid.innerHTML = latest.map(function(a) {
+        return `
+        <a href="article.html?id=${a.id}" class="bk-latest-item">
+            <span class="bk-badge-latest">Latest</span>
+            <div class="bk-latest-thumb">
+                <img src="${a.image}" alt="${a.title}">
+            </div>
+            <div class="bk-latest-body">
+                <span class="bk-latest-cat">${a.category}</span>
+                <h4 class="bk-latest-title">${a.title}</h4>
+                <span class="bk-latest-date">${a.date}</span>
+            </div>
+        </a>`;
+    }).join('');
 }
 
 function renderHome() {
     const grid = document.getElementById('bk-main-grid');
-    const label = document.getElementById('bk-active-label');
     document.querySelector('#bk-content .bk-section-head').style.display = 'none';
 
     const categories = ['news', 'sports', 'business'];
@@ -73,29 +131,43 @@ function renderHome() {
             return a.category === cat;
         });
 
+        if (cards.length === 0) return;
+
+        const lead = cards[0];
+        const rest = cards.slice(1);
+
         html += `
         <div class="bk-home-group">
             <div class="bk-section-head">
                 <h3 class="bk-section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
                 <a href="#" class="bk-see-all">See all →</a>
             </div>
-            <div class="bk-card-grid">
-                ${cards.map(function(a) {
-                    return `
-                    <a href="article.html?id=${a.id}" class="bk-card-link">
-                    <article class="bk-card" data-category="${a.category}">
-                          ${a.breaking ? '<span class="bk-badge-breaking">Breaking</span>' : ''}
-                        <div class="bk-card-image">
-                            <img src="${a.image}" alt="${a.title}">
-                        </div>
-                        <div class="bk-card-body">
-                            <span class="bk-card-cat">${a.category}</span>
-                            <h3 class="bk-card-title">${a.title}</h3>
-                            <p class="bk-card-date">${a.date}</p>
-                        </div>
-                    </article>
-                    </a>`;
-                }).join('')}
+            <div class="bk-lead-layout">
+                <a href="article.html?id=${lead.id}" class="bk-lead-card">
+                    ${lead.breaking ? '<span class="bk-badge-breaking">Breaking</span>' : ''}
+                    <div class="bk-lead-image">
+                        <img src="${lead.image}" alt="${lead.title}">
+                    </div>
+                    <div class="bk-lead-body">
+                        <span class="bk-lead-cat">${lead.category}</span>
+                        <h3 class="bk-lead-title">${lead.title}</h3>
+                        <span class="bk-lead-date">${lead.date}</span>
+                    </div>
+                </a>
+                <div class="bk-secondary-list">
+                    ${rest.map(function(a) {
+                        return `
+                        <a href="article.html?id=${a.id}" class="bk-secondary-item">
+                            <div class="bk-secondary-thumb">
+                                <img src="${a.image}" alt="${a.title}">
+                            </div>
+                            <div class="bk-secondary-body">
+                                <h4 class="bk-secondary-title">${a.title}</h4>
+                                <span class="bk-secondary-date">${a.date}</span>
+                            </div>
+                        </a>`;
+                    }).join('')}
+                </div>
             </div>
         </div>`;
     });
@@ -153,6 +225,7 @@ document.querySelectorAll('.bk-cat-link').forEach(function(link) {
         }
     });
 });
+
 // ── 5. FETCH & RENDER SHUJAA ──────────────────────
 async function loadShujaa() {
     const response = await fetch('data/shujaa.json');
@@ -168,9 +241,6 @@ async function loadShujaa() {
 }
 
 loadShujaa();
-// Header date
-document.getElementById('bk-date').textContent =
-    new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
 
 // WhatsApp button hide-on-scroll-down
 let bkLastScroll = 0;

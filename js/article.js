@@ -1,6 +1,3 @@
-document.getElementById('bk-date').textContent =
-    new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
-
 const hamburgerBtn = document.getElementById('bk-hamburger');
 const bkNav = document.getElementById('bk-nav');
 
@@ -85,6 +82,24 @@ async function loadArticle() {
         const shareBtn = document.getElementById('bk-share-whatsapp');
         const shareMessage = `Check out this story from Bangu Kwetu: ${article.title} ${window.location.href}`;
         shareBtn.href = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
+
+        const fbBtn = document.getElementById('bk-share-fb');
+               fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+
+                const xBtn = document.getElementById('bk-share-x');
+                xBtn.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`;
+
+                const copyBtn = document.getElementById('bk-share-copy');
+                const copyFeedback = document.getElementById('bk-copy-feedback');
+                copyBtn.addEventListener('click', async function () {
+                    try {
+                        await navigator.clipboard.writeText(window.location.href);
+                        copyFeedback.classList.add('show');
+                        setTimeout(function () { copyFeedback.classList.remove('show'); }, 2000);
+                    } catch (err) {
+                         console.error('Copy failed:', err);
+                    }
+                });
 
         contentBlock.style.display = 'block';
 
