@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found — Bangu Kwetu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        .bk-404-section {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
+        .bk-404-wrap {
+            text-align: center;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .bk-404-code {
+            font-family: 'Oswald', sans-serif;
+            font-size: 88px;
+            font-weight: 700;
+            color: #2E6DA4;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .bk-404-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #2B2D42;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 14px;
+        }
+        .bk-404-text {
+            font-size: 14.5px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        .bk-404-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+        .bk-404-home {
+            display: inline-block;
+            background: #2E6DA4;
+            color: #ffffff;
+            font-family: 'Oswald', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 4px;
+            transition: opacity 0.2s;
+        }
+        .bk-404-home:hover { opacity: 0.85; }
+        .bk-404-search-link {
+            font-size: 13px;
+            color: #2E6DA4;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .bk-404-search-link:hover { opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+    <div class="bk-header-block">
+        <header class="bk-header">
+            <div class="bk-container">
+                <div class="bk-logo">
+                    <a href="index.html" style="text-decoration:none;">
+                        <h1>
+                            <span class="bk-logo-bangu">Bangu</span><span class="bk-logo-kwetu">Kwetu</span>
+                        </h1>
+                    </a>
+                </div>
+                <nav class="bk-nav" id="bk-nav">
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy.html">Privacy policy</a>
+                    <a href="#">Advertise with Us</a>
+                </nav>
+                <div id="bk-search-box">
+                    <input type="search" id="bk-search-input" placeholder="Search Articles...">
+                    <button id="bk-search-close">✕</button>
+                </div>
+                <div class="bk-header-actions">
+                    <button class="bk-search-btn" id="bk-search-btn">
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="7"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                           </svg>
+                    </button>
+                    <button class="bk-hamburger" id="bk-hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <nav id="bk-cat-nav">
+        <div class="bk-container">
+            <div id="bk-cat-nav-inner">
+                <a href="index.html" class="bk-cat-link" data-cat="home">Home</a>
+                <a href="index.html#news" class="bk-cat-link" data-cat="news">News</a>
+                <a href="index.html#sports" class="bk-cat-link" data-cat="sports">Sports</a>
+                <a href="index.html#business" class="bk-cat-link" data-cat="business">Business</a>
+                <a href="#" class="bk-cat-link" data-cat="nairobi">Nairobi</a>
+                <a href="#" class="bk-cat-link" data-cat="community">Community</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bk-canvas">
+        <section class="bk-404-section">
+            <div class="bk-container">
+                <div class="bk-404-wrap">
+                    <div class="bk-404-code">404</div>
+                    <h1 class="bk-404-title">Story Not Found</h1>
+                    <p class="bk-404-text">
+                        The page you're looking for may have been moved, renamed, or no longer exists.
+                        Head back home or search for what you were after.
+                    </p>
+                    <div class="bk-404-actions">
+                        <a href="index.html" class="bk-404-home">Back to Home</a>
+                        <a href="index.html" class="bk-404-search-link">Or browse the latest stories →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bk-footer">
+        <div class="bk-container">
+            <div class="bk-footer-grid">
+                <div class="bk-footer-col">
+                    <h3 class="bk-footer-logo">Bangu <span>Kwetu</span></h3>
+                </div>
+                <div class="bk-footer-col">
+                    <h4 class="bk-footer-heading">Quick Links</h4>
+                    <ul class="bk-footer-links">
+                        <li><a href="index.html">Shujaa Wa Siku</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy policy</a></li>
+                        <li><a href="#">Advertise with Us</a></li>
+                    </ul>
+                </div>
+                <div class="bk-footer-col">
+                    <h4 class="bk-footer-heading">Contact</h4>
+                    <ul class="bk-footer-links">
+                        <li>Nairobi, Kenya</li>
+                        <li>info@bangukwetu.co.ke</li>
+                    </ul>
+                </div>
+                <div class="bk-footer-col">
+                    <h4 class="bk-footer-heading">Follow Us</h4>
+                    <div class="bk-social-links">
+                        <a href="https://wa.me/254772859206?text=Hi%20Bangu%20Kwetu%2C%20I%20saw%20your%20news%20and%20wanted%20to%20reach%20out" target="_blank" rel="noopener" class="bk-social">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bk-footer-bottom">
+            <div class="bk-container">
+                <p>&copy; 2026 Bangu Kwetu</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/254772859206?text=Hi%20Bangu%20Kwetu%2C%20I%20saw%20your%20news%20and%20wanted%20to%20reach%20out" target="_blank" rel="noopener" class="bk-whatsapp-float" id="bk-whatsapp-float" aria-label="Chat with Bangu Kwetu on WhatsApp">
+         <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff">
+             <path d="M16.004 3C9.377 3 4 8.377 4 15.004c0 2.548.79 4.913 2.135 6.868L4.6 28.4l6.68-1.503A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.623 28 15.004 28 8.377 22.63 3 16.004 3zm0 21.802a9.72 9.72 0 0 1-4.95-1.35l-.355-.21-3.96.891.847-3.858-.232-.396a9.716 9.716 0 0 1-1.494-5.875C6.86 9.53 10.986 5.4 16.004 5.4c5.017 0 9.14 4.13 9.14 9.604 0 5.475-4.123 9.798-9.14 9.798zm5.32-7.246c-.29-.145-1.717-.847-1.983-.944-.266-.097-.46-.145-.653.146-.194.29-.75.943-.92 1.137-.17.194-.34.218-.63.073-.29-.146-1.226-.452-2.335-1.44-.863-.77-1.446-1.72-1.615-2.01-.17-.29-.018-.447.128-.591.13-.13.29-.34.435-.51.145-.17.194-.29.29-.485.096-.194.048-.363-.024-.508-.073-.146-.653-1.573-.895-2.155-.236-.567-.475-.49-.653-.5l-.556-.01c-.194 0-.508.073-.774.363-.266.29-1.014.99-1.014 2.418s1.038 2.807 1.183 3.001c.145.194 2.043 3.122 4.95 4.379.692.298 1.232.476 1.653.61.694.221 1.325.19 1.824.115.556-.083 1.717-.702 1.96-1.38.242-.678.242-1.259.17-1.38-.073-.121-.266-.194-.556-.339z"/>
+        </svg>
+    </a>
+
+    <script>
+        const hamburgerBtn = document.getElementById('bk-hamburger');
+        const bkNav = document.getElementById('bk-nav');
+
+        hamburgerBtn.addEventListener('click', function () {
+            hamburgerBtn.classList.toggle('open');
+            bkNav.classList.toggle('active');
+        });
+
+        bkNav.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                hamburgerBtn.classList.remove('open');
+                bkNav.classList.remove('active');
+            });
+        });
+
+        const searchBtn = document.getElementById('bk-search-btn');
+        const searchClose = document.getElementById('bk-search-close');
+        const searchBox = document.getElementById('bk-search-box');
+        const searchInput = document.getElementById('bk-search-input');
+
+        searchBtn.addEventListener('click', function () {
+            searchBox.classList.add('open');
+            searchBtn.style.display = 'none';
+            setTimeout(function () { searchInput.focus(); }, 50);
+        });
+
+        searchClose.addEventListener('click', function () {
+            searchBox.classList.remove('open');
+            searchBtn.style.display = '';
+            searchInput.value = '';
+        });
+
+        let bkLastScroll = 0;
+        const bkWaBtn = document.getElementById('bk-whatsapp-float');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > bkLastScroll && currentScroll > 100) {
+                bkWaBtn.classList.add('bk-hide');
+            } else {
+                bkWaBtn.classList.remove('bk-hide');
+            }
+            bkLastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>

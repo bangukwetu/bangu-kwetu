@@ -92,6 +92,7 @@ async function loadArticle() {
                 const copyBtn = document.getElementById('bk-share-copy');
                 const copyFeedback = document.getElementById('bk-copy-feedback');
                 copyBtn.addEventListener('click', async function () {
+                    
                     try {
                         await navigator.clipboard.writeText(window.location.href);
                         copyFeedback.classList.add('show');
