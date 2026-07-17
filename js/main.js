@@ -15,10 +15,11 @@ bkNav.querySelectorAll('a').forEach(function(link) {
 });
 
 // ── 2. SEARCH TOGGLE ──────────────────────────────
-const searchBtn   = document.getElementById('bk-search-btn');
-const searchClose = document.getElementById('bk-search-close');
-const searchBox   = document.getElementById('bk-search-box');
-const searchInput = document.getElementById('bk-search-input');
+const searchBtn     = document.getElementById('bk-search-btn');
+const searchClose   = document.getElementById('bk-search-close');
+const searchBox     = document.getElementById('bk-search-box');
+const searchInput   = document.getElementById('bk-search-input');
+const searchResults = document.getElementById('bk-search-results');
 
 searchBtn.addEventListener('click', function() {
     searchBox.classList.add('open');
@@ -30,6 +31,8 @@ searchClose.addEventListener('click', function() {
     searchBox.classList.remove('open');
     searchBtn.style.display = '';
     searchInput.value = '';
+    searchResults.classList.remove('show');
+    searchResults.innerHTML = '';
 });
 
 document.addEventListener('keydown', function(e) {
@@ -37,9 +40,37 @@ document.addEventListener('keydown', function(e) {
         searchBox.classList.remove('open');
         searchBtn.style.display = '';
         searchInput.value = '';
+        searchResults.classList.remove('show');
+        searchResults.innerHTML = '';
         hamburgerBtn.classList.remove('open');
         bkNav.classList.remove('active');
     }
+});
+
+// ── SEARCH FILTER ──────────────────────────────────
+searchInput.addEventListener('input', function() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (query === '') {
+        searchResults.classList.remove('show');
+        searchResults.innerHTML = '';
+        return;
+    }
+
+    const matches = allArticles.filter(function(a) {
+        return a.title.toLowerCase().includes(query) ||
+               a.category.toLowerCase().includes(query);
+    });
+
+    if (matches.length === 0) {
+        searchResults.innerHTML = '<div class="bk-search-no-results">No results found</div>';
+    } else {
+        searchResults.innerHTML = matches.map(function(a) {
+            return `<a href="article.html?id=${a.id}" class="bk-search-result-item">${a.title}</a>`;
+        }).join('');
+    }
+
+    searchResults.classList.add('show');
 });
 
 // ── 3. ACTIVE CATEGORY LINK ───────────────────────

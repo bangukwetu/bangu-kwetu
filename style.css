@@ -161,7 +161,7 @@ body {
     z-index: 101;
     transition: color 0.2s;
 }
-.bk-search-btn:hover { color: #ffffff }
+.bk-search-btn:hover { color: #ffffff }arch
 
 /* ══════════════════════════════════════
    CATEGORY NAV
@@ -272,6 +272,38 @@ body {
     transition: color 0.2s;
 }
 #bk-search-close:hover { color: #2B2D42; }
+/* ── SEARCH RESULTS DROPDOWN ── (NEW) */
+.bk-search-results {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 6px;
+    background: #ffffff;
+    border: 1px solid #dde5ed;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    max-height: 320px;
+    overflow-y: auto;
+    z-index: 103;
+}
+.bk-search-results.show { display: block; }
+.bk-search-result-item {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #2B2D42;
+    font-size: 13px;
+    border-bottom: 1px solid #eaecef;
+}
+.bk-search-result-item:hover { background: #EBF1F5; }
+.bk-search-no-results {
+    padding: 16px;
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+}
 
 /* ══════════════════════════════════════
    LATEST NEWS — homepage strip
@@ -967,6 +999,7 @@ body {
 }
 .bk-article-image {
     width: 100%;
+    aspect-ratio: 16 / 9;
     border-radius: 4px;
     overflow: hidden;
     background: #EBF1F5;
@@ -974,7 +1007,7 @@ body {
 }
 .bk-article-image img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     object-fit: cover;
 }
