@@ -675,20 +675,6 @@ body {
     padding: 6px 10px;
     text-align: center;
 }
-.bk-badge-latest {
-    display: block;
-    width: 100%;
-    position: static;
-    background: #CC5500;
-    color: #ffffff;
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 5px 8px;
-    text-align: center;
-}
 
 .bk-card:hover {
     transform: translateY(-4px);

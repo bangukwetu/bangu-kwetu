@@ -106,7 +106,6 @@ function renderLatest() {
     grid.innerHTML = latest.map(function(a) {
         return `
         <a href="article.html?id=${a.id}" class="bk-latest-item">
-            <span class="bk-badge-latest">Latest</span>
             <div class="bk-latest-thumb">
                 <img src="${a.image}" alt="${a.title}">
             </div>
