@@ -755,10 +755,10 @@ body {
    FOOTER
    ══════════════════════════════════════ */
 .bk-footer {
-    background: #2B2D42;
+    background: #1A1A1A;
     color: rgba(255,255,255,0.55);
     padding: 52px 0 0;
-    border-top: 3px solid #2B2D42;
+    border-top: 3px solid #1A1A1A;
 }
 .bk-footer-grid {
     display: grid;
