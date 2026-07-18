@@ -149,6 +149,25 @@ function renderLatest() {
     }).join('');
 }
 
+// ── ORDER CARDS FOR A CATEGORY ────────────────────
+// Baseline: newest first (by date).
+// Override: an article marked "featured": true always takes the lead slot,
+// regardless of date, matching how "breaking" already works.
+function orderCardsForLead(cards) {
+    let sorted = [...cards].sort(function(a, b) {
+        return new Date(b.date) - new Date(a.date);
+    });
+
+    const featuredIndex = sorted.findIndex(function(a) { return a.featured; });
+
+    if (featuredIndex > 0) {
+        const featuredCard = sorted.splice(featuredIndex, 1)[0];
+        sorted.unshift(featuredCard);
+    }
+
+    return sorted;
+}
+
 function renderHome() {
     const grid = document.getElementById('bk-main-grid');
     document.querySelector('#bk-content .bk-section-head').style.display = 'none';
@@ -157,12 +176,13 @@ function renderHome() {
     let html = '';
 
     categories.forEach(function(cat) {
-        const cards = allArticles.filter(function(a) {
+        const cardsRaw = allArticles.filter(function(a) {
             return a.category === cat;
         });
 
-        if (cards.length === 0) return;
+        if (cardsRaw.length === 0) return;
 
+        const cards = orderCardsForLead(cardsRaw);
         const lead = cards[0];
         const rest = cards.slice(1);
 
@@ -170,7 +190,6 @@ function renderHome() {
         <div class="bk-home-group">
             <div class="bk-section-head">
                 <h3 class="bk-section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
-                <a href="#" class="bk-see-all">See all →</a>
             </div>
             <div class="bk-lead-layout">
                 <a href="article.html?id=${lead.id}" class="bk-lead-card">
@@ -283,4 +302,4 @@ window.addEventListener('scroll', () => {
         bkWaBtn.classList.remove('bk-hide');
     }
     bkLastScroll = currentScroll;
-});
+});it
