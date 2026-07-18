@@ -30,11 +30,12 @@ collections:
               - { label: ID, name: id, widget: string, hint: "Unique, e.g. news-004, no spaces" }
               - { label: Title, name: title, widget: string }
               - { label: Date, name: date, widget: string }
-              - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi, community] }
+              - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi] }
               - { label: Image, name: image, widget: image }
               - { label: Excerpt, name: desc, widget: text, required: false }
               - { label: Body, name: content, widget: markdown, required: false }
               - { label: Breaking News, name: breaking, widget: boolean, default: false }
+              - { label: Featured, name: featured, widget: boolean, default: false }
 
   - name: shujaa
     label: Shujaa wa Siku
