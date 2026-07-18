@@ -32,7 +32,7 @@ body {
    HEADER BLOCK
    ══════════════════════════════════════ */
 .bk-header-block {
-    background: #2E6DA4;
+    background: #ffffff;
     position: sticky;
     top: 0;
     z-index: 200;
@@ -71,7 +71,7 @@ body {
     line-height: 1;
 }
 .bk-logo-bangu {
-    color: #ffffff;
+    color: #2B2D42;
 }
 .bk-logo-kwetu {
     color: #ffffff;
@@ -97,7 +97,7 @@ body {
     display: block;
     width: 22px;
     height: 2px;
-    background: rgba(255,255,255,0.8);
+    background: #2B2D42;
     border-radius: 1px;
     transition: transform 0.25s ease, opacity 0.25s ease;
 }
@@ -155,13 +155,13 @@ body {
     cursor: pointer;
     font-size: 16px;
     padding: 8px 10px;
-    color: #ffffff;
+    color: #2B2D42;
     display: flex;
     align-items: center;
     z-index: 101;
     transition: color 0.2s;
 }
-.bk-search-btn:hover { color: #ffffff }arch
+.bk-search-btn:hover { color: #2B2D42; }
 
 /* ══════════════════════════════════════
    CATEGORY NAV
@@ -223,7 +223,7 @@ body {
     content: '';
     display: block;
     height: 3px;
-    background: #1a4f7a;
+    background: #2B2D42;
 }
 
 /* ══════════════════════════════════════
