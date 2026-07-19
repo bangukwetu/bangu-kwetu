@@ -71,11 +71,11 @@ body {
     line-height: 1;
 }
 .bk-logo-bangu {
-    color: #9C6B1F;
+    color: #2B2D42;
 }
 .bk-logo-kwetu {
-    color: #9C6B1F;
-    background-color: #ffffff;
+    color: #ffffff;
+    background-color: #2B2D42;
     padding: 3px 9px;
     border-radius: 3px;
     display: inline-block;
@@ -770,7 +770,7 @@ body {
 .bk-footer-logo {
     font-size: 22px;
     font-weight: 700;
-    color: #96CB1F;
+    color: #2B2D42;
     margin-bottom: 10px;
     font-family: 'Oswald', sans-serif;
     letter-spacing: 0.04em;
