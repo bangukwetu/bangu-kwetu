@@ -9,6 +9,7 @@ body {
     color: #2B2D42;
     background: #ffffff;
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .bk-container {
@@ -936,6 +937,4 @@ body {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #2E6;
 }

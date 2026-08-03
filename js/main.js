@@ -184,8 +184,6 @@ function renderLatest() {
             </div>
         </a>`;
     }).join('');
-
-    list.insertAdjacentHTML('afterend', '<a href="#" class="bk-latest-seeall">See all →</a>');
 }
 
 // ── ORDER CARDS FOR A CATEGORY GRID ────────────────
@@ -205,7 +203,7 @@ function orderCardsForLead(cards) {
     return sorted;
 }
 
-// ── CATEGORY SECTIONS — plain preview grids, no per-category lead ──
+// ── CATEGORY SECTIONS — plain preview grids, no per-category lead, no See all (top nav covers that) ──
 function renderHome() {
     const grid = document.getElementById('bk-main-grid');
     document.querySelector('#bk-content .bk-section-head').style.display = 'none';
@@ -220,7 +218,7 @@ function renderHome() {
 
         if (cardsRaw.length === 0) return;
 
-        const cards = orderCardsForLead(cardsRaw).slice(0, 4); // preview only, "See all" links to full category
+        const cards = orderCardsForLead(cardsRaw).slice(0, 4);
 
         html += `
         <div class="bk-home-group">
