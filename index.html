@@ -14,6 +14,9 @@
 </head>
 <body>
 
+    <!-- BREAKING — always above the header, only renders when a story is flagged breaking -->
+    <div id="bk-breaking-banner"></div>
+
     <div class="bk-header-block">
 
         <header class="bk-header">
@@ -64,14 +67,34 @@
         </div>
     </nav>
 
-    <!-- LATEST NEWS -->
+    <!-- LEAD + SECONDARY — editorial pick, comes before Latest -->
+    <section id="bk-lead-section">
+        <div class="bk-container">
+            <div class="bk-lead-layout">
+                <a href="#" class="bk-lead-card" id="bk-lead-card">
+                    <div class="bk-lead-image">
+                        <img id="bk-lead-image" src="" alt="">
+                    </div>
+                    <div class="bk-lead-body">
+                        <span class="bk-lead-cat" id="bk-lead-cat"></span>
+                        <h2 class="bk-lead-title" id="bk-lead-title"></h2>
+                        <span class="bk-lead-date" id="bk-lead-date"></span>
+                    </div>
+                </a>
+                <div class="bk-secondary-list" id="bk-secondary-list">
+                    <!-- 2-3 bk-secondary-item entries injected here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LATEST — vertical list, sits below the editorial lead -->
     <div id="bk-latest-section">
         <div class="bk-container">
-           <div id="bk-breaking-banner"></div>
            <div class="bk-section-head">
-                <h2 class="bk-section-title">Latest News</h2>
+                <h2 class="bk-section-title">Latest</h2>
            </div>
-           <div class="bk-latest-grid" id="bk-latest-grid"></div>
+           <div class="bk-latest-list" id="bk-latest-list"></div>
         </div>
     </div>
 

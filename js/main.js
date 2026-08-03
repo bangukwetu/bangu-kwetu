@@ -73,16 +73,6 @@ searchInput.addEventListener('input', function() {
     searchResults.classList.add('show');
 });
 
-// ── 3. ACTIVE CATEGORY LINK ───────────────────────
-document.querySelectorAll('.bk-cat-link').forEach(function(link) {
-    link.addEventListener('click', function() {
-        document.querySelectorAll('.bk-cat-link').forEach(function(l) {
-            l.classList.remove('active');
-        });
-        link.classList.add('active');
-    });
-});
-
 // ── 4. FETCH & RENDER ARTICLES ────────────────────
 let allArticles = [];
 
@@ -90,6 +80,7 @@ async function loadArticles() {
     const response = await fetch('data/articles.json');
     allArticles = (await response.json()).articles;
     renderBreakingBanner();
+    renderLead();
     renderLatest();
     renderHome();
 }
@@ -106,53 +97,99 @@ function getLatestBreaking(articles) {
         .sort(function(a, b) { return new Date(b.date) - new Date(a.date); })[0] || null;
 }
 
+// ── BREAKING — thin text bar above the header, not a card ──
 function renderBreakingBanner() {
     const container = document.getElementById('bk-breaking-banner');
     const breaking = getLatestBreaking(allArticles);
 
     if (!breaking) {
+        container.style.display = 'none';
         container.innerHTML = '';
         return;
     }
 
+    container.style.display = 'flex';
     container.innerHTML = `
-    <a href="article.html?id=${breaking.id}" class="bk-breaking-card">
-        <span class="bk-badge-breaking">Breaking</span>
-        <div class="bk-breaking-image">
-            <img src="${breaking.image}" alt="${breaking.title}">
-        </div>
-        <div class="bk-breaking-body">
-            <span class="bk-breaking-cat">${breaking.category}</span>
-            <h2 class="bk-breaking-title">${breaking.title}</h2>
-            <span class="bk-breaking-date">${breaking.date}</span>
-        </div>
-    </a>`;
+        <span class="bk-breaking-label">Breaking</span>
+        <a href="article.html?id=${breaking.id}">${breaking.title}</a>
+    `;
 }
 
-function renderLatest() {
-    const grid = document.getElementById('bk-latest-grid');
-    const nonBreaking = allArticles.filter(function(a) { return !a.breaking; });
-    const latest = getLatestArticles(nonBreaking, 4);
+// ── LEAD — one sitewide pick, "featured" overrides date order same as "breaking" does ──
+function getSitewideLead(articles) {
+    const pool = articles.filter(function(a) { return !a.breaking; });
+    const sorted = [...pool].sort(function(a, b) {
+        return new Date(b.date) - new Date(a.date);
+    });
 
-    grid.innerHTML = latest.map(function(a) {
+    const featuredIndex = sorted.findIndex(function(a) { return a.featured; });
+    if (featuredIndex > 0) {
+        const featuredCard = sorted.splice(featuredIndex, 1)[0];
+        sorted.unshift(featuredCard);
+    }
+
+    return sorted;
+}
+
+function renderLead() {
+    const cards = getSitewideLead(allArticles);
+    if (cards.length === 0) return;
+
+    const lead = cards[0];
+    const secondary = cards.slice(1, 4); // 2–3 secondary items
+
+    const leadCard = document.getElementById('bk-lead-card');
+    leadCard.href = `article.html?id=${lead.id}`;
+    document.getElementById('bk-lead-image').src = lead.image;
+    document.getElementById('bk-lead-image').alt = lead.title;
+    document.getElementById('bk-lead-cat').textContent = lead.category;
+    document.getElementById('bk-lead-title').textContent = lead.title;
+    document.getElementById('bk-lead-date').textContent = lead.date;
+
+    const secondaryList = document.getElementById('bk-secondary-list');
+    secondaryList.innerHTML = secondary.map(function(a) {
         return `
-        <a href="article.html?id=${a.id}" class="bk-latest-item">
-            <div class="bk-latest-thumb">
+        <a href="article.html?id=${a.id}" class="bk-secondary-item">
+            <div class="bk-secondary-thumb">
                 <img src="${a.image}" alt="${a.title}">
             </div>
-            <div class="bk-latest-body">
-                <span class="bk-latest-cat">${a.category}</span>
-                <h4 class="bk-latest-title">${a.title}</h4>
-                <span class="bk-latest-date">${a.date}</span>
+            <div class="bk-secondary-body">
+                <h4 class="bk-secondary-title">${a.title}</h4>
+                <span class="bk-secondary-date">${a.date}</span>
             </div>
         </a>`;
     }).join('');
 }
 
-// ── ORDER CARDS FOR A CATEGORY ────────────────────
-// Baseline: newest first (by date).
-// Override: an article marked "featured": true always takes the lead slot,
-// regardless of date, matching how "breaking" already works.
+// ── LATEST — vertical list, excludes today's lead + breaking so it doesn't repeat them ──
+function renderLatest() {
+    const list = document.getElementById('bk-latest-list');
+    const lead = getSitewideLead(allArticles)[0];
+
+    const pool = allArticles.filter(function(a) {
+        return !a.breaking && (!lead || a.id !== lead.id);
+    });
+    const latest = getLatestArticles(pool, 4);
+
+    list.innerHTML = latest.map(function(a, index) {
+        const isNew = index < 2; // steel-blue edge on the 2 newest rows only
+        return `
+        <a href="article.html?id=${a.id}" class="bk-latest-row${isNew ? ' bk-is-new' : ''}">
+            <div class="bk-latest-row-thumb">
+                <img src="${a.image}" alt="${a.title}">
+            </div>
+            <div class="bk-latest-row-body">
+                <h4 class="bk-latest-row-title">${a.title}</h4>
+                <span class="bk-latest-row-date">${a.date}</span>
+            </div>
+        </a>`;
+    }).join('');
+
+    list.insertAdjacentHTML('afterend', '<a href="#" class="bk-latest-seeall">See all →</a>');
+}
+
+// ── ORDER CARDS FOR A CATEGORY GRID ────────────────
+// Baseline: newest first. "featured" pins one to the front, same rule as elsewhere.
 function orderCardsForLead(cards) {
     let sorted = [...cards].sort(function(a, b) {
         return new Date(b.date) - new Date(a.date);
@@ -168,11 +205,12 @@ function orderCardsForLead(cards) {
     return sorted;
 }
 
+// ── CATEGORY SECTIONS — plain preview grids, no per-category lead ──
 function renderHome() {
     const grid = document.getElementById('bk-main-grid');
     document.querySelector('#bk-content .bk-section-head').style.display = 'none';
 
-    const categories = ['news', 'sports', 'business'];
+    const categories = ['news', 'sports', 'business', 'nairobi'];
     let html = '';
 
     categories.forEach(function(cat) {
@@ -182,47 +220,50 @@ function renderHome() {
 
         if (cardsRaw.length === 0) return;
 
-        const cards = orderCardsForLead(cardsRaw);
-        const lead = cards[0];
-        const rest = cards.slice(1);
+        const cards = orderCardsForLead(cardsRaw).slice(0, 4); // preview only, "See all" links to full category
 
         html += `
         <div class="bk-home-group">
             <div class="bk-section-head">
                 <h3 class="bk-section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
+                <a href="#" class="bk-see-all" data-cat="${cat}">See all →</a>
             </div>
-            <div class="bk-lead-layout">
-                <a href="article.html?id=${lead.id}" class="bk-lead-card">
-                    ${lead.breaking ? '<span class="bk-badge-breaking">Breaking</span>' : ''}
-                    <div class="bk-lead-image">
-                        <img src="${lead.image}" alt="${lead.title}">
-                    </div>
-                    <div class="bk-lead-body">
-                        <span class="bk-lead-cat">${lead.category}</span>
-                        <h3 class="bk-lead-title">${lead.title}</h3>
-                        <span class="bk-lead-date">${lead.date}</span>
-                    </div>
-                </a>
-                <div class="bk-secondary-list">
-                    ${rest.map(function(a) {
-                        return `
-                        <a href="article.html?id=${a.id}" class="bk-secondary-item">
-                            <div class="bk-secondary-thumb">
-                                <img src="${a.image}" alt="${a.title}">
-                            </div>
-                            <div class="bk-secondary-body">
-                                <h4 class="bk-secondary-title">${a.title}</h4>
-                                <span class="bk-secondary-date">${a.date}</span>
-                            </div>
-                        </a>`;
-                    }).join('')}
-                </div>
+            <div class="bk-card-grid">
+                ${cards.map(function(a) {
+                    return `
+                    <a href="article.html?id=${a.id}" class="bk-card-link">
+                    <article class="bk-card" data-category="${a.category}">
+                        <div class="bk-card-image">
+                            <img src="${a.image}" alt="${a.title}">
+                        </div>
+                        <div class="bk-card-body">
+                            <span class="bk-card-cat">${a.category}</span>
+                            <h3 class="bk-card-title">${a.title}</h3>
+                            <p class="bk-card-date">${a.date}</p>
+                        </div>
+                    </article>
+                    </a>`;
+                }).join('')}
             </div>
         </div>`;
     });
 
     grid.innerHTML = html;
-    grid.style.display = 'block'
+    grid.style.display = 'block';
+
+    // "See all" inside each category preview jumps to the full filtered view
+    grid.querySelectorAll('.bk-see-all[data-cat]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const cat = link.getAttribute('data-cat');
+            document.querySelectorAll('.bk-cat-link').forEach(function(l) {
+                l.classList.remove('active');
+            });
+            document.querySelector(`.bk-cat-link[data-cat="${cat}"]`)?.classList.add('active');
+            filterArticles(cat);
+            document.getElementById('bk-content').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
 }
 
 function filterArticles(category) {
