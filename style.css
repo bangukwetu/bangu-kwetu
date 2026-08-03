@@ -246,7 +246,7 @@ body {
     content: '';
     display: block;
     height: 3px;
-    background: #2E6DA4;
+    background: #2B2D42;
 }
 
 /* ══════════════════════════════════════
@@ -924,10 +924,18 @@ body {
 }
 
 /* ══════════════════════════════════════
-   CARD LINK WRAPPER
+   ARTICLE PAGE
    ══════════════════════════════════════ */
-.bk-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+.bk-article-section {
+    padding: 32px 0 44px;
+}
+.bk-article-container {
+    max-width: 760px;
+}
+.bk-article-cat {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #2E6;
 }
