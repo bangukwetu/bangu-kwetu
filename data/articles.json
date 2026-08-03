@@ -66,6 +66,17 @@
       "date": "May 20, 2026",
       "category": "business",
       "image": "images/business-3.jpg"
+    },
+    {
+      "id": "nairobi-development-control-policy-2026",
+      "title": "Nairobi Gazettes New Development Control Policy to Curb Chaotic Construction",
+      "date": "July 31, 2026",
+      "category": "nairobi",
+      "image": "/images/Screenshot_20260801-120426.webp",
+      "desc": "Nairobi gazettes a new development policy setting clear rules on zoning, height, and density — aiming to end years of unplanned construction across the city.",
+      "content": "After years of construction proceeding with little consistent oversight, Nairobi now has a formal rulebook. The county has gazetted its Development Control Policy 2026, giving developers a single legal framework to follow instead of the patchwork of planning decisions that shaped the city until now.\nThe policy sets boundaries in four areas that have long strained the city: how tall buildings can rise, how densely a plot can be developed, which zones permit which uses, and what environmental protections a project must satisfy before approval. Officials frame this as a direct response to years of overcrowding and infrastructure pressure that resulted from developments approved without a shared standard.\nSakaja's office has positioned the policy as one piece of a wider rebuild already underway across roads, sewer capacity, and drainage — and is now calling on developers and residents to understand the new requirements before starting new projects.",
+      "breaking": false,
+      "featured": false
     }
   ]
 }
