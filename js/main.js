@@ -226,7 +226,6 @@ function renderHome() {
         <div class="bk-home-group">
             <div class="bk-section-head">
                 <h3 class="bk-section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
-                <a href="#" class="bk-see-all" data-cat="${cat}">See all →</a>
             </div>
             <div class="bk-card-grid">
                 ${cards.map(function(a) {
@@ -250,20 +249,6 @@ function renderHome() {
 
     grid.innerHTML = html;
     grid.style.display = 'block';
-
-    // "See all" inside each category preview jumps to the full filtered view
-    grid.querySelectorAll('.bk-see-all[data-cat]').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const cat = link.getAttribute('data-cat');
-            document.querySelectorAll('.bk-cat-link').forEach(function(l) {
-                l.classList.remove('active');
-            });
-            document.querySelector(`.bk-cat-link[data-cat="${cat}"]`)?.classList.add('active');
-            filterArticles(cat);
-            document.getElementById('bk-content').scrollIntoView({ behavior: 'smooth' });
-        });
-    });
 }
 
 function filterArticles(category) {
@@ -296,6 +281,16 @@ function filterArticles(category) {
     grid.style.display = 'grid';
 }
 
+// ── SHOW/HIDE HOMEPAGE-ONLY SECTIONS ──────────────
+// Lead+Secondary, Latest, and Shujaa are editorial picks for the whole site —
+// they don't belong to any single category, so they only show on Home.
+function setHomepageSectionsVisible(visible) {
+    const display = visible ? '' : 'none';
+    document.getElementById('bk-lead-section').style.display = display;
+    document.getElementById('bk-latest-section').style.display = display;
+    document.getElementById('bk-shujaa-section').style.display = display;
+}
+
 loadArticles();
 
 // ── CATEGORY NAV CLICKS ───────────────────────────
@@ -309,8 +304,10 @@ document.querySelectorAll('.bk-cat-link').forEach(function(link) {
 
         const cat = link.getAttribute('data-cat');
         if (cat === 'home') {
+            setHomepageSectionsVisible(true);
             renderHome();
         } else {
+            setHomepageSectionsVisible(false);
             filterArticles(cat);
         }
     });
