@@ -1,3 +1,19 @@
+// ── SAFETY: escape any text before inserting into innerHTML ──────
+// Article fields (title, category, date) come from the CMS. If a
+// second publisher is ever added, this stops anyone from typing
+// HTML/script tags into a field and having them run in visitors'
+// browsers. Always run CMS text through this before using it inside
+// a template literal that gets assigned to .innerHTML.
+function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 // ── 1. HAMBURGER ──────────────────────────────────
 const hamburgerBtn = document.getElementById('bk-hamburger');
 const bkNav = document.getElementById('bk-nav');
@@ -66,7 +82,7 @@ searchInput.addEventListener('input', function() {
         searchResults.innerHTML = '<div class="bk-search-no-results">No results found</div>';
     } else {
         searchResults.innerHTML = matches.map(function(a) {
-            return `<a href="article.html?id=${a.id}" class="bk-search-result-item">${a.title}</a>`;
+            return `<a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-search-result-item">${escapeHtml(a.title)}</a>`;
         }).join('');
     }
 
@@ -111,7 +127,7 @@ function renderBreakingBanner() {
     container.style.display = 'flex';
     container.innerHTML = `
         <span class="bk-breaking-label">Breaking</span>
-        <a href="article.html?id=${breaking.id}">${breaking.title}</a>
+        <a href="article.html?id=${encodeURIComponent(breaking.id)}">${escapeHtml(breaking.title)}</a>
     `;
 }
 
@@ -149,13 +165,13 @@ function renderLead() {
     const secondaryList = document.getElementById('bk-secondary-list');
     secondaryList.innerHTML = secondary.map(function(a) {
         return `
-        <a href="article.html?id=${a.id}" class="bk-secondary-item">
+        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-secondary-item">
             <div class="bk-secondary-thumb">
-                <img src="${a.image}" alt="${a.title}">
+                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
             </div>
             <div class="bk-secondary-body">
-                <h4 class="bk-secondary-title">${a.title}</h4>
-                <span class="bk-secondary-date">${a.date}</span>
+                <h4 class="bk-secondary-title">${escapeHtml(a.title)}</h4>
+                <span class="bk-secondary-date">${escapeHtml(a.date)}</span>
             </div>
         </a>`;
     }).join('');
@@ -174,13 +190,13 @@ function renderLatest() {
     list.innerHTML = latest.map(function(a, index) {
         const isNew = index < 2; // steel-blue edge on the 2 newest rows only
         return `
-        <a href="article.html?id=${a.id}" class="bk-latest-row${isNew ? ' bk-is-new' : ''}">
+        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-latest-row${isNew ? ' bk-is-new' : ''}">
             <div class="bk-latest-row-thumb">
-                <img src="${a.image}" alt="${a.title}">
+                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
             </div>
             <div class="bk-latest-row-body">
-                <h4 class="bk-latest-row-title">${a.title}</h4>
-                <span class="bk-latest-row-date">${a.date}</span>
+                <h4 class="bk-latest-row-title">${escapeHtml(a.title)}</h4>
+                <span class="bk-latest-row-date">${escapeHtml(a.date)}</span>
             </div>
         </a>`;
     }).join('');
@@ -203,7 +219,7 @@ function orderCardsForLead(cards) {
     return sorted;
 }
 
-// ── CATEGORY SECTIONS — plain preview grids, no per-category lead, no See all (top nav covers that) ──
+// ── CATEGORY SECTIONS — plain preview grids, no per-category lead ──
 function renderHome() {
     const grid = document.getElementById('bk-main-grid');
     document.querySelector('#bk-content .bk-section-head').style.display = 'none';
@@ -218,7 +234,7 @@ function renderHome() {
 
         if (cardsRaw.length === 0) return;
 
-        const cards = orderCardsForLead(cardsRaw).slice(0, 4);
+        const cards = orderCardsForLead(cardsRaw).slice(0, 4); // preview only, "See all" links to full category
 
         html += `
         <div class="bk-home-group">
@@ -228,15 +244,15 @@ function renderHome() {
             <div class="bk-card-grid">
                 ${cards.map(function(a) {
                     return `
-                    <a href="article.html?id=${a.id}" class="bk-card-link">
-                    <article class="bk-card" data-category="${a.category}">
+                    <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-card-link">
+                    <article class="bk-card" data-category="${escapeHtml(a.category)}">
                         <div class="bk-card-image">
-                            <img src="${a.image}" alt="${a.title}">
+                            <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
                         </div>
                         <div class="bk-card-body">
-                            <span class="bk-card-cat">${a.category}</span>
-                            <h3 class="bk-card-title">${a.title}</h3>
-                            <p class="bk-card-date">${a.date}</p>
+                            <span class="bk-card-cat">${escapeHtml(a.category)}</span>
+                            <h3 class="bk-card-title">${escapeHtml(a.title)}</h3>
+                            <p class="bk-card-date">${escapeHtml(a.date)}</p>
                         </div>
                     </article>
                     </a>`;
@@ -262,16 +278,16 @@ function filterArticles(category) {
 
     grid.innerHTML = filtered.map(function(a) {
         return `
-        <a href="article.html?id=${a.id}" class="bk-card-link">
-        <article class="bk-card" data-category="${a.category}">
+        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-card-link">
+        <article class="bk-card" data-category="${escapeHtml(a.category)}">
               ${a.breaking ? '<span class="bk-badge-breaking">Breaking</span>' : ''}
             <div class="bk-card-image">
-                <img src="${a.image}" alt="${a.title}">
+                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
             </div>
             <div class="bk-card-body">
-                <span class="bk-card-cat">${a.category}</span>
-                <h3 class="bk-card-title">${a.title}</h3>
-                <p class="bk-card-date">${a.date}</p>
+                <span class="bk-card-cat">${escapeHtml(a.category)}</span>
+                <h3 class="bk-card-title">${escapeHtml(a.title)}</h3>
+                <p class="bk-card-date">${escapeHtml(a.date)}</p>
             </div>
         </article>
         </a>`;

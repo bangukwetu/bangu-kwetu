@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 body {
     font-family: 'IBM Plex Sans', sans-serif;
     color: #2B2D42;
@@ -18,12 +23,8 @@ body {
     padding: 0 24px;
 }
 
-/* ══════════════════════════════════════
-   BREAKING — thin red bar above the header
-   ══════════════════════════════════════ */
 #bk-breaking-banner {
-    display: none; /* JS sets this to flex only when a breaking story exists */
-    align-items: center;
+    display: none;     align-items: center;
     gap: 10px;
     background: #C8202E;
     color: #ffffff;
@@ -52,9 +53,6 @@ body {
     text-decoration: underline;
 }
 
-/* ══════════════════════════════════════
-   HEADER BLOCK
-   ══════════════════════════════════════ */
 .bk-header-block {
     background: #ffffff;
     position: sticky;
@@ -187,9 +185,6 @@ body {
 }
 .bk-search-btn:hover { color: #2B2D42; }
 
-/* ══════════════════════════════════════
-   CATEGORY NAV
-   ══════════════════════════════════════ */
 #bk-cat-nav {
     width: 100%;
     position: -webkit-sticky;
@@ -250,9 +245,6 @@ body {
     background: #2B2D42;
 }
 
-/* ══════════════════════════════════════
-   SEARCH BOX
-   ══════════════════════════════════════ */
 #bk-search-box {
     display: none;
     align-items: center;
@@ -296,7 +288,6 @@ body {
     transition: color 0.2s;
 }
 #bk-search-close:hover { color: #2B2D42; }
-/* ── SEARCH RESULTS DROPDOWN ── */
 .bk-search-results {
     display: none;
     position: absolute;
@@ -329,9 +320,6 @@ body {
     text-align: center;
 }
 
-/* ══════════════════════════════════════
-   LEAD + SECONDARY — sitewide, one lead pick
-   ══════════════════════════════════════ */
 #bk-lead-section {
     background: #ffffff;
     padding: 28px 0 8px;
@@ -447,9 +435,6 @@ body {
     color: #aaa;
 }
 
-/* ══════════════════════════════════════
-   LATEST — vertical list, below the lead
-   ══════════════════════════════════════ */
 #bk-latest-section {
     background: #ffffff;
     padding: 8px 0 4px;
@@ -525,9 +510,6 @@ body {
     opacity: 0.7;
 }
 
-/* ══════════════════════════════════════
-   SHUJAA WA SIKU — full-width feature
-   ══════════════════════════════════════ */
 #bk-shujaa-section {
     background: #EBF1F5;
     padding: 24px 0;
@@ -612,9 +594,6 @@ body {
 }
 #bk-shujaa-link:hover { opacity: 0.7; }
 
-/* ══════════════════════════════════════
-   WHITE CANVAS
-   ══════════════════════════════════════ */
 .bk-canvas {
     background: #ffffff;
 }
@@ -662,7 +641,6 @@ body {
 }
 .bk-see-all:hover { opacity: 0.7; }
 
-/* ── category preview groups on the homepage (News / Sports / Business) ── */
 .bk-home-group {
     margin-bottom: 40px;
 }
@@ -673,10 +651,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* ══════════════════════════════════════
-   CARDS — category grids ("See all" pages
-   and homepage category previews)
-   ══════════════════════════════════════ */
 .bk-card-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -749,9 +723,6 @@ body {
     display: block;
 }
 
-/* ══════════════════════════════════════
-   FOOTER
-   ══════════════════════════════════════ */
 .bk-footer {
     background: #1A1A1A;
     color: rgba(255,255,255,0.55);
@@ -829,9 +800,6 @@ body {
     text-align: center;
 }
 
-/* ══════════════════════════════════════
-   WHATSAPP FLOATING BUTTON
-   ══════════════════════════════════════ */
 .bk-whatsapp-float {
     position: fixed;
     bottom: 20px;
@@ -852,9 +820,6 @@ body {
     opacity: 0;
 }
 
-/* ══════════════════════════════════════
-   MOBILE
-   ══════════════════════════════════════ */
 @media (max-width: 768px) {
 
     .bk-header .bk-container {
@@ -897,8 +862,7 @@ body {
         width: 100% !important;
     }
 
-    /* Shujaa — mobile: stack media above body */
-    #bk-shujaa-card {
+        #bk-shujaa-card {
         flex-direction: column;
     }
     #bk-shujaa-media {
@@ -906,16 +870,14 @@ body {
         min-height: 220px;
     }
 
-    /* Lead story — mobile: stack lead above secondary list */
-    .bk-lead-layout {
+        .bk-lead-layout {
         grid-template-columns: 1fr;
     }
     .bk-lead-image {
         height: 220px;
     }
 
-    /* Latest — already a vertical list at every width, just tighten spacing on mobile */
-    .bk-latest-row {
+        .bk-latest-row {
         padding: 13px 0;
     }
     .bk-latest-row-thumb {
@@ -924,9 +886,6 @@ body {
     }
 }
 
-/* ══════════════════════════════════════
-   ARTICLE PAGE
-   ══════════════════════════════════════ */
 .bk-article-section {
     padding: 32px 0 44px;
 }
@@ -937,4 +896,97 @@ body {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #2E6DA4;
+    display: block;
+    margin-bottom: 10px;
+}
+.bk-article-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #2B2D42;
+    margin-bottom: 12px;
+}
+.bk-article-date {
+    font-size: 12.5px;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+.bk-article-image {
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    background: #EBF1F5;
+}
+.bk-article-image img {
+    width: 100%;
+    display: block;
+}
+.bk-article-body {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #2B2D42;
+}
+.bk-article-body p {
+    margin-bottom: 18px;
+}
+.bk-back-link {
+    display: inline-block;
+    color: #2E6DA4;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.bk-back-link:hover {
+    text-decoration: underline;
+}
+.bk-article-notfound {
+    padding: 40px 0;
+}
+.bk-article-notfound h2 {
+    font-family: 'Oswald', sans-serif;
+    color: #2B2D42;
+    margin-bottom: 8px;
+}
+.bk-article-share {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #eaecef;
+}
+.bk-share-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.bk-share-whatsapp {
+    background: #25D366;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+.bk-share-icon {
+    color: #2B2D42;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #dde5ed;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+}
+.bk-copy-feedback {
+    font-size: 12px;
+    color: #2E6DA4;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
