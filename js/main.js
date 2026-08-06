@@ -308,15 +308,18 @@ function setHomepageSectionsVisible(visible) {
 loadArticles();
 
 // ── CATEGORY NAV CLICKS ───────────────────────────
+// Handles both the top bar (#bk-cat-nav-inner) AND the hamburger nav (#bk-nav) —
+// both use the same .bk-cat-link class + data-cat attribute, so clicking either
+// keeps them in sync and highlights the matching category in both places.
 document.querySelectorAll('.bk-cat-link').forEach(function(link) {
     link.addEventListener('click', function(e) {
         e.preventDefault();
-        document.querySelectorAll('.bk-cat-link').forEach(function(l) {
-            l.classList.remove('active');
-        });
-        link.classList.add('active');
-
         const cat = link.getAttribute('data-cat');
+
+        document.querySelectorAll('.bk-cat-link').forEach(function(l) {
+            l.classList.toggle('active', l.getAttribute('data-cat') === cat);
+        });
+
         if (cat === 'home') {
             setHomepageSectionsVisible(true);
             renderHome();

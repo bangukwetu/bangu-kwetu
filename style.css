@@ -141,7 +141,7 @@ body {
   width: 80%;
   max-width: 280px;
   height: calc(100vh - 102px);
-  background: #1a4f7a;
+  background: #2b2d42;
   flex-direction: column;
   padding: 20px 0;
   z-index: 999;
