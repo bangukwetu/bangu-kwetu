@@ -315,7 +315,15 @@ function setHomepageSectionsVisible(visible) {
     document.getElementById('bk-shujaa-section').style.display = display;
 }
 
-loadArticles();
+// Homepage-only features (lead/latest/shujaa/category grid) only exist on index.html.
+// On other pages (about/contact/privacy) these elements are absent, so we skip
+// initializing them and let category links navigate normally instead of erroring.
+const isHomePage = document.getElementById('bk-main-grid') !== null;
+
+if (isHomePage) {
+    loadArticles();
+    loadShujaa();
+}
 
 // ── CATEGORY NAV CLICKS ───────────────────────────
 // Handles both the top bar (#bk-cat-nav-inner) AND the hamburger nav (#bk-nav) —
@@ -323,6 +331,7 @@ loadArticles();
 // keeps them in sync and highlights the matching category in both places.
 document.querySelectorAll('.bk-cat-link').forEach(function(link) {
     link.addEventListener('click', function(e) {
+        if (!isHomePage) return; // not on index.html — let the link navigate normally
         e.preventDefault();
         const cat = link.getAttribute('data-cat');
 
@@ -358,8 +367,6 @@ async function loadShujaa() {
     document.getElementById('bk-shujaa-avatar').src = s.photo;
     document.getElementById('bk-shujaa-avatar').alt = s.name;
 }
-
-loadShujaa();
 
 // WhatsApp button hide-on-scroll-down
 let bkLastScroll = 0;
