@@ -1,16 +1,27 @@
 const hamburgerBtn = document.getElementById('bk-hamburger');
 const bkNav = document.getElementById('bk-nav');
+const navOverlay = document.getElementById('bk-nav-overlay');
+const navClose = document.getElementById('bk-nav-close');
+
+function openNav() {
+    hamburgerBtn.classList.add('open');
+    bkNav.classList.add('active');
+    navOverlay.classList.add('active');
+}
+function closeNav() {
+    hamburgerBtn.classList.remove('open');
+    bkNav.classList.remove('active');
+    navOverlay.classList.remove('active');
+}
 
 hamburgerBtn.addEventListener('click', function () {
-    hamburgerBtn.classList.toggle('open');
-    bkNav.classList.toggle('active');
+    bkNav.classList.contains('active') ? closeNav() : openNav();
 });
+navClose.addEventListener('click', closeNav);
+navOverlay.addEventListener('click', closeNav);
 
 bkNav.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-        hamburgerBtn.classList.remove('open');
-        bkNav.classList.remove('active');
-    });
+    link.addEventListener('click', closeNav);
 });
 
 const searchBtn = document.getElementById('bk-search-btn');
@@ -28,6 +39,15 @@ searchClose.addEventListener('click', function () {
     searchBox.classList.remove('open');
     searchBtn.style.display = '';
     searchInput.value = '';
+});
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        searchBox.classList.remove('open');
+        searchBtn.style.display = '';
+        searchInput.value = '';
+        closeNav();
+    }
 });
 
 let bkLastScroll = 0;

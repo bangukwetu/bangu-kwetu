@@ -17,17 +17,28 @@ function escapeHtml(str) {
 // ── 1. HAMBURGER ──────────────────────────────────
 const hamburgerBtn = document.getElementById('bk-hamburger');
 const bkNav = document.getElementById('bk-nav');
+const navOverlay = document.getElementById('bk-nav-overlay');
+const navClose = document.getElementById('bk-nav-close');
+
+function openNav() {
+    hamburgerBtn.classList.add('open');
+    bkNav.classList.add('active');
+    navOverlay.classList.add('active');
+}
+function closeNav() {
+    hamburgerBtn.classList.remove('open');
+    bkNav.classList.remove('active');
+    navOverlay.classList.remove('active');
+}
 
 hamburgerBtn.addEventListener('click', function() {
-    hamburgerBtn.classList.toggle('open');
-    bkNav.classList.toggle('active');
+    bkNav.classList.contains('active') ? closeNav() : openNav();
 });
+navClose.addEventListener('click', closeNav);
+navOverlay.addEventListener('click', closeNav);
 
 bkNav.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('click', function() {
-        hamburgerBtn.classList.remove('open');
-        bkNav.classList.remove('active');
-    });
+    link.addEventListener('click', closeNav);
 });
 
 // ── 2. SEARCH TOGGLE ──────────────────────────────
@@ -58,8 +69,7 @@ document.addEventListener('keydown', function(e) {
         searchInput.value = '';
         searchResults.classList.remove('show');
         searchResults.innerHTML = '';
-        hamburgerBtn.classList.remove('open');
-        bkNav.classList.remove('active');
+        closeNav();
     }
 });
 
@@ -185,7 +195,7 @@ function renderLatest() {
     const pool = allArticles.filter(function(a) {
         return !a.breaking && (!lead || a.id !== lead.id);
     });
-    const latest = getLatestArticles(pool, 4);
+    const latest = getLatestArticles(pool, 3);
 
     list.innerHTML = latest.map(function(a, index) {
         const isNew = index < 2; // steel-blue edge on the 2 newest rows only
@@ -335,6 +345,11 @@ async function loadShujaa() {
     const response = await fetch('data/shujaa.json');
     const data = await response.json();
     const s = data.shujaa[0];
+
+    if (!s || !s.name || !s.photo) {
+        document.getElementById('bk-shujaa-section').style.display = 'none';
+        return;
+    }
 
     document.getElementById('bk-shujaa-name').textContent = s.name;
     document.getElementById('bk-shujaa-eyebrow').textContent = s.eyebrow;
