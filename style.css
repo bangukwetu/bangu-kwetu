@@ -230,6 +230,14 @@ body {
   background: none;
   padding-left: 0;
 }
+.bk-nav .bk-cat-link {
+  flex: none;
+  justify-content: flex-start;
+  height: auto;
+}
+.bk-nav .bk-cat-link.active::after {
+  display: none;
+}
 @media (min-width: 769px) {
   .bk-hamburger {
     display: none;
@@ -824,6 +832,18 @@ body {
   color: #aaa;
   margin-top: 8px;
   display: block;
+}
+.bk-badge-sponsored {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a6d1e;
+  border: 1px solid #8a6d1e;
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-bottom: 6px;
 }
 .bk-footer {
   background: #1a1a1a;

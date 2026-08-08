@@ -260,6 +260,7 @@ function renderHome() {
                             <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
                         </div>
                         <div class="bk-card-body">
+                            ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
                             <span class="bk-card-cat">${escapeHtml(a.category)}</span>
                             <h3 class="bk-card-title">${escapeHtml(a.title)}</h3>
                             <p class="bk-card-date">${escapeHtml(a.date)}</p>
@@ -295,6 +296,7 @@ function filterArticles(category) {
                 <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
             </div>
             <div class="bk-card-body">
+                ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
                 <span class="bk-card-cat">${escapeHtml(a.category)}</span>
                 <h3 class="bk-card-title">${escapeHtml(a.title)}</h3>
                 <p class="bk-card-date">${escapeHtml(a.date)}</p>
