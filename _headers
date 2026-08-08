@@ -6,3 +6,12 @@
 
 /admin/*
   X-Frame-Options: DENY
+
+/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/style.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
