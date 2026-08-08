@@ -352,7 +352,20 @@ document.querySelectorAll('.bk-cat-link').forEach(function(link) {
 });
 
 // ── 5. FETCH & RENDER SHUJAA ──────────────────────
+// Shujaa wa Siku is a scheduled feature — it only appears on Wednesdays and
+// Fridays. Any other day, the section hides itself automatically regardless
+// of what's in shujaa.json, so nothing has to be manually taken down.
+function isShujaaDay() {
+    const day = new Date().getDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+    return day === 3 || day === 5;
+}
+
 async function loadShujaa() {
+    if (!isShujaaDay()) {
+        document.getElementById('bk-shujaa-section').style.display = 'none';
+        return;
+    }
+
     const response = await fetch('data/shujaa.json');
     const data = await response.json();
     const s = data.shujaa[0];
