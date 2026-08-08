@@ -26,13 +26,14 @@ collections:
           - label: Articles
             name: articles
             widget: list
+            summary: "{{fields.title}}"
             fields:
               - { label: ID, name: id, widget: string, hint: "Unique, e.g. news-004, no spaces" }
               - { label: Title, name: title, widget: string }
               - { label: Date, name: date, widget: string }
               - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi] }
               - { label: Image, name: image, widget: image }
-              - { label: Excerpt, name: desc, widget: text, required: false }
+              - { label: Excerpt, name: desc, widget: text, required: false, hint: "Also used as the search-preview and social-share description for this article." }
               - { label: Body, name: content, widget: markdown, required: false }
               - { label: Breaking News, name: breaking, widget: boolean, default: false }
               - { label: Featured, name: featured, widget: boolean, default: false }
@@ -48,6 +49,7 @@ collections:
           - label: Shujaa
             name: shujaa
             widget: list
+            summary: "{{fields.name}}"
             fields:
               - { label: Name, name: name, widget: string }
               - { label: Eyebrow, name: eyebrow, widget: string }

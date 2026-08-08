@@ -1,3 +1,102 @@
+// ── SAFETY: escape any text before inserting into innerHTML ──────
+function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+function isSafeUrl(url) {
+    return /^https?:\/\//i.test(url.trim());
+}
+
+// Scans for [label](url) manually instead of a naive regex, so URLs that
+// contain their own parentheses (e.g. Wikipedia-style links) are captured
+// correctly instead of truncating at the first ')'.
+function extractLinks(text) {
+    const links = [];
+    let result = '';
+    let i = 0;
+    while (i < text.length) {
+        if (text[i] === '[') {
+            const labelEnd = text.indexOf(']', i);
+            if (labelEnd !== -1 && text[labelEnd + 1] === '(') {
+                let depth = 1;
+                let j = labelEnd + 2;
+                while (j < text.length && depth > 0) {
+                    if (text[j] === '(') depth++;
+                    else if (text[j] === ')') depth--;
+                    if (depth > 0) j++;
+                }
+                if (depth === 0) {
+                    const label = text.slice(i + 1, labelEnd);
+                    const url = text.slice(labelEnd + 2, j);
+                    const idx = links.length;
+                    links.push({ label: label, url: url.trim() });
+                    result += '\u0000LINK' + idx + '\u0000';
+                    i = j + 1;
+                    continue;
+                }
+            }
+        }
+        result += text[i];
+        i++;
+    }
+    return { text: result, links: links };
+}
+
+// Converts a small, fixed set of Markdown (bold, italic, links) into safe
+// HTML. Raw text is escaped first — only tags we generate ourselves
+// (<strong>, <em>, <a>) ever reach innerHTML, so a compromised or malicious
+// CMS entry can't inject arbitrary HTML/scripts through this field.
+function renderInlineMarkdown(rawText) {
+    const extracted = extractLinks(rawText);
+    let working = escapeHtml(extracted.text);
+    working = working.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    working = working.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+    working = working.replace(/\u0000LINK(\d+)\u0000/g, function (match, idx) {
+        const link = extracted.links[Number(idx)];
+        const safeLabel = escapeHtml(link.label);
+        if (!isSafeUrl(link.url)) return safeLabel;
+        const safeUrl = escapeHtml(link.url);
+        return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeLabel}</a>`;
+    });
+
+    return working;
+}
+
+// Splits article content into paragraphs/headings (#, ##, ###) and renders
+// each safely via renderInlineMarkdown.
+function renderMarkdownBody(content, container) {
+    container.innerHTML = '';
+    const blocks = content.split(/\n\s*\n/).filter(function (b) { return b.trim() !== ''; });
+
+    blocks.forEach(function (raw) {
+        const trimmed = raw.trim();
+        let tag = 'p';
+        let text = trimmed;
+
+        if (/^###\s+/.test(trimmed)) {
+            tag = 'h4';
+            text = trimmed.replace(/^###\s+/, '');
+        } else if (/^##\s+/.test(trimmed)) {
+            tag = 'h3';
+            text = trimmed.replace(/^##\s+/, '');
+        } else if (/^#\s+/.test(trimmed)) {
+            tag = 'h2';
+            text = trimmed.replace(/^#\s+/, '');
+        }
+
+        const el = document.createElement(tag);
+        el.innerHTML = renderInlineMarkdown(text);
+        container.appendChild(el);
+    });
+}
+
 const hamburgerBtn = document.getElementById('bk-hamburger');
 const bkNav = document.getElementById('bk-nav');
 const navOverlay = document.getElementById('bk-nav-overlay');
@@ -92,11 +191,24 @@ async function loadArticle() {
         document.getElementById('bk-article-image').src = article.image;
         document.getElementById('bk-article-image').alt = article.title;
 
+        // SEO / social share tags — reuses the existing Excerpt field, no
+        // new CMS field needed. setAttribute is safe here (not innerHTML).
+        const metaDesc = article.desc || article.title;
+        document.getElementById('bk-meta-description').setAttribute('content', metaDesc);
+        document.getElementById('bk-og-title').setAttribute('content', article.title + ' — Bangu Kwetu');
+        document.getElementById('bk-og-description').setAttribute('content', metaDesc);
+        document.getElementById('bk-og-image').setAttribute('content', article.image);
+        document.getElementById('bk-og-url').setAttribute('content', window.location.href);
+
         const bodyEl = document.getElementById('bk-article-body');
         if (article.content) {
-            bodyEl.textContent = article.content;
+            renderMarkdownBody(article.content, bodyEl);
         } else {
-            bodyEl.innerHTML = '<p class="bk-article-placeholder">Full story coming soon.</p>';
+            bodyEl.innerHTML = '';
+            const p = document.createElement('p');
+            p.className = 'bk-article-placeholder';
+            p.textContent = 'Full story coming soon.';
+            bodyEl.appendChild(p);
         }
 
         const shareBtn = document.getElementById('bk-share-whatsapp');
