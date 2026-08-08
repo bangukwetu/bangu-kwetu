@@ -2,12 +2,12 @@
   "articles": [
     {
       "id": "news-001",
-      "title": "Kariobangi North Residents Raise Concern Over Rising Insecurity",
-      "date": "May 22, 2026",
+      "title": "Blackout Hits Western Kenya After Fire at Kakamega Substation",
+      "date": "Aug 7, 2026",
       "category": "news",
-      "image": "images/news-1.jpg",
-      "desc": "",
-      "content": "Residents of Kariobangi North have raised concern over a recent rise in insecurity, citing an increase in muggings and theft cases across the estate. Many say they no longer feel safe, especially during the early morning and late evening hours.\nThe growing security concerns have also affected local businesses, with some traders reporting fewer customers as people avoid staying out late.\nResidents are now calling on security agencies to intensify police patrols and enhance community policing to curb crime. They also urge members of the public to remain vigilant and report any suspicious activities to the relevant authorities.\nThe community hopes that swift action will help restore safety and confidence within the neighborhood.",
+      "image": "/images/AP_21009762181941.webp",
+      "desc": "Kakamega substation fire has caused a blackout in western Kenya, with Kenya Power restoring electricity in phases.",
+      "content": "Western Kenya was thrown into darkness after a fire broke out at Musaga Substation in Kakamega County. Kenya Power said the outage affected Kakamega, Bungoma, Busia, Siaya and parts of Vihiga. \n\nThe utility said engineers were re-routing electricity through alternative supply lines as restoration work continued. It added that power would return progressively as technical teams stabilised the network. \n\nThe company did not immediately say what caused the fire. For households and businesses in the affected counties, the blackout has already disrupted normal life and trading.",
       "breaking": false,
       "featured": false
     },
@@ -16,7 +16,8 @@
       "title": "Nairobi Intensifies Clean-up Campaign Across Estates",
       "date": "May 21, 2026",
       "category": "news",
-      "image": "images/news-2.jpg"
+      "image": "images/news-2.jpg",
+      "desc": ""
     },
     {
       "id": "news-003",
