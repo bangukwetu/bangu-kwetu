@@ -1067,6 +1067,9 @@ body {
   .bk-lead-image {
     height: 220px;
   }
+  .bk-secondary-thumb {
+    display: none;
+  }
   .bk-latest-list {
     display: flex;
     flex-direction: column;
