@@ -81,7 +81,9 @@
       "title": "Jua Kali Sector Gets New Working Space In Sector 4",
       "date": "May 20, 2026",
       "category": "business",
-      "image": "images/business-3.jpg"
+      "image": "images/business-3.jpg",
+      "desc": "",
+      "content": ""
     },
     {
       "id": "nairobi-development-control-policy-2026",
@@ -93,6 +95,18 @@
       "content": "After years of construction proceeding with little consistent oversight, Nairobi now has a formal rulebook. The county has gazetted its Development Control Policy 2026, giving developers a single legal framework to follow instead of the patchwork of planning decisions that shaped the city until now.\nThe policy sets boundaries in four areas that have long strained the city: how tall buildings can rise, how densely a plot can be developed, which zones permit which uses, and what environmental protections a project must satisfy before approval. Officials frame this as a direct response to years of overcrowding and infrastructure pressure that resulted from developments approved without a shared standard.\nSakaja's office has positioned the policy as one piece of a wider rebuild already underway across roads, sewer capacity, and drainage — and is now calling on developers and residents to understand the new requirements before starting new projects.",
       "breaking": false,
       "featured": false
+    },
+    {
+      "id": "Nairobi -002",
+      "title": "Embakasi Security Agencies Announce Crackdown on Goonism",
+      "date": "August 9, 2026",
+      "category": "nairobi",
+      "image": "/images/download.webp",
+      "desc": "Security agencies in Embakasi have announced a crackdown on goonism as residents and traders seek safer streets and more secure businesses.",
+      "content": "Security agencies in Embakasi have announced plans to intensify the fight against goonism, putting public safety at the centre of concern in the Nairobi constituency.\n\nThe announcement matters to residents, traders and commuters who rely on Embakasi’s roads, markets and commercial centres every day.\n\nInsecurity can affect how people move, when businesses close and whether customers feel safe visiting local trading areas. For small businesses, repeated incidents can also mean lost income and disrupted operations.\n\nThe planned crackdown will now be judged by how quickly it improves safety on the ground and whether residents can move freely without intimidation.\n\nAuthorities have not yet released full details on the specific areas to be targeted, the timeline of the operation or the measures that will be used.\n\nResidents have been advised to report criminal activity through official channels and avoid confronting suspected criminals directly.",
+      "breaking": false,
+      "featured": true,
+      "sponsored": false
     }
   ]
 }
