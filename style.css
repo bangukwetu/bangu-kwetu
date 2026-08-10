@@ -1102,6 +1102,14 @@ body {
   .bk-secondary-thumb {
     display: none;
   }
+  .bk-article-image {
+    height: 240px;
+  }
+  .bk-article-image img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+  }
   .bk-latest-list {
     display: flex;
     flex-direction: column;
