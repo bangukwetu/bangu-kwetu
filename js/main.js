@@ -14,6 +14,19 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
+// ── THEME TOGGLE ───────────────────────────────────
+const themeToggle = document.getElementById('bk-theme-toggle');
+themeToggle.addEventListener('click', function () {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('bk-theme', 'light');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('bk-theme', 'dark');
+    }
+});
+
 // ── 1. HAMBURGER ──────────────────────────────────
 const hamburgerBtn = document.getElementById('bk-hamburger');
 const bkNav = document.getElementById('bk-nav');
