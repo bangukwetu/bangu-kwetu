@@ -1309,3 +1309,119 @@ body {
 [data-theme="dark"] .bk-canvas {
   background: #121212;
 }
+[data-theme="dark"] .bk-lead-card {
+  background: #1a1a1a;
+  border-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-lead-image,
+[data-theme="dark"] .bk-card-image,
+[data-theme="dark"] .bk-secondary-thumb,
+[data-theme="dark"] .bk-latest-row-thumb,
+[data-theme="dark"] .bk-article-image {
+  background: #2a2a2a;
+}
+[data-theme="dark"] .bk-lead-title,
+[data-theme="dark"] .bk-secondary-title,
+[data-theme="dark"] .bk-latest-row-title,
+[data-theme="dark"] .bk-card-title,
+[data-theme="dark"] .bk-section-title {
+  color: #e4e6eb;
+}
+[data-theme="dark"] .bk-secondary-item {
+  border-bottom-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-secondary-item:hover {
+  background: #1e1e1e;
+}
+[data-theme="dark"] .bk-latest-row,
+[data-theme="dark"] .bk-card {
+  background: #1a1a1a;
+  border-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-latest-row.bk-is-new {
+  border-left-color: #2a2a2a;
+}
+[data-theme="dark"] #bk-shujaa-section {
+  background: #1a1a1a;
+  border-bottom-color: #2a2a2a;
+}
+[data-theme="dark"] #bk-shujaa-card {
+  background: #1e1e1e;
+}
+[data-theme="dark"] #bk-shujaa-name {
+  color: #e4e6eb;
+}
+[data-theme="dark"] #bk-shujaa-desc {
+  color: #aaa;
+}
+[data-theme="dark"] .bk-section {
+  border-bottom-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-section-head {
+  border-bottom-color: #333;
+}
+[data-theme="dark"] .bk-section-head::after {
+  background: #5a9fd4;
+}
+[data-theme="dark"] .bk-footer-bottom {
+  background: #121212;
+  border-top-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-footer-bottom p {
+  color: #e4e6eb;
+}
+[data-theme="dark"] .bk-article-title,
+[data-theme="dark"] .bk-article-body,
+[data-theme="dark"] .bk-article-body h2,
+[data-theme="dark"] .bk-article-body h3,
+[data-theme="dark"] .bk-article-body h4 {
+  color: #e4e6eb;
+}
+[data-theme="dark"] .bk-article-share {
+  border-top-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-share-icon {
+  border-color: #333;
+  color: #e4e6eb;
+}
+[data-theme="dark"] .bk-article-notfound h2 {
+  color: #e4e6eb;
+}
+[data-theme="dark"] .bk-back-link {
+  color: #5a9fd4;
+}
+[data-theme="dark"] .bk-page-title,
+[data-theme="dark"] .bk-page-body,
+[data-theme="dark"] .bk-page-subhead,
+[data-theme="dark"] .bk-contact-heading {
+  color: #e4e6eb;
+}
+[data-theme="dark"] .bk-page-body a,
+[data-theme="dark"] .bk-contact-link,
+[data-theme="dark"] .bk-contact-social a {
+  color: #5a9fd4;
+}
+[data-theme="dark"] .bk-404-title {
+  color: #e4e6eb;
+}
+[data-theme="dark"] .bk-404-text {
+  color: #aaa;
+}
+[data-theme="dark"] .bk-404-home {
+  background: #5a9fd4;
+}
+[data-theme="dark"] .bk-card-cat,
+[data-theme="dark"] .bk-lead-cat,
+[data-theme="dark"] #bk-shujaa-eyebrow {
+  color: #90c8f9;
+}
+[data-theme="dark"] .bk-badge-sponsored {
+  color: #e0b84a;
+  border-color: #e0b84a;
+}
+[data-theme="dark"] .bk-cat-link.active::after {
+  background: #5a9fd4;
+}
+[data-theme="dark"] .bk-cat-link.active {
+  color: #90c8f9;
+}
