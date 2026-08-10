@@ -592,6 +592,7 @@ body {
 @media (min-width: 769px) {
     .bk-latest-row.bk-is-new {
         border-top: 1px solid #dde5ed;
+    }
 }
 .bk-latest-row-thumb {
   width: 100%;
