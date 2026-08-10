@@ -1103,7 +1103,7 @@ body {
     display: none;
   }
   .bk-article-image {
-    height: 240px;
+    height: 240px !important; 
   }
   .bk-article-image img {
     height: 100%;
