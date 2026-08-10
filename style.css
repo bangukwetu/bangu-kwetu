@@ -1177,6 +1177,7 @@ body {
 }
 .bk-article-image {
   width: 100%;
+  height: 440px;
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 24px;
@@ -1184,6 +1185,9 @@ body {
 }
 .bk-article-image img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
   display: block;
 }
 .bk-article-body {
