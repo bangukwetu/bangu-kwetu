@@ -116,12 +116,22 @@ searchInput.addEventListener('input', function() {
 let allArticles = [];
 
 async function loadArticles() {
-    const response = await fetch('data/articles.json');
-    allArticles = (await response.json()).articles;
-    renderBreakingBanner();
-    renderLead();
-    renderLatest();
-    renderHome();
+    try {
+        const response = await fetch('data/articles.json');
+        if (!response.ok) throw new Error('Network response was not ok');
+        allArticles = (await response.json()).articles;
+        renderBreakingBanner();
+        renderLead();
+        renderLatest();
+        renderHome();
+    } catch (err) {
+        console.error('Could not load articles:', err);
+        const grid = document.getElementById('bk-main-grid');
+        if (grid) {
+            grid.innerHTML = '<p class="bk-load-error">Couldn\'t load stories — check your connection and try again.</p>';
+            grid.style.display = 'block';
+        }
+    }
 }
 
 function getLatestArticles(articles, count) {
@@ -190,7 +200,7 @@ function renderLead() {
         return `
         <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-secondary-item">
             <div class="bk-secondary-thumb">
-                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
+                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
             </div>
             <div class="bk-secondary-body">
                 <h4 class="bk-secondary-title">${escapeHtml(a.title)}</h4>
@@ -215,7 +225,7 @@ function renderLatest() {
         return `
         <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-latest-row${isNew ? ' bk-is-new' : ''}">
             <div class="bk-latest-row-thumb">
-                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
+                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
             </div>
             <div class="bk-latest-row-body">
                 <h4 class="bk-latest-row-title">${escapeHtml(a.title)}</h4>
@@ -270,7 +280,7 @@ function renderHome() {
                     <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-card-link">
                     <article class="bk-card" data-category="${escapeHtml(a.category)}">
                         <div class="bk-card-image">
-                            <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
+                            <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
                         </div>
                         <div class="bk-card-body">
                             ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
@@ -306,7 +316,7 @@ function filterArticles(category) {
         <article class="bk-card" data-category="${escapeHtml(a.category)}">
               ${a.breaking ? '<span class="bk-badge-breaking">Breaking</span>' : ''}
             <div class="bk-card-image">
-                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">
+                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
             </div>
             <div class="bk-card-body">
                 ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
