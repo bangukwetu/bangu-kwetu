@@ -11,6 +11,12 @@ a {
     text-decoration: none
 }
 
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #2e6da4;
+    outline-offset: 2px
+}
+
 body {
     font-family: "IBM Plex Sans", sans-serif;
     color: #2b2d42;
@@ -562,7 +568,7 @@ body {
 
 .bk-lead-date {
     font-size: 12px;
-    color: #aaa;
+    color: #888;
     margin-top: 10px;
     display: block
 }
@@ -631,7 +637,7 @@ body {
 
 .bk-secondary-date {
     font-size: 11px;
-    color: #aaa
+    color: #888
 }
 
 #bk-latest-section {
@@ -672,6 +678,7 @@ body {
     border-left: 1px solid #dde5ed;
     margin-left: 0;
     padding-left: 0;
+    border-top: 3px solid #2e6da4
 }
 
 .bk-latest-row-thumb {
@@ -709,7 +716,7 @@ body {
 
 .bk-latest-row-date {
     font-size: 11.5px;
-    color: #aaa
+    color: #888
 }
 
 .bk-latest-seeall {
@@ -970,7 +977,7 @@ body {
 
 .bk-card-date {
     font-size: 11px;
-    color: #aaa;
+    color: #888;
     margin-top: 8px;
     display: block
 }
@@ -1250,9 +1257,6 @@ body {
     .bk-secondary-thumb {
         display: none
     }
-    .bk-article-image {
-        height: 240px !important;
-    }
 
     .bk-latest-list {
         display: flex;
@@ -1279,9 +1283,10 @@ body {
     }
 
     .bk-latest-row.bk-is-new {
-        border-left: none;
-        padding-left: 0;
-        margin-left: 0;
+        border-left: 3px solid #2e6da4;
+        border-top: none;
+        padding-left: 12px;
+        margin-left: -15px
     }
 
     .bk-latest-row-thumb {
@@ -1326,7 +1331,7 @@ body {
 
 .bk-article-date {
     font-size: 12.5px;
-    color: #aaa;
+    color: #888;
     margin-bottom: 20px
 }
 
@@ -1506,10 +1511,9 @@ body {
     background: #1e1e1e;
     border-color: #333
 }
-
 [data-theme="dark"] .bk-search-result-item {
-    color: #e4e6eb;
-    border-bottom-color: #2a2a2a
+  color: #e4e6eb;
+  border-bottom-color: #2a2a2a;
 }
 [data-theme="dark"] .bk-search-result-item:hover {
   background: #2a2a2a;
@@ -1547,9 +1551,6 @@ body {
 [data-theme="dark"] .bk-card {
   background: #1a1a1a;
   border-color: #2a2a2a;
-}
-[data-theme="dark"] .bk-latest-row.bk-is-new {
-  border-left-color: #2a2a2a;
 }
 [data-theme="dark"] #bk-shujaa-section {
   background: #1a1a1a;

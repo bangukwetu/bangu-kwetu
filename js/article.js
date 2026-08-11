@@ -213,6 +213,26 @@ async function loadArticle() {
         document.getElementById('bk-og-image').setAttribute('content', article.image);
         document.getElementById('bk-og-url').setAttribute('content', window.location.href);
 
+        // NewsArticle structured data — helps search/AI engines identify this
+        // as a news article, its headline, image, and publish date.
+        const jsonLd = {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "headline": article.title,
+            "image": [article.image],
+            "datePublished": article.date,
+            "author": {
+                "@type": "Organization",
+                "name": "Bangu Kwetu"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Bangu Kwetu"
+            },
+            "mainEntityOfPage": window.location.href
+        };
+        document.getElementById('bk-json-ld').textContent = JSON.stringify(jsonLd);
+
         const bodyEl = document.getElementById('bk-article-body');
         if (article.content) {
             renderMarkdownBody(article.content, bodyEl);
