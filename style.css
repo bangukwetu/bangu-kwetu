@@ -672,7 +672,6 @@ body {
     border-left: 1px solid #dde5ed;
     margin-left: 0;
     padding-left: 0;
-    border-top: 3px solid #2e6da4
 }
 
 .bk-latest-row-thumb {
@@ -1251,6 +1250,9 @@ body {
     .bk-secondary-thumb {
         display: none
     }
+    .bk-article-image {
+        height: 240px !important;
+    }
 
     .bk-latest-list {
         display: flex;
@@ -1277,10 +1279,9 @@ body {
     }
 
     .bk-latest-row.bk-is-new {
-        border-left: 3px solid #2e6da4;
-        border-top: none;
-        padding-left: 12px;
-        margin-left: -15px
+        border-left: none;
+        padding-left: 0;
+        margin-left: 0;
     }
 
     .bk-latest-row-thumb {
