@@ -1257,6 +1257,9 @@ body {
     .bk-secondary-thumb {
         display: none
     }
+    .bk-article-image {
+        height: 240px !important;
+    }
 
     .bk-latest-list {
         display: flex;
