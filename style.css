@@ -1457,6 +1457,10 @@ body {
     cursor: pointer;
     transform: translateZ(0);
 }
+.bk-share-icon:active svg {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
 
 .bk-copy-feedback {
     font-size: 12px;
