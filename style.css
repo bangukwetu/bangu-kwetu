@@ -1454,7 +1454,8 @@ body {
     border: 1px solid #dde5ed;
     border-radius: 50%;
     background: none;
-    cursor: pointer
+    cursor: pointer;
+    transform: translateZ(0);
 }
 
 .bk-copy-feedback {
@@ -1462,6 +1463,9 @@ body {
     color: #2e6da4;
     opacity: 0;
     transition: opacity 0.2s
+}
+.bk-copy-feedback.show {
+    opacity: 1
 }
 
 [data-theme="dark"] body {
