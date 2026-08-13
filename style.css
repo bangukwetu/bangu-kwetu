@@ -332,7 +332,7 @@ body {
     width: 100%;
     position: -webkit-sticky;
     position: sticky;
-    top: 64px;
+    top: var(--bk-header-offset, 64px);
     z-index: 90;
     background: #ffffff;
     border-top: 1px solid #dde5ed

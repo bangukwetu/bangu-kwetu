@@ -154,6 +154,7 @@ function renderBreakingBanner() {
     if (!breaking) {
         container.style.display = 'none';
         container.innerHTML = '';
+        updateStickyOffset();
         return;
     }
 
@@ -162,7 +163,21 @@ function renderBreakingBanner() {
         <span class="bk-breaking-label">Breaking</span>
         <a href="article.html?id=${encodeURIComponent(breaking.id)}">${escapeHtml(breaking.title)}</a>
     `;
+    updateStickyOffset();
 }
+
+// Keeps #bk-cat-nav pinned directly below the header block, whether or not
+// the breaking banner is currently showing. The banner's height changes
+// depending on whether there's a breaking story, so a hardcoded top offset
+// would cause the cat-nav to overlap the header when the banner appears.
+function updateStickyOffset() {
+    const headerBlock = document.querySelector('.bk-header-block');
+    if (headerBlock) {
+        document.documentElement.style.setProperty('--bk-header-offset', headerBlock.offsetHeight + 'px');
+    }
+}
+
+window.addEventListener('resize', updateStickyOffset);
 
 // ── LEAD — one sitewide pick, "featured" overrides date order same as "breaking" does ──
 function getSitewideLead(articles) {
