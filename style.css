@@ -1456,6 +1456,9 @@ body {
     background: none;
     cursor: pointer;
     transform: translateZ(0);
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
 }
 .bk-share-icon:active svg {
     opacity: 1 !important;
