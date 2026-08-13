@@ -301,13 +301,16 @@ async function loadArticle() {
                 xBtn.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`;
 
                 const copyBtn = document.getElementById('bk-share-copy');
-                const copyFeedback = document.getElementById('bk-copy-feedback');
+                const copyLabel = document.getElementById('bk-share-copy-label');
                 copyBtn.addEventListener('click', async function () {
-
                     try {
                         await navigator.clipboard.writeText(window.location.href);
-                        copyFeedback.classList.add('show');
-                        setTimeout(function () { copyFeedback.classList.remove('show'); }, 2000);
+                        copyLabel.textContent = 'Copied!';
+                        copyBtn.classList.add('bk-copied');
+                        setTimeout(function () {
+                            copyLabel.textContent = 'Copy Link';
+                            copyBtn.classList.remove('bk-copied');
+                        }, 2000);
                     } catch (err) {
                          console.error('Copy failed:', err);
                     }

@@ -1460,19 +1460,26 @@ body {
     appearance: none;
     outline: none;
 }
-.bk-share-icon:active svg {
-    opacity: 1 !important;
-    visibility: visible !important;
+.bk-share-copy-btn {
+    background: none;
+    border: 1px solid #dde5ed;
+    color: #2b2d42;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s
 }
 
-.bk-copy-feedback {
-    font-size: 12px;
-    color: #2e6da4;
-    opacity: 0;
-    transition: opacity 0.2s
+.bk-share-copy-btn:hover {
+    background: #ebf1f5
 }
-.bk-copy-feedback.show {
-    opacity: 1
+
+.bk-share-copy-btn.bk-copied {
+    background: #2e6da4;
+    border-color: #2e6da4;
+    color: #ffffff
 }
 
 [data-theme="dark"] body {
@@ -1651,4 +1658,12 @@ body {
 [data-theme="dark"] .bk-load-error {
   color: #aaa;
   border-color: #333;
+}
+[data-theme="dark"] .bk-share-copy-btn {
+    border-color: #333;
+    color: #e4e6eb
+}
+
+[data-theme="dark"] .bk-share-copy-btn:hover {
+    background: #1e1e1e
 }
