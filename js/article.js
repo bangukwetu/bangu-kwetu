@@ -136,10 +136,27 @@ bkNav.querySelectorAll('a').forEach(function (link) {
     link.addEventListener('click', closeNav);
 });
 
+// ── SEARCH ─────────────────────────────────────────
 const searchBtn = document.getElementById('bk-search-btn');
 const searchClose = document.getElementById('bk-search-close');
 const searchBox = document.getElementById('bk-search-box');
 const searchInput = document.getElementById('bk-search-input');
+const searchResults = document.getElementById('bk-search-results');
+
+// Article pages never load the full article list elsewhere, so search
+// needs its own fetch of articles.json to have something to filter.
+let allArticles = [];
+
+async function loadArticlesForSearch() {
+    try {
+        const response = await fetch('data/articles.json');
+        if (!response.ok) throw new Error('Network response was not ok');
+        allArticles = (await response.json()).articles;
+    } catch (err) {
+        console.error('Could not load articles for search:', err);
+    }
+}
+loadArticlesForSearch();
 
 searchBtn.addEventListener('click', function () {
     searchBox.classList.add('open');
@@ -151,6 +168,33 @@ searchClose.addEventListener('click', function () {
     searchBox.classList.remove('open');
     searchBtn.style.display = '';
     searchInput.value = '';
+    searchResults.classList.remove('show');
+    searchResults.innerHTML = '';
+});
+
+searchInput.addEventListener('input', function () {
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (query === '') {
+        searchResults.classList.remove('show');
+        searchResults.innerHTML = '';
+        return;
+    }
+
+    const matches = allArticles.filter(function (a) {
+        return a.title.toLowerCase().includes(query) ||
+               a.category.toLowerCase().includes(query);
+    });
+
+    if (matches.length === 0) {
+        searchResults.innerHTML = '<div class="bk-search-no-results">No results found</div>';
+    } else {
+        searchResults.innerHTML = matches.map(function (a) {
+            return `<a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-search-result-item">${escapeHtml(a.title)}</a>`;
+        }).join('');
+    }
+
+    searchResults.classList.add('show');
 });
 
 document.addEventListener('keydown', function (e) {
@@ -158,6 +202,8 @@ document.addEventListener('keydown', function (e) {
         searchBox.classList.remove('open');
         searchBtn.style.display = '';
         searchInput.value = '';
+        searchResults.classList.remove('show');
+        searchResults.innerHTML = '';
         closeNav();
     }
 });
@@ -257,7 +303,7 @@ async function loadArticle() {
                 const copyBtn = document.getElementById('bk-share-copy');
                 const copyFeedback = document.getElementById('bk-copy-feedback');
                 copyBtn.addEventListener('click', async function () {
-                    
+
                     try {
                         await navigator.clipboard.writeText(window.location.href);
                         copyFeedback.classList.add('show');

@@ -220,10 +220,9 @@ function renderLatest() {
     });
     const latest = getLatestArticles(pool, 3);
 
-    list.innerHTML = latest.map(function(a, index) {
-        const isNew = index < 2; // steel-blue edge on the 2 newest rows only
+    list.innerHTML = latest.map(function(a) {
         return `
-        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-latest-row${isNew ? ' bk-is-new' : ''}">
+        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-latest-row">
             <div class="bk-latest-row-thumb">
                 <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
             </div>

@@ -678,7 +678,6 @@ body {
     border-left: 1px solid #dde5ed;
     margin-left: 0;
     padding-left: 0;
-    border-top: 3px solid #2e6da4
 }
 
 .bk-latest-row-thumb {
@@ -1116,6 +1115,9 @@ body {
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1)
 }
+:hover {
+    color: #ffffff
+}
 
 .bk-footer-links {
     list-style: none;
@@ -1124,7 +1126,8 @@ body {
     gap: 9px
 }
 
-.bk-footer-links li {
+.
+.bk-social {bk-footer-links li {
     font-size: 13px;
     color: #ffffff
 }
@@ -1136,17 +1139,13 @@ body {
     transition: color 0.2s
 }
 
-.bk-footer-links a:hover {
-    color: #ffffff
-}
-
+.bk-footer-links a
 .bk-social-links {
     display: flex;
     flex-direction: column;
     gap: 9px
 }
 
-.bk-social {
     font-size: 13px;
     color: #ffffff;
     text-decoration: none;
@@ -1251,7 +1250,7 @@ body {
     }
 
     .bk-lead-image {
-        height: 220px
+        height: 220px 
     }
 
     .bk-secondary-thumb {
@@ -1286,10 +1285,9 @@ body {
     }
 
     .bk-latest-row.bk-is-new {
-        border-left: 3px solid #2e6da4;
-        border-top: none;
-        padding-left: 12px;
-        margin-left: -15px
+        border-left: none;
+        padding-left: 0;
+        margin-left: 0;
     }
 
     .bk-latest-row-thumb {
