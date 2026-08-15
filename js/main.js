@@ -1,9 +1,8 @@
 // ── SAFETY: escape any text before inserting into innerHTML ──────
-// Article fields (title, category, date) come from the CMS. If a
-// second publisher is ever added, this stops anyone from typing
-// HTML/script tags into a field and having them run in visitors'
-// browsers. Always run CMS text through this before using it inside
-// a template literal that gets assigned to .innerHTML.
+// Article fields (title, category, date) come from the CMS. This
+// prevents HTML/script tags typed into a field from executing in
+// visitors' browsers (XSS). Always run CMS text through this before using 
+// it inside a template literal assigned to .innerHTML.
 function escapeHtml(str) {
     if (str === undefined || str === null) return '';
     return String(str)
@@ -324,9 +323,10 @@ function renderHome() {
 }
 
 // ── CATEGORY PAGE PAGINATION ──────────────────────
-// Every article renders as the same horizontal row — thumbnail beside
-// text, same treatment on mobile and desktop, no separate "top card"
-// section. Reveals in batches of 6, Load More for the rest.
+// First article = hero (image + headline). Everything after = plain
+// divider rows, thumbnail + text, no card box/border/shadow — matches
+// the BBC-style list pattern. Same structure on mobile and desktop;
+// desktop CSS arranges the rows into 2 columns via media query.
 const CATEGORY_ROW_BATCH = 6;
 let categoryPageState = { category: null, visibleRows: CATEGORY_ROW_BATCH };
 
@@ -351,8 +351,30 @@ function filterArticles(category, reset) {
         .filter(function(a) { return a.category === category; })
         .sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
 
-    const rowArticles = filtered.slice(0, categoryPageState.visibleRows);
-    const hasMore = filtered.length > categoryPageState.visibleRows;
+    if (filtered.length === 0) {
+        grid.innerHTML = '<p class="bk-load-error">No stories in this category yet.</p>';
+        grid.style.display = 'block';
+        return;
+    }
+
+    const heroArticle = filtered[0];
+    const remaining = filtered.slice(1);
+    const rowArticles = remaining.slice(0, categoryPageState.visibleRows);
+    const hasMore = remaining.length > categoryPageState.visibleRows;
+
+    const heroHtml = `
+        <a href="article.html?id=${encodeURIComponent(heroArticle.id)}" class="bk-cat-hero-link">
+        <article class="bk-cat-hero" data-category="${escapeHtml(heroArticle.category)}">
+            <div class="bk-cat-hero-image">
+                <img src="${escapeHtml(heroArticle.image)}" alt="${escapeHtml(heroArticle.title)}" loading="lazy">
+            </div>
+            <div class="bk-cat-hero-body">
+                ${heroArticle.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
+                <h3 class="bk-cat-hero-title">${escapeHtml(heroArticle.title)}</h3>
+                <p class="bk-cat-hero-date">${escapeHtml(heroArticle.date)}</p>
+            </div>
+        </article>
+        </a>`;
 
     const rowsHtml = rowArticles.map(function(a) {
         return `
@@ -370,7 +392,8 @@ function filterArticles(category, reset) {
         </a>`;
     }).join('');
 
-    grid.innerHTML = `<div class="bk-cat-row-list">${rowsHtml}</div>`
+    grid.innerHTML = heroHtml
+        + `<div class="bk-cat-row-list">${rowsHtml}</div>`
         + (hasMore ? '<button id="bk-load-more" class="bk-load-more-btn">Load More</button>' : '');
     grid.style.display = 'block';
 
