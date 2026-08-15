@@ -37,11 +37,13 @@ function openNav() {
     hamburgerBtn.classList.add('open');
     bkNav.classList.add('active');
     navOverlay.classList.add('active');
+    document.body.classList.add('bk-nav-open');
 }
 function closeNav() {
     hamburgerBtn.classList.remove('open');
     bkNav.classList.remove('active');
     navOverlay.classList.remove('active');
+    document.body.classList.remove('bk-nav-open');
 }
 
 hamburgerBtn.addEventListener('click', function() {
