@@ -323,22 +323,46 @@ function renderHome() {
     grid.style.display = 'block';
 }
 
+// ── CATEGORY PAGE PAGINATION ──────────────────────
+// Top cards (3 desktop / 1 mobile) are always shown in full — they don't
+// grow via Load More. Only the row list below them paginates, in fixed
+// batches of 6 regardless of device, since rows are already compact.
+const CATEGORY_ROW_BATCH = 6;
+let categoryPageState = { category: null, visibleRows: CATEGORY_ROW_BATCH };
+
 // Single-category view (clicking a category in nav). Breaking badge removed
 // here on purpose — the breaking bar at the top of the site already covers
 // that story; repeating a "Breaking" tag on its card in every category grid
 // it happens to belong to was redundant and looked odd once we saw it live.
-function filterArticles(category) {
+function filterArticles(category, reset) {
+    if (reset === undefined) reset = true;
+
     const grid = document.getElementById('bk-main-grid');
     const label = document.getElementById('bk-active-label');
     document.querySelector('#bk-content .bk-section-head').style.display = '';
 
     label.textContent = category.charAt(0).toUpperCase() + category.slice(1);
 
-    const filtered = allArticles.filter(function(a) {
-        return a.category === category;
-    });
+    if (reset || categoryPageState.category !== category) {
+        categoryPageState = { category: category, visibleRows: CATEGORY_ROW_BATCH };
+    }
 
-    grid.innerHTML = filtered.map(function(a) {
+    const filtered = allArticles
+        .filter(function(a) { return a.category === category; })
+        .sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+
+    // Top cards: 3 on desktop, 1 on mobile — all equal weight, same .bk-card
+    // design as everywhere else on the site. Checked once per render, not
+    // reactively bound to window resize (a deliberate simplicity tradeoff).
+    const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+    const cardCount = isDesktop ? 3 : 1;
+
+    const topCards = filtered.slice(0, cardCount);
+    const remaining = filtered.slice(cardCount);
+    const rowArticles = remaining.slice(0, categoryPageState.visibleRows);
+    const hasMore = remaining.length > categoryPageState.visibleRows;
+
+    const cardsHtml = topCards.map(function(a) {
         return `
         <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-card-link">
         <article class="bk-card" data-category="${escapeHtml(a.category)}">
@@ -354,7 +378,34 @@ function filterArticles(category) {
         </article>
         </a>`;
     }).join('');
-    grid.style.display = 'grid';
+
+    const rowsHtml = rowArticles.map(function(a) {
+        return `
+        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-cat-row-link">
+        <article class="bk-cat-row" data-category="${escapeHtml(a.category)}">
+            <div class="bk-cat-row-thumb">
+                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
+            </div>
+            <div class="bk-cat-row-body">
+                ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
+                <h3 class="bk-cat-row-title">${escapeHtml(a.title)}</h3>
+                <p class="bk-cat-row-date">${escapeHtml(a.date)}</p>
+            </div>
+        </article>
+        </a>`;
+    }).join('');
+
+    grid.innerHTML = `<div class="bk-card-grid">${cardsHtml}</div>`
+        + `<div class="bk-cat-row-list">${rowsHtml}</div>`
+        + (hasMore ? '<button id="bk-load-more" class="bk-load-more-btn">Load More</button>' : '');
+    grid.style.display = 'block';
+
+    if (hasMore) {
+        document.getElementById('bk-load-more').addEventListener('click', function() {
+            categoryPageState.visibleRows += CATEGORY_ROW_BATCH;
+            filterArticles(category, false);
+        });
+    }
 }
 
 // ── SHOW/HIDE HOMEPAGE-ONLY SECTIONS ──────────────
