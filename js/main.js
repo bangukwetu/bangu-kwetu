@@ -486,7 +486,7 @@ let bkLastScroll = 0;
 const bkWaBtn = document.getElementById('bk-whatsapp-float');
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    if (currentScroll > bkLastScroll && currentScroll > 100) {
+    if (currentScroll > bkLastScroll && currentScroll > 100) { 
         bkWaBtn.classList.add('bk-hide');
     } else {
         bkWaBtn.classList.remove('bk-hide');
