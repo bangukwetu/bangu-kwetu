@@ -179,10 +179,18 @@ function updateStickyOffset() {
 
 window.addEventListener('resize', updateStickyOffset);
 
-// ── LEAD — one sitewide pick, "featured" overrides date order same as "breaking" does ──
+// ── LEAD — one sitewide pick, controlled ONLY by "featured". ──
+// "breaking" and "featured" are fully independent, manual flags:
+//   - breaking  → shows in the top banner. Nothing else. Good for alerting
+//                 readers to a fast-moving story before there's enough
+//                 material to justify the big hero treatment.
+//   - featured  → takes the Lead slot. Nothing else.
+// A story can carry both, one, or neither — it's your editorial call each
+// time, not automatic. If a breaking story is ready to be the lead too,
+// just tick "featured" on it yourself; the code won't do it for you, and
+// it won't stop you either.
 function getSitewideLead(articles) {
-    const pool = articles.filter(function(a) { return !a.breaking; });
-    const sorted = [...pool].sort(function(a, b) {
+    const sorted = [...articles].sort(function(a, b) {
         return new Date(b.date) - new Date(a.date);
     });
 
@@ -225,13 +233,13 @@ function renderLead() {
     }).join('');
 }
 
-// ── LATEST — vertical list, excludes today's lead + breaking so it doesn't repeat them ──
+// ── LATEST — vertical list, excludes today's lead so it doesn't repeat it ──
 function renderLatest() {
     const list = document.getElementById('bk-latest-list');
     const lead = getSitewideLead(allArticles)[0];
 
     const pool = allArticles.filter(function(a) {
-        return !a.breaking && (!lead || a.id !== lead.id);
+        return !lead || a.id !== lead.id;
     });
     const latest = getLatestArticles(pool, 3);
 
@@ -313,6 +321,10 @@ function renderHome() {
     grid.style.display = 'block';
 }
 
+// Single-category view (clicking a category in nav). Breaking badge removed
+// here on purpose — the breaking bar at the top of the site already covers
+// that story; repeating a "Breaking" tag on its card in every category grid
+// it happens to belong to was redundant and looked odd once we saw it live.
 function filterArticles(category) {
     const grid = document.getElementById('bk-main-grid');
     const label = document.getElementById('bk-active-label');
@@ -328,7 +340,6 @@ function filterArticles(category) {
         return `
         <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-card-link">
         <article class="bk-card" data-category="${escapeHtml(a.category)}">
-              ${a.breaking ? '<span class="bk-badge-breaking">Breaking</span>' : ''}
             <div class="bk-card-image">
                 <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
             </div>
