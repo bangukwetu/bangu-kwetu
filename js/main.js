@@ -324,9 +324,9 @@ function renderHome() {
 }
 
 // ── CATEGORY PAGE PAGINATION ──────────────────────
-// Top cards (3 desktop / 1 mobile) are always shown in full — they don't
-// grow via Load More. Only the row list below them paginates, in fixed
-// batches of 6 regardless of device, since rows are already compact.
+// Every article renders as the same horizontal row — thumbnail beside
+// text, same treatment on mobile and desktop, no separate "top card"
+// section. Reveals in batches of 6, Load More for the rest.
 const CATEGORY_ROW_BATCH = 6;
 let categoryPageState = { category: null, visibleRows: CATEGORY_ROW_BATCH };
 
@@ -351,33 +351,8 @@ function filterArticles(category, reset) {
         .filter(function(a) { return a.category === category; })
         .sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
 
-    // Top cards: 3 on desktop, 1 on mobile — all equal weight, same .bk-card
-    // design as everywhere else on the site. Checked once per render, not
-    // reactively bound to window resize (a deliberate simplicity tradeoff).
-    const isDesktop = window.matchMedia('(min-width: 769px)').matches;
-    const cardCount = isDesktop ? 3 : 1;
-
-    const topCards = filtered.slice(0, cardCount);
-    const remaining = filtered.slice(cardCount);
-    const rowArticles = remaining.slice(0, categoryPageState.visibleRows);
-    const hasMore = remaining.length > categoryPageState.visibleRows;
-
-    const cardsHtml = topCards.map(function(a) {
-        return `
-        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-card-link">
-        <article class="bk-card" data-category="${escapeHtml(a.category)}">
-            <div class="bk-card-image">
-                <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
-            </div>
-            <div class="bk-card-body">
-                ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
-                <span class="bk-card-cat">${escapeHtml(a.category)}</span>
-                <h3 class="bk-card-title">${escapeHtml(a.title)}</h3>
-                <p class="bk-card-date">${escapeHtml(a.date)}</p>
-            </div>
-        </article>
-        </a>`;
-    }).join('');
+    const rowArticles = filtered.slice(0, categoryPageState.visibleRows);
+    const hasMore = filtered.length > categoryPageState.visibleRows;
 
     const rowsHtml = rowArticles.map(function(a) {
         return `
@@ -395,8 +370,7 @@ function filterArticles(category, reset) {
         </a>`;
     }).join('');
 
-    grid.innerHTML = `<div class="bk-card-grid">${cardsHtml}</div>`
-        + `<div class="bk-cat-row-list">${rowsHtml}</div>`
+    grid.innerHTML = `<div class="bk-cat-row-list">${rowsHtml}</div>`
         + (hasMore ? '<button id="bk-load-more" class="bk-load-more-btn">Load More</button>' : '');
     grid.style.display = 'block';
 

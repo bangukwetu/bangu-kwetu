@@ -1709,3 +1709,7 @@ body.bk-nav-open {
 .bk-load-more-btn{display:block;margin:28px auto 8px;padding:12px 32px;background:#2e6da4;color:#fff;border:none;border-radius:4px;font-family:"Oswald",sans-serif;font-weight:600;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
 .bk-load-more-btn:hover{opacity:.85}
 @media (max-width:768px){.bk-cat-row-thumb{flex:0 0 76px;width:76px;height:76px}}
+[data-theme="dark"] .bk-cat-row{background:#1a1a1a;border-color:#2a2a2a}
+[data-theme="dark"] .bk-cat-row-thumb{background:#2a2a2a}
+[data-theme="dark"] .bk-cat-row-title{color:#e4e6eb}
+[data-theme="dark"] .bk-cat-row-date{color:#aaa}
