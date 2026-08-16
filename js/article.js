@@ -277,7 +277,7 @@ async function loadArticle() {
         document.getElementById('bk-og-title').setAttribute('content', article.title + ' — Bangu Kwetu');
         document.getElementById('bk-og-description').setAttribute('content', metaDesc);
         document.getElementById('bk-og-image').setAttribute('content', article.image);
-        document.getElementById('bk-og-url').setAttribute('content', window.location.href);-url
+        document.getElementById('bk-og-url').setAttribute('content', window.location.href);
         document.getElementById('bk-canonical').setAttribute('href', window.location.href);
 
         // NewsArticle structured data — helps search/AI engines identify this
