@@ -277,7 +277,8 @@ async function loadArticle() {
         document.getElementById('bk-og-title').setAttribute('content', article.title + ' — Bangu Kwetu');
         document.getElementById('bk-og-description').setAttribute('content', metaDesc);
         document.getElementById('bk-og-image').setAttribute('content', article.image);
-        document.getElementById('bk-og-url').setAttribute('content', window.location.href);
+        document.getElementById('bk-og-url').setAttribute('content', window.location.href);-url
+        document.getElementById('bk-canonical').setAttribute('href', window.location.href);
 
         // NewsArticle structured data — helps search/AI engines identify this
         // as a news article, its headline, image, and publish date.
@@ -287,6 +288,7 @@ async function loadArticle() {
             "headline": article.title,
             "image": [article.image],
             "datePublished": article.date,
+            "dateModified": article.updated || article.date,
             "author": {
                 "@type": "Organization",
                 "name": "Bangu Kwetu"

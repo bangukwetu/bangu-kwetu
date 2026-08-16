@@ -31,6 +31,7 @@ collections:
               - { label: ID, name: id, widget: string, hint: "Unique, e.g. news-004, no spaces" }
               - { label: Title, name: title, widget: string, pattern: ['^.{1,80}$', "Keep titles under 80 characters so they don't wrap awkwardly on cards."] }
               - { label: Date, name: date, widget: string }
+              - { label: Last Updated, name: updated, widget: string, required: false, hint: "Only fill this in if you edit the article after publishing. Leave blank otherwise." }
               - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi] }
               - { label: Image, name: image, widget: image }
               - { label: Excerpt, name: desc, widget: text, required: false, pattern: ['^.{0,160}$', "Keep excerpts under 160 characters — this is also used as the social-share description, and longer text gets cut off on WhatsApp/Google anyway."], hint: "Also used as the search-preview and social-share description for this article." }
