@@ -1725,3 +1725,8 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-cat-hero-title,[data-theme="dark"] .bk-cat-row-title{color:#e4e6eb}
 [data-theme="dark"] .bk-cat-hero-date,[data-theme="dark"] .bk-cat-row-date{color:#aaa}
 [data-theme="dark"] .bk-cat-row{border-bottom-color:#2a2a2a}
+
+.bk-secondary-item:hover .bk-secondary-title{color:#2b2d42}
+.bk-secondary-item:hover .bk-secondary-date{color:#888}
+[data-theme="dark"] .bk-secondary-item:hover .bk-secondary-title{color:#e4e6eb}
+[data-theme="dark"] .bk-secondary-item:hover .bk-secondary-date{color:#aaa}

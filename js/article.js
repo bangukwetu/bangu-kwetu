@@ -91,6 +91,12 @@ function renderMarkdownBody(content, container) {
             text = trimmed.replace(/^#\s+/, '');
         }
 
+        // A stray "#" with no real text after it (e.g. leftover from a
+        // paste, or typed as a section-break) would otherwise still create
+        // an empty heading element — headings carry their own spacing even
+        // with nothing inside, which shows up as a blank gap in the article.
+        if (text.trim() === '') return;
+
         const el = document.createElement(tag);
         el.innerHTML = renderInlineMarkdown(text);
         container.appendChild(el);
@@ -119,11 +125,13 @@ function openNav() {
     hamburgerBtn.classList.add('open');
     bkNav.classList.add('active');
     navOverlay.classList.add('active');
+    document.body.classList.add('bk-nav-open');
 }
 function closeNav() {
     hamburgerBtn.classList.remove('open');
     bkNav.classList.remove('active');
     navOverlay.classList.remove('active');
+    document.body.classList.remove('bk-nav-open');
 }
 
 hamburgerBtn.addEventListener('click', function () {
@@ -210,9 +218,21 @@ document.addEventListener('keydown', function (e) {
 
 let bkLastScroll = 0;
 const bkWaBtn = document.getElementById('bk-whatsapp-float');
+// Ignores scroll movements smaller than this — mobile touch-scroll momentum
+// causes small up/down jitter even during steady downward scrolling.
+const BK_SCROLL_THRESHOLD = 8;
 window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    if (currentScroll > bkLastScroll && currentScroll > 100) {
+    // Clamp to the page's real scrollable range — mobile browsers "bounce"
+    // past the top/bottom edge (rubber-band overscroll), which otherwise
+    // reads as a false scroll-up signal and brings the button back even
+    // while still actively scrolling down.
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    let currentScroll = window.pageYOffset;
+    currentScroll = Math.max(0, Math.min(currentScroll, maxScroll));
+
+    const delta = currentScroll - bkLastScroll;
+    if (Math.abs(delta) < BK_SCROLL_THRESHOLD) return;
+    if (delta > 0 && currentScroll > 100) {
         bkWaBtn.classList.add('bk-hide');
     } else {
         bkWaBtn.classList.remove('bk-hide');
