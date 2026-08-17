@@ -70,7 +70,9 @@ body {
     position: sticky;
     top: 0;
     z-index: 200;
-    box-shadow: 0 3px 16px rgba(46, 109, 164, 0.3)
+    box-shadow: 0 3px 16px rgba(46, 109, 164, 0.3);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .bk-header {
@@ -363,7 +365,9 @@ body.bk-nav-open {
     top: var(--bk-header-offset, 64px);
     z-index: 90;
     background: #ffffff;
-    border-top: 1px solid #dde5ed
+    border-top: 1px solid #dde5ed;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 #bk-cat-nav-inner {
@@ -1484,6 +1488,8 @@ body.bk-nav-open {
     background: none;
     cursor: pointer;
     transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     -webkit-appearance: none;
     appearance: none;
     outline: none;
