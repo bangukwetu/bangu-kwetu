@@ -1158,8 +1158,7 @@ body.bk-nav-open {
     gap: 9px
 }
 
-
-.bk-social {bk-footer-links li {
+.bk-footer-links li {
     font-size: 13px;
     color: #ffffff
 }
@@ -1171,21 +1170,25 @@ body.bk-nav-open {
     transition: color 0.2s
 }
 
-.bk-footer-links a
+.bk-footer-links a:hover {
+    color: rgba(255, 255, 255, 0.7)
+}
+
 .bk-social-links {
     display: flex;
     flex-direction: column;
     gap: 9px
 }
 
+.bk-social-links a {
     font-size: 13px;
     color: #ffffff;
     text-decoration: none;
     transition: color 0.2s
 }
 
-.bk-social:hover {
-    color: #ffffff
+.bk-social-links a:hover {
+    color: rgba(255, 255, 255, 0.7)
 }
 
 .bk-footer-bottom {
