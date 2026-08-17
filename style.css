@@ -1147,9 +1147,6 @@ body.bk-nav-open {
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1)
 }
-:hover {
-    color: #ffffff
-}
 
 .bk-footer-links {
     list-style: none;
@@ -1686,7 +1683,7 @@ body.bk-nav-open {
   color: #e0b84a;
   border-color: #e0b84a;
 }
-[data-theme="dark"] .bk-cat-link.active::after {
+[data-theme="dark"] .bk-cat-link.active::after { 
   background: #5a9fd4;
 }
 [data-theme="dark"] .bk-cat-link.active {
