@@ -13,6 +13,15 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
+// Converts a stored YYYY-MM-DD date into a readable display format,
+// e.g. "2026-08-18" -> "August 18, 2026". Storage stays ISO (for
+// reliable sorting); only the on-screen text changes.
+function formatDisplayDate(isoDate) {
+    const d = new Date(isoDate + 'T00:00:00');
+    if (isNaN(d)) return isoDate;
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
 // ── THEME TOGGLE ───────────────────────────────────
 const themeToggle = document.getElementById('bk-theme-toggle');
 themeToggle.addEventListener('click', function () {
@@ -217,7 +226,7 @@ function renderLead() {
     document.getElementById('bk-lead-image').alt = lead.title;
     document.getElementById('bk-lead-cat').textContent = lead.category;
     document.getElementById('bk-lead-title').textContent = lead.title;
-    document.getElementById('bk-lead-date').textContent = lead.date;
+    document.getElementById('bk-lead-date').textContent = formatDisplayDate(lead.date);
 
     const secondaryList = document.getElementById('bk-secondary-list');
     secondaryList.innerHTML = secondary.map(function(a) {
@@ -228,7 +237,7 @@ function renderLead() {
             </div>
             <div class="bk-secondary-body">
                 <h4 class="bk-secondary-title">${escapeHtml(a.title)}</h4>
-                <span class="bk-secondary-date">${escapeHtml(a.date)}</span>
+                <span class="bk-secondary-date">${formatDisplayDate(a.date)}</span>
             </div>
         </a>`;
     }).join('');
@@ -252,7 +261,7 @@ function renderLatest() {
             </div>
             <div class="bk-latest-row-body">
                 <h4 class="bk-latest-row-title">${escapeHtml(a.title)}</h4>
-                <span class="bk-latest-row-date">${escapeHtml(a.date)}</span>
+                <span class="bk-latest-row-date">${formatDisplayDate(a.date)}</span>
             </div>
         </a>`;
     }).join('');
@@ -309,7 +318,7 @@ function renderHome() {
                             ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
                             <span class="bk-card-cat">${escapeHtml(a.category)}</span>
                             <h3 class="bk-card-title">${escapeHtml(a.title)}</h3>
-                            <p class="bk-card-date">${escapeHtml(a.date)}</p>
+                            <p class="bk-card-date">${formatDisplayDate(a.date)}</p>
                         </div>
                     </article>
                     </a>`;
@@ -371,7 +380,7 @@ function filterArticles(category, reset) {
             <div class="bk-cat-hero-body">
                 ${heroArticle.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
                 <h3 class="bk-cat-hero-title">${escapeHtml(heroArticle.title)}</h3>
-                <p class="bk-cat-hero-date">${escapeHtml(heroArticle.date)}</p>
+                <p class="bk-cat-hero-date">${formatDisplayDate(heroArticle.date)}</p>
             </div>
         </article>
         </a>`;
@@ -386,7 +395,7 @@ function filterArticles(category, reset) {
             <div class="bk-cat-row-body">
                 ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
                 <h3 class="bk-cat-row-title">${escapeHtml(a.title)}</h3>
-                <p class="bk-cat-row-date">${escapeHtml(a.date)}</p>
+                <p class="bk-cat-row-date">${formatDisplayDate(a.date)}</p>
             </div>
         </article>
         </a>`;

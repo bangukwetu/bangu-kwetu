@@ -18,27 +18,29 @@ media_libraries:
 collections:
   - name: articles
     label: Articles
-    files:
-      - name: articles
-        label: All Articles
-        file: data/articles.json
-        fields:
-          - label: Articles
-            name: articles
-            widget: list
-            summary: "{{fields.title}}"
-            fields:
-              - { label: ID, name: id, widget: string, hint: "Unique, e.g. news-004, no spaces" }
-              - { label: Title, name: title, widget: string, pattern: ['^.{1,80}$', "Keep titles under 80 characters so they don't wrap awkwardly on cards."] }
-              - { label: Date, name: date, widget: string }
-              - { label: Last Updated, name: updated, widget: string, required: false, hint: "Only fill this in if you edit the article after publishing. Leave blank otherwise." }
-              - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi] }
-              - { label: Image, name: image, widget: image }
-              - { label: Excerpt, name: desc, widget: text, required: false, pattern: ['^.{0,160}$', "Keep excerpts under 160 characters — this is also used as the social-share description, and longer text gets cut off on WhatsApp/Google anyway."], hint: "Also used as the search-preview and social-share description for this article." }
-              - { label: Body, name: content, widget: markdown, required: false }
-              - { label: Breaking News, name: breaking, widget: boolean, default: false }
-              - { label: Featured, name: featured, widget: boolean, default: false }
-              - { label: Sponsored, name: sponsored, widget: boolean, default: false }
+    folder: content/articles
+    create: true
+    slug: "{{fields.id}}"
+    sortable_fields: [date, updated, title]
+    view_filters:
+      - { label: Breaking, field: breaking, pattern: true }
+      - { label: Featured, field: featured, pattern: true }
+      - { label: Sponsored, field: sponsored, pattern: true }
+    view_groups:
+      - { label: Category, field: category }
+    summary: "{{title}} — {{category}} · {{date}}"
+    fields:
+      - { label: ID, name: id, widget: string, hint: "Unique, e.g. news-004, no spaces. This becomes the filename — set it once and don't change it later." }
+      - { label: Title, name: title, widget: string, pattern: ['^.{1,80}$', "Keep titles under 80 characters so they don't wrap awkwardly on cards."] }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, hint: "Tap to pick the publish date." }
+      - { label: Last Updated, name: updated, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false, hint: "Only set this if you edit the article after publishing. Leave blank otherwise." }
+      - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi] }
+      - { label: Image, name: image, widget: image }
+      - { label: Excerpt, name: desc, widget: text, required: false, pattern: ['^.{0,160}$', "Keep excerpts under 160 characters — this is also used as the search-preview and social-share description, and longer text gets cut off on WhatsApp/Google anyway."], hint: "Also used as the search-preview and social-share description for this article." }
+      - { label: Body, name: content, widget: markdown, required: false }
+      - { label: Breaking News, name: breaking, widget: boolean, default: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Sponsored, name: sponsored, widget: boolean, default: false }
 
   - name: shujaa
     label: Shujaa wa Siku

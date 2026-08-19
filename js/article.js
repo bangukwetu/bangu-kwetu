@@ -1,3 +1,11 @@
+// Converts a stored YYYY-MM-DD date into a readable display format,
+// e.g. "2026-08-18" -> "August 18, 2026". Storage stays ISO (for
+// reliable sorting); only the on-screen text changes.
+function formatDisplayDate(isoDate) {
+    const d = new Date(isoDate + 'T00:00:00');
+    if (isNaN(d)) return isoDate; // fallback: show raw value rather than break
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
 // ── SAFETY: escape any text before inserting into innerHTML ──────
 function escapeHtml(str) {
     if (str === undefined || str === null) return '';
@@ -266,7 +274,7 @@ async function loadArticle() {
         document.getElementById('bk-page-title').textContent = article.title + ' — Bangu Kwetu';
         document.getElementById('bk-article-cat').textContent = article.category;
         document.getElementById('bk-article-title').textContent = article.title;
-        document.getElementById('bk-article-date').textContent = article.date;
+        document.getElementById('bk-article-date').textContent = formatDisplayDate(article.date);
         document.getElementById('bk-article-image').src = article.image;
         document.getElementById('bk-article-image').alt = article.title;
 
