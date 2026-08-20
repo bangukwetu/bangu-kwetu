@@ -20,6 +20,8 @@ collections:
     label: Articles
     folder: content/articles
     create: true
+    extension: json
+    format: json
     slug: "{{fields.id}}"
     sortable_fields: [date, updated, title]
     view_filters:
