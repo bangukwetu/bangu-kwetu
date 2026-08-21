@@ -134,6 +134,7 @@ async function loadArticles() {
         renderLead();
         renderLatest();
         renderHome();
+        applyCategoryFromUrl();
     } catch (err) {
         console.error('Could not load articles:', err);
         const grid = document.getElementById('bk-main-grid');
@@ -424,6 +425,23 @@ function setHomepageSectionsVisible(visible) {
     document.getElementById('bk-shujaa-section').style.display = display;
 }
 
+// ── APPLY CATEGORY FROM URL ────────────────────────
+// Reads ?cat= from the URL on page load. This is what lets a category link
+// clicked from article.html (or anywhere off-page) land directly on the
+// right filtered category instead of always falling back to Home — index.html
+// on its own has no way of knowing which category you meant to see otherwise.
+function applyCategoryFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat');
+    if (!cat || cat === 'home') return;
+
+    document.querySelectorAll('.bk-cat-link').forEach(function (l) {
+        l.classList.toggle('active', l.getAttribute('data-cat') === cat);
+    });
+    setHomepageSectionsVisible(false);
+    filterArticles(cat);
+}
+
 // Homepage-only features (lead/latest/shujaa/category grid) only exist on index.html.
 // On other pages (about/contact/privacy) these elements are absent, so we skip
 // initializing them and let category links navigate normally instead of erroring.
@@ -490,12 +508,12 @@ async function loadShujaa() {
     document.getElementById('bk-shujaa-avatar').alt = s.name;
 }
 
-// WhatsApp button hide-on-scroll-down
+// ── WHATSAPP FLOAT — hide on scroll down, show on scroll up ──
 let bkLastScroll = 0;
 const bkWaBtn = document.getElementById('bk-whatsapp-float');
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    if (currentScroll > bkLastScroll && currentScroll > 100) { 
+    if (currentScroll > bkLastScroll && currentScroll > 100) {
         bkWaBtn.classList.add('bk-hide');
     } else {
         bkWaBtn.classList.remove('bk-hide');
