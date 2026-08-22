@@ -31,6 +31,13 @@ body {
     padding: 0 24px
 }
 
+/* ============================================
+   BREAKING BANNER — REPLACE the existing
+   #bk-breaking-banner rule with this one, then
+   ADD everything below it (dot, chevron, time,
+   dismiss button, pulse animation).
+   ============================================ */
+
 #bk-breaking-banner {
     display: none;
     align-items: center;
@@ -44,25 +51,92 @@ body {
     z-index: 210
 }
 
-#bk-breaking-banner .bk-breaking-label {
-    font-family: "Oswald", sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    background: rgba(255, 255, 255, 0.18);
-    padding: 2px 9px;
-    border-radius: 3px;
-    font-size: 11px;
-    flex-shrink: 0
-}
-
 #bk-breaking-banner a {
     color: #ffffff;
-    text-decoration: none
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden
 }
 
-#bk-breaking-banner a:hover {
+#bk-breaking-banner a:hover .bk-breaking-title {
     text-decoration: underline
+}
+
+.bk-breaking-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.bk-breaking-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ffffff;
+    flex-shrink: 0;
+    animation: bkBreakingPulse 1.6s ease-in-out infinite
+}
+
+@keyframes bkBreakingPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bk-breaking-dot {
+        animation: none
+    }
+}
+
+.bk-breaking-chevron {
+    flex-shrink: 0;
+    opacity: 0.8
+}
+
+.bk-breaking-time {
+    flex-shrink: 0;
+    opacity: 0.85;
+    font-size: 12px;
+    white-space: nowrap
+}
+
+.bk-breaking-dismiss {
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    flex-shrink: 0;
+    opacity: 0.85;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -10px -10px -10px 0;
+    padding: 0
+}
+
+.bk-breaking-dismiss:hover,
+.bk-breaking-dismiss:focus-visible {
+    opacity: 1
+}
+
+@media (max-width: 480px) {
+    #bk-breaking-banner {
+        padding: 8px 12px;
+        gap: 8px;
+        font-size: 12.5px
+    }
+
+    .bk-breaking-time {
+        display: none
+    }
 }
 
 .bk-header-block {

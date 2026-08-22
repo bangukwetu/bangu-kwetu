@@ -27,6 +27,12 @@
 <body>
 
     <div class="bk-header-block">
+
+        <!-- BREAKING — always above the header, only renders when a story is flagged
+             breaking. Shows on article pages too, even if it's a different story than
+             the one currently being read — standard behavior across major news sites. -->
+        <div id="bk-breaking-banner" aria-live="polite"></div>
+
         <header class="bk-header">
             <div class="bk-container">
                 <div class="bk-logo">

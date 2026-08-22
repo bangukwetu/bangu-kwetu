@@ -22,6 +22,51 @@ function formatDisplayDate(isoDate) {
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
+// ── BREAKING BANNER TIME LABEL ─────────────────────
+// Articles only store a day-level date (no time-of-day), so true
+// "2h ago" precision isn't available without adding a datetime field to
+// the CMS. Three tiers instead:
+//   - published today      → no label at all (redundant — "breaking"
+//                             already implies recent; the pulsing dot
+//                             alone signals "live")
+//   - published yesterday  → "Yesterday"
+//   - older (flag forgotten in CMS) → full absolute date, same format
+//                             used everywhere else on the site
+// Returns '' (empty string) for "today" so the caller can skip rendering
+// the time element entirely rather than showing a redundant label.
+function formatBreakingTime(isoDate) {
+    const d = new Date(isoDate + 'T00:00:00');
+    const now = new Date();
+    const startOfDay = function (dt) {
+        return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    };
+    const diffDays = Math.round((startOfDay(now) - startOfDay(d)) / 86400000);
+    if (diffDays <= 0) return '';
+    if (diffDays === 1) return 'Yesterday';
+    return formatDisplayDate(isoDate);
+}
+
+// ── BREAKING BANNER DISMISS (session-scoped) ──────
+// Dismissal is keyed to the specific article's id, not just "banner
+// dismissed" — so dismissing today's breaking story won't suppress a
+// different story that goes breaking later in the same session.
+function isBreakingDismissed(id) {
+    try {
+        return sessionStorage.getItem('bk-dismissed-breaking') === id;
+    } catch (e) {
+        return false;
+    }
+}
+
+function dismissBreaking(id) {
+    try {
+        sessionStorage.setItem('bk-dismissed-breaking', id);
+    } catch (e) {
+        // sessionStorage unavailable (e.g. private mode edge cases) —
+        // banner just won't remember the dismissal, not a functional break.
+    }
+}
+
 // ── THEME TOGGLE ───────────────────────────────────
 const themeToggle = document.getElementById('bk-theme-toggle');
 themeToggle.addEventListener('click', function () {
@@ -158,22 +203,47 @@ function getLatestBreaking(articles) {
 }
 
 // ── BREAKING — thin text bar above the header, not a card ──
+// Single story only, no rotation — if more than one article is flagged
+// breaking, only the newest is shown; older breaking flags are silently
+// superseded. Dismissible per-session, keyed to the article id so a new
+// breaking story always gets a fresh chance to be seen even if a
+// previous one was dismissed earlier in the same session.
 function renderBreakingBanner() {
     const container = document.getElementById('bk-breaking-banner');
+    if (!container) return;
+
     const breaking = getLatestBreaking(allArticles);
 
-    if (!breaking) {
+    if (!breaking || isBreakingDismissed(breaking.id)) {
         container.style.display = 'none';
         container.innerHTML = '';
         updateStickyOffset();
         return;
     }
 
+    const timeLabel = formatBreakingTime(breaking.date);
+    const timeHtml = timeLabel ? `<span class="bk-breaking-time">${escapeHtml(timeLabel)}</span>` : '';
+
     container.style.display = 'flex';
     container.innerHTML = `
+        <span class="bk-breaking-dot" aria-hidden="true"></span>
         <span class="bk-breaking-label">Breaking</span>
-        <a href="article.html?id=${encodeURIComponent(breaking.id)}">${escapeHtml(breaking.title)}</a>
+        <a href="article.html?id=${encodeURIComponent(breaking.id)}">
+            <span class="bk-breaking-title">${escapeHtml(breaking.title)}</span>
+            <span class="bk-breaking-chevron" aria-hidden="true">→</span>
+        </a>
+        ${timeHtml}
+        <button type="button" class="bk-breaking-dismiss" id="bk-breaking-dismiss" aria-label="Dismiss breaking news">✕</button>
     `;
+
+    const dismissBtn = document.getElementById('bk-breaking-dismiss');
+    dismissBtn.addEventListener('click', function () {
+        dismissBreaking(breaking.id);
+        container.style.display = 'none';
+        container.innerHTML = '';
+        updateStickyOffset();
+    });
+
     updateStickyOffset();
 }
 
@@ -294,7 +364,7 @@ function renderHome() {
     let html = '';
 
     categories.forEach(function(cat) {
-        const cardsRaw = allArticles.filter(function(a) {
+        const cardsRaw = allArticles.filter(function(a) { 
             return a.category === cat;
         });
 
@@ -418,7 +488,7 @@ function filterArticles(category, reset) {
 // ── SHOW/HIDE HOMEPAGE-ONLY SECTIONS ──────────────
 // Lead+Secondary, Latest, and Shujaa are editorial picks for the whole site —
 // they don't belong to any single category, so they only show on Home.
-function setHomepageSectionsVisible(visible) {
+    function setHomepageSectionsVisible(visible) {
     const display = visible ? '' : 'none';
     document.getElementById('bk-lead-section').style.display = display;
     document.getElementById('bk-latest-section').style.display = display;
@@ -519,4 +589,5 @@ window.addEventListener('scroll', () => {
         bkWaBtn.classList.remove('bk-hide');
     }
     bkLastScroll = currentScroll;
+
 });

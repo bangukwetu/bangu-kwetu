@@ -111,6 +111,112 @@ function renderMarkdownBody(content, container) {
     });
 }
 
+// ── BREAKING BANNER TIME LABEL ─────────────────────
+// Articles only store a day-level date (no time-of-day), so true
+// "2h ago" precision isn't available without adding a datetime field to
+// the CMS. Three tiers instead:
+//   - published today      → no label at all (redundant — "breaking"
+//                             already implies recent; the pulsing dot
+//                             alone signals "live")
+//   - published yesterday  → "Yesterday"
+//   - older (flag forgotten in CMS) → full absolute date, same format
+//                             used everywhere else on the site
+// Returns '' (empty string) for "today" so the caller can skip rendering
+// the time element entirely rather than showing a redundant label.
+function formatBreakingTime(isoDate) {
+    const d = new Date(isoDate + 'T00:00:00');
+    const now = new Date();
+    const startOfDay = function (dt) {
+        return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    };
+    const diffDays = Math.round((startOfDay(now) - startOfDay(d)) / 86400000);
+    if (diffDays <= 0) return '';
+    if (diffDays === 1) return 'Yesterday';
+    return formatDisplayDate(isoDate);
+}
+
+// ── BREAKING BANNER DISMISS (session-scoped) ──────
+// Dismissal is keyed to the specific article's id, not just "banner
+// dismissed" — so dismissing today's breaking story won't suppress a
+// different story that goes breaking later in the same session. Shared
+// key with main.js so a dismissal on the homepage also applies here,
+// and vice versa.
+function isBreakingDismissed(id) {
+    try {
+        return sessionStorage.getItem('bk-dismissed-breaking') === id;
+    } catch (e) {
+        return false;
+    }
+}
+
+function dismissBreaking(id) {
+    try {
+        sessionStorage.setItem('bk-dismissed-breaking', id);
+    } catch (e) {
+        // sessionStorage unavailable — banner just won't remember the
+        // dismissal, not a functional break.
+    }
+}
+
+function getLatestBreaking(articles) {
+    return [...articles]
+        .filter(function (a) { return a.breaking; })
+        .sort(function (a, b) { return new Date(b.date) - new Date(a.date); })[0] || null;
+}
+
+// Keeps #bk-cat-nav pinned directly below the header block, whether or not
+// the breaking banner is currently showing.
+function updateStickyOffset() {
+    const headerBlock = document.querySelector('.bk-header-block');
+    if (headerBlock) {
+        document.documentElement.style.setProperty('--bk-header-offset', headerBlock.offsetHeight + 'px');
+    }
+}
+window.addEventListener('resize', updateStickyOffset);
+
+// ── BREAKING — shows on article pages too, even for a different story ──
+// A reader deep in one article might not know something else just broke —
+// this is standard behavior across major news sites, not specific to the
+// story currently being read.
+function renderBreakingBanner() {
+    const container = document.getElementById('bk-breaking-banner');
+    if (!container) return;
+
+    const breaking = getLatestBreaking(allArticles);
+
+    if (!breaking || isBreakingDismissed(breaking.id)) {
+        container.style.display = 'none';
+        container.innerHTML = '';
+        updateStickyOffset();
+        return;
+    }
+
+    const timeLabel = formatBreakingTime(breaking.date);
+    const timeHtml = timeLabel ? `<span class="bk-breaking-time">${escapeHtml(timeLabel)}</span>` : '';
+
+    container.style.display = 'flex';
+    container.innerHTML = `
+        <span class="bk-breaking-dot" aria-hidden="true"></span>
+        <span class="bk-breaking-label">Breaking</span>
+        <a href="article.html?id=${encodeURIComponent(breaking.id)}">
+            <span class="bk-breaking-title">${escapeHtml(breaking.title)}</span>
+            <span class="bk-breaking-chevron" aria-hidden="true">→</span>
+        </a>
+        ${timeHtml}
+        <button type="button" class="bk-breaking-dismiss" id="bk-breaking-dismiss" aria-label="Dismiss breaking news">✕</button>
+    `;
+
+    const dismissBtn = document.getElementById('bk-breaking-dismiss');
+    dismissBtn.addEventListener('click', function () {
+        dismissBreaking(breaking.id);
+        container.style.display = 'none';
+        container.innerHTML = '';
+        updateStickyOffset();
+    });
+
+    updateStickyOffset();
+}
+
 // ── THEME TOGGLE ───────────────────────────────────
 const themeToggle = document.getElementById('bk-theme-toggle');
 themeToggle.addEventListener('click', function () {
@@ -160,7 +266,7 @@ const searchInput = document.getElementById('bk-search-input');
 const searchResults = document.getElementById('bk-search-results');
 
 // Article pages never load the full article list elsewhere, so search
-// needs its own fetch of articles.json to have something to filter.
+// (and now the breaking banner) needs its own fetch of articles.json.
 let allArticles = [];
 
 async function loadArticlesForSearch() {
@@ -168,6 +274,7 @@ async function loadArticlesForSearch() {
         const response = await fetch('data/articles.json');
         if (!response.ok) throw new Error('Network response was not ok');
         allArticles = (await response.json()).articles;
+        renderBreakingBanner();
     } catch (err) {
         console.error('Could not load articles for search:', err);
     }
