@@ -196,8 +196,10 @@ function renderBreakingBanner() {
 
     container.style.display = 'flex';
     container.innerHTML = `
-        <span class="bk-breaking-dot" aria-hidden="true"></span>
-        <span class="bk-breaking-label">Breaking</span>
+        <span class="bk-breaking-badge">
+            <span class="bk-breaking-dot" aria-hidden="true"></span>
+            <span class="bk-breaking-label">Breaking</span>
+        </span>
         <a href="article.html?id=${encodeURIComponent(breaking.id)}">
             <span class="bk-breaking-title">${escapeHtml(breaking.title)}</span>
             <span class="bk-breaking-chevron" aria-hidden="true">→</span>

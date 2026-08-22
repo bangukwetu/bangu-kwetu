@@ -226,8 +226,10 @@ function renderBreakingBanner() {
 
     container.style.display = 'flex';
     container.innerHTML = `
-        <span class="bk-breaking-dot" aria-hidden="true"></span>
-        <span class="bk-breaking-label">Breaking</span>
+        <span class="bk-breaking-badge">
+            <span class="bk-breaking-dot" aria-hidden="true"></span>
+            <span class="bk-breaking-label">Breaking</span>
+        </span>
         <a href="article.html?id=${encodeURIComponent(breaking.id)}">
             <span class="bk-breaking-title">${escapeHtml(breaking.title)}</span>
             <span class="bk-breaking-chevron" aria-hidden="true">→</span>
@@ -325,7 +327,7 @@ function renderLatest() {
     const latest = getLatestArticles(pool, 3);
 
     list.innerHTML = latest.map(function(a) {
-        return `
+       return `
         <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-latest-row">
             <div class="bk-latest-row-thumb">
                 <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
@@ -364,7 +366,7 @@ function renderHome() {
     let html = '';
 
     categories.forEach(function(cat) {
-        const cardsRaw = allArticles.filter(function(a) { 
+        const cardsRaw = allArticles.filter(function(a) {
             return a.category === cat;
         });
 
@@ -488,7 +490,7 @@ function filterArticles(category, reset) {
 // ── SHOW/HIDE HOMEPAGE-ONLY SECTIONS ──────────────
 // Lead+Secondary, Latest, and Shujaa are editorial picks for the whole site —
 // they don't belong to any single category, so they only show on Home.
-    function setHomepageSectionsVisible(visible) {
+function setHomepageSectionsVisible(visible) {
     const display = visible ? '' : 'none';
     document.getElementById('bk-lead-section').style.display = display;
     document.getElementById('bk-latest-section').style.display = display;
@@ -589,5 +591,4 @@ window.addEventListener('scroll', () => {
         bkWaBtn.classList.remove('bk-hide');
     }
     bkLastScroll = currentScroll;
-
 });
