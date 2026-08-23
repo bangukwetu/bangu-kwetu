@@ -359,7 +359,17 @@ window.addEventListener('scroll', () => {
 
 async function loadArticle() {
     const params = new URLSearchParams(window.location.search);
-    const articleId = params.get('id');
+    let articleId = params.get('id');
+
+    // Clean URL support: /gikomba-market-redevelopment-nairobi-7000-traders
+    // Falls back to this only if no ?id= was found, so old-style links
+    // (article.html?id=...) already shared or indexed keep working.
+    if (!articleId) {
+        const path = window.location.pathname.replace(/^\/+/, '').replace(/\.html$/, '');
+        if (path && path !== 'article') {
+            articleId = decodeURIComponent(path);
+        }
+    }
 
     const notFoundBlock = document.getElementById('bk-article-notfound');
     const contentBlock = document.getElementById('bk-article-content');
@@ -369,10 +379,8 @@ async function loadArticle() {
         return;
     }
 
-    // Canonical, share, and copy-link URLs always point to the live
-    // custom domain — never window.location.href, which would leak the
-    // pages.dev URL if someone lands there before the redirect fires.
-    const canonicalUrl = `https://bangukwetu.co.ke/article.html?id=${encodeURIComponent(articleId)}`;
+    // Canonical, share, and copy-link URLs now use the clean slug format.
+    const canonicalUrl = `https://bangukwetu.co.ke/${encodeURIComponent(articleId)}`;
 
     try {
         const response = await fetch('data/articles.json');
