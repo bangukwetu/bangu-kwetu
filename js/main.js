@@ -462,7 +462,7 @@ function filterArticles(category, reset) {
         return `
         <a href="/${encodeURIComponent(a.id)}" class="bk-cat-row-link">
         <article class="bk-cat-row" data-category="${escapeHtml(a.category)}">
-            <div class="bk-cat-row-thumb">
+            <div class="bk-cat-row-thumb"> 
                 <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
             </div>
             <div class="bk-cat-row-body">
