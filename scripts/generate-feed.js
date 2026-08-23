@@ -28,8 +28,11 @@ const sorted = [...articles]
   .sort((a, b) => new Date(b.date) - new Date(a.date))
   .slice(0, MAX_ITEMS);
 
+// URLs use the clean slug format (e.g. /gikomba-market-redevelopment-...)
+// served by functions/[slug].js, matching what canonical tags and
+// share/copy-link buttons on the site already output.
 const items = sorted.map(a => {
-  const url = `${SITE_URL}/article.html?id=${encodeURIComponent(a.id)}`;
+  const url = `${SITE_URL}/${encodeURIComponent(a.id)}`;
   return `    <item>
       <title>${escapeXml(a.title)}</title>
       <link>${url}</link>

@@ -53,10 +53,13 @@ function generateSitemap() {
 
     // Articles get a higher priority than static pages (0.8) since they're
     // the site's core content. dateModified falls back to date, matching
-    // the same pattern already used in article.js's JSON-LD.
+    // the same pattern already used in article.js's JSON-LD. URLs use the
+    // clean slug format (e.g. /gikomba-market-redevelopment-...) served by
+    // functions/[slug].js, matching what canonical tags and share/copy-link
+    // buttons already output.
     const articleEntries = articles.map((a) =>
         buildUrlEntry({
-            loc: `${SITE_URL}/article.html?id=${encodeURIComponent(a.id)}`,
+            loc: `${SITE_URL}/${encodeURIComponent(a.id)}`,
             lastmod: a.updated || a.date,
             changefreq: 'weekly',
             priority: '0.8',

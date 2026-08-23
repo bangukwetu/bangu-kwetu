@@ -160,7 +160,7 @@ searchInput.addEventListener('input', function() {
         searchResults.innerHTML = '<div class="bk-search-no-results">No results found</div>';
     } else {
         searchResults.innerHTML = matches.map(function(a) {
-            return `<a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-search-result-item">${escapeHtml(a.title)}</a>`;
+            return `<a href="/${encodeURIComponent(a.id)}" class="bk-search-result-item">${escapeHtml(a.title)}</a>`;
         }).join('');
     }
 
@@ -230,7 +230,7 @@ function renderBreakingBanner() {
             <span class="bk-breaking-dot" aria-hidden="true"></span>
             <span class="bk-breaking-label">Breaking</span>
         </span>
-        <a href="article.html?id=${encodeURIComponent(breaking.id)}">
+        <a href="/${encodeURIComponent(breaking.id)}">
             <span class="bk-breaking-title">${escapeHtml(breaking.title)}</span>
             <span class="bk-breaking-chevron" aria-hidden="true">→</span>
         </a>
@@ -294,7 +294,7 @@ function renderLead() {
     const secondary = cards.slice(1, 4); // 2–3 secondary items
 
     const leadCard = document.getElementById('bk-lead-card');
-    leadCard.href = `article.html?id=${lead.id}`;
+    leadCard.href = `/${encodeURIComponent(lead.id)}`;
     document.getElementById('bk-lead-image').src = lead.image;
     document.getElementById('bk-lead-image').alt = lead.title;
     document.getElementById('bk-lead-cat').textContent = lead.category;
@@ -304,7 +304,7 @@ function renderLead() {
     const secondaryList = document.getElementById('bk-secondary-list');
     secondaryList.innerHTML = secondary.map(function(a) {
         return `
-        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-secondary-item">
+        <a href="/${encodeURIComponent(a.id)}" class="bk-secondary-item">
             <div class="bk-secondary-thumb">
                 <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
             </div>
@@ -328,7 +328,7 @@ function renderLatest() {
 
     list.innerHTML = latest.map(function(a) {
        return `
-        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-latest-row">
+        <a href="/${encodeURIComponent(a.id)}" class="bk-latest-row">
             <div class="bk-latest-row-thumb">
                 <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
             </div>
@@ -382,7 +382,7 @@ function renderHome() {
             <div class="bk-card-grid">
                 ${cards.map(function(a) {
                     return `
-                    <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-card-link">
+                    <a href="/${encodeURIComponent(a.id)}" class="bk-card-link">
                     <article class="bk-card" data-category="${escapeHtml(a.category)}">
                         <div class="bk-card-image">
                             <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
@@ -445,7 +445,7 @@ function filterArticles(category, reset) {
     const hasMore = remaining.length > categoryPageState.visibleRows;
 
     const heroHtml = `
-        <a href="article.html?id=${encodeURIComponent(heroArticle.id)}" class="bk-cat-hero-link">
+        <a href="/${encodeURIComponent(heroArticle.id)}" class="bk-cat-hero-link">
         <article class="bk-cat-hero" data-category="${escapeHtml(heroArticle.category)}">
             <div class="bk-cat-hero-image">
                 <img src="${escapeHtml(heroArticle.image)}" alt="${escapeHtml(heroArticle.title)}" loading="lazy">
@@ -460,7 +460,7 @@ function filterArticles(category, reset) {
 
     const rowsHtml = rowArticles.map(function(a) {
         return `
-        <a href="article.html?id=${encodeURIComponent(a.id)}" class="bk-cat-row-link">
+        <a href="/${encodeURIComponent(a.id)}" class="bk-cat-row-link">
         <article class="bk-cat-row" data-category="${escapeHtml(a.category)}">
             <div class="bk-cat-row-thumb">
                 <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
