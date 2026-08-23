@@ -153,7 +153,7 @@ function dismissBreaking(id) {
     try {
         sessionStorage.setItem('bk-dismissed-breaking', id);
     } catch (e) {
-        // sessionStorage unavailable — banner just won't remember the
+        // sessionStorage unavailable — banner just won't remember the 
         // dismissal, not a functional break.
     }
 }
@@ -369,6 +369,11 @@ async function loadArticle() {
         return;
     }
 
+    // Canonical, share, and copy-link URLs always point to the live
+    // custom domain — never window.location.href, which would leak the
+    // pages.dev URL if someone lands there before the redirect fires.
+    const canonicalUrl = `https://bangukwetu.co.ke/article.html?id=${encodeURIComponent(articleId)}`;
+
     try {
         const response = await fetch('data/articles.json');
         const data = await response.json();
@@ -394,8 +399,8 @@ async function loadArticle() {
         document.getElementById('bk-og-title').setAttribute('content', article.title + ' — Bangu Kwetu');
         document.getElementById('bk-og-description').setAttribute('content', metaDesc);
         document.getElementById('bk-og-image').setAttribute('content', article.image);
-        document.getElementById('bk-og-url').setAttribute('content', window.location.href);
-        document.getElementById('bk-canonical').setAttribute('href', window.location.href);
+        document.getElementById('bk-og-url').setAttribute('content', canonicalUrl);
+        document.getElementById('bk-canonical').setAttribute('href', canonicalUrl);
 
         // NewsArticle structured data — helps search/AI engines identify this
         // as a news article, its headline, image, and publish date.
@@ -414,7 +419,7 @@ async function loadArticle() {
                 "@type": "Organization",
                 "name": "Bangu Kwetu"
             },
-            "mainEntityOfPage": window.location.href
+            "mainEntityOfPage": canonicalUrl
         };
         document.getElementById('bk-json-ld').textContent = JSON.stringify(jsonLd);
 
@@ -430,30 +435,30 @@ async function loadArticle() {
         }
 
         const shareBtn = document.getElementById('bk-share-whatsapp');
-        const shareMessage = `Check out this story from Bangu Kwetu: ${article.title} ${window.location.href}`;
+        const shareMessage = `Check out this story from Bangu Kwetu: ${article.title} ${canonicalUrl}`;
         shareBtn.href = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
 
         const fbBtn = document.getElementById('bk-share-fb');
-               fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+        fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonicalUrl)}`;
 
-                const xBtn = document.getElementById('bk-share-x');
-                xBtn.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`;
+        const xBtn = document.getElementById('bk-share-x');
+        xBtn.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(canonicalUrl)}`;
 
-                const copyBtn = document.getElementById('bk-share-copy');
-                const copyLabel = document.getElementById('bk-share-copy-label');
-                copyBtn.addEventListener('click', async function () {
-                    try {
-                        await navigator.clipboard.writeText(window.location.href);
-                        copyLabel.textContent = 'Copied!';
-                        copyBtn.classList.add('bk-copied');
-                        setTimeout(function () {
-                            copyLabel.textContent = 'Copy Link';
-                            copyBtn.classList.remove('bk-copied');
-                        }, 2000);
-                    } catch (err) {
-                         console.error('Copy failed:', err);
-                    }
-                });
+        const copyBtn = document.getElementById('bk-share-copy');
+        const copyLabel = document.getElementById('bk-share-copy-label');
+        copyBtn.addEventListener('click', async function () {
+            try {
+                await navigator.clipboard.writeText(canonicalUrl);
+                copyLabel.textContent = 'Copied!';
+                copyBtn.classList.add('bk-copied');
+                setTimeout(function () {
+                    copyLabel.textContent = 'Copy Link';
+                    copyBtn.classList.remove('bk-copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+        });
 
         contentBlock.style.display = 'block';
 
