@@ -273,7 +273,7 @@ let allArticles = [];
 
 async function loadArticlesForSearch() {
     try {
-        const response = await fetch('data/articles.json');
+        const response = await fetch('/data/articles.json');
         if (!response.ok) throw new Error('Network response was not ok');
         allArticles = (await response.json()).articles;
         renderBreakingBanner();
@@ -383,7 +383,7 @@ async function loadArticle() {
     const canonicalUrl = `https://bangukwetu.co.ke/${encodeURIComponent(articleId)}`;
 
     try {
-        const response = await fetch('data/articles.json');
+        const response = await fetch('/data/articles.json');
         const data = await response.json();
         const articles = data.articles;
         const article = articles.find(a => a.id === articleId);

@@ -172,7 +172,7 @@ let allArticles = [];
 
 async function loadArticles() {
     try {
-        const response = await fetch('data/articles.json');
+        const response = await fetch('/data/articles.json');
         if (!response.ok) throw new Error('Network response was not ok');
         allArticles = (await response.json()).articles;
         renderBreakingBanner();
@@ -480,7 +480,7 @@ function filterArticles(category, reset) {
     grid.style.display = 'block';
 
     if (hasMore) {
-        document.getElementById('bk-load-more').addEventListener('click', function() {
+        document.getElementById('bk-load-more').addEventListener('click', function() { 
             categoryPageState.visibleRows += CATEGORY_ROW_BATCH;
             filterArticles(category, false);
         });
@@ -563,7 +563,7 @@ async function loadShujaa() {
         return;
     }
 
-    const response = await fetch('data/shujaa.json');
+    const response = await fetch('/data/shujaa.json');
     const data = await response.json();
     const s = data.shujaa[0];
 
