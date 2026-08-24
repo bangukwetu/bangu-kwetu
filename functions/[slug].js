@@ -1,21 +1,33 @@
+// Cloudflare Pages Function — serves article.html's content under clean
+// slug URLs like /gikomba-market-redevelopment-nairobi-7000-traders,
+// while keeping that URL in the address bar (no redirect, no rewrite).
 //
-// Safety: [slug].js matches ANY single path segment, including about.html,
-// contact.html, sitemap.xml, etc. We must only treat genuine bare slugs
-// (no file extension) as articles, and let everything else fall through
-// to normal static asset serving via context.next().
+// Deliberately NOT implemented via _redirects: Cloudflare Pages has a known
+// bug where a wildcard rewrite whose destination re-matches its own source
+// pattern (e.g. /:slug -> /article.html, and /article.html itself matches
+// /:slug) causes an infinite internal loop (ERR_TOO_MANY_REDIRECTS).
+// Pages Functions do real routing instead of reprocessed pattern-rewriting,
+// so this sidesteps that bug entirely.
+//
+// Safety: [slug].js matches ANY single path segment. Cloudflare Pages ALSO
+// automatically strips ".html" from static page URLs by default (e.g. a
+// click on href="privacy.html" arrives here as a request for "/privacy",
+// extension already gone) — so reserved names must be listed WITHOUT their
+// extension too, or real static pages get mistaken for article slugs.
 
 const RESERVED_NAMES = new Set([
     'article', 'article.html',
     'index', 'index.html',
-    'about.html',
-    'contact.html',
-    'privacy.html',
-    '404.html',
+    'about', 'about.html',
+    'contact', 'contact.html',
+    'privacy', 'privacy.html',
+    '404', '404.html',
     'favicon.svg',
     'manifest.json',
     'sitemap.xml',
     'robots.txt',
     'style.css',
+    'feed.xml',
 ]);
 
 export async function onRequest(context) {
@@ -23,9 +35,10 @@ export async function onRequest(context) {
     const url = new URL(request.url);
     const slug = url.pathname.replace(/^\/+/, '');
 
-    // Anything with a file extension (.html, .css, .js, .json, .xml, .txt,
-    // .svg, .png, .jpg, etc.) or a known reserved name is NOT an article
-    // slug — let it fall through to normal static asset handling untouched.
+    // Anything with a file extension (.css, .js, .json, .xml, .txt, .svg,
+    // .png, .jpg, etc.) or a known reserved name (with or without its own
+    // extension) is NOT an article slug — let it fall through to normal
+    // static asset handling untouched.
     const hasExtension = /\.[a-zA-Z0-9]+$/.test(slug);
     if (hasExtension || RESERVED_NAMES.has(slug) || slug === '') {
         return next();
