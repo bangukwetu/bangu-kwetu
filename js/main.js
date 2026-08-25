@@ -70,6 +70,33 @@ function formatRelativeDate(isoDate) {
     return formatDisplayDate(isoDate);
 }
 
+// ── FRESHNESS CHECK (< 24 hours old) ───────────────
+// Drives whether a list item's meta line shows "CATEGORY | time ago" or
+// just "time ago" once it's no longer new. Legacy date-only articles are
+// anchored to local midnight by parseArticleDate, so "Today" is treated
+// as the closest available approximation of "under 24 hours".
+function isFreshArticle(isoDate) {
+    const d = parseArticleDate(isoDate);
+    if (isNaN(d)) return false;
+    const diffMs = new Date() - d;
+    return diffMs >= 0 && diffMs < 24 * 60 * 60 * 1000;
+}
+
+// ── META LINE BUILDER (category + time, or time-only once stale) ──
+// Shared across every list-style section (Latest, Secondary, and the
+// News/Sports/Business/Nairobi stack rows) so the 24h rule and the "|"
+// separator stay identical everywhere it's used. classPrefix controls
+// which CSS classes get applied (e.g. "bk-latest-row" produces
+// bk-latest-row-cat / -dot / -date), so each section keeps its own
+// styling hook without duplicating this logic three times.
+function renderMetaLine(category, date, classPrefix) {
+    const dateHtml = `<span class="${classPrefix}-date">${formatRelativeDate(date)}</span>`;
+    if (!isFreshArticle(date)) return dateHtml;
+    return `<span class="${classPrefix}-cat">${escapeHtml(category)}</span>`
+        + `<span class="${classPrefix}-dot">|</span>`
+        + dateHtml;
+}
+
 // ── BREAKING BANNER TIME LABEL ─────────────────────
 // Articles only store a day-level date (no time-of-day), so true
 // "2h ago" precision isn't available without adding a datetime field to
@@ -358,7 +385,7 @@ function renderLead() {
             </div>
             <div class="bk-secondary-body">
                 <h4 class="bk-secondary-title">${escapeHtml(a.title)}</h4>
-                <span class="bk-secondary-date">${formatRelativeDate(a.date)}</span>
+                <div class="bk-secondary-meta">${renderMetaLine(a.category, a.date, 'bk-secondary')}</div>
             </div>
         </a>`;
     }).join('');
@@ -382,11 +409,7 @@ function renderLatest() {
             </div>
             <div class="bk-latest-row-body">
                 <h4 class="bk-latest-row-title">${escapeHtml(a.title)}</h4>
-                <div class="bk-latest-row-meta">
-                    <span class="bk-latest-row-cat">${escapeHtml(a.category)}</span>
-                    <span class="bk-latest-row-dot">&middot;</span>
-                    <span class="bk-latest-row-date">${formatRelativeDate(a.date)}</span>
-                </div>
+                <div class="bk-latest-row-meta">${renderMetaLine(a.category, a.date, 'bk-latest-row')}</div>
             </div>
         </a>`;
     }).join('');
@@ -435,16 +458,12 @@ function renderHome() {
                 ${cards.map(function(a) {
                     return `
                     <a href="/${encodeURIComponent(a.id)}" class="bk-stack-row" data-category="${escapeHtml(a.category)}">
-                        ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
-                        <h4 class="bk-stack-row-title">${escapeHtml(a.title)}</h4>
-                        <div class="bk-stack-row-meta">
-                            <span class="bk-stack-row-cat">${escapeHtml(a.category)}</span>
-                            <span class="bk-stack-row-dot">&middot;</span>
-                            <span class="bk-stack-row-date">${formatRelativeDate(a.date)}</span>
-                        </div>
                         <div class="bk-stack-row-image">
                             <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
                         </div>
+                        ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
+                        <h4 class="bk-stack-row-title">${escapeHtml(a.title)}</h4>
+                        <div class="bk-stack-row-meta">${renderMetaLine(a.category, a.date, 'bk-stack-row')}</div>
                     </a>`;
                 }).join('')}
             </div>

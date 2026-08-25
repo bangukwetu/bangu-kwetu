@@ -474,7 +474,9 @@ body.bk-nav-open {
     scrollbar-width: none;
     height: 38px;
     gap: 0;
-    justify-content: stretch
+    justify-content: stretch;
+    max-width: 1100px;
+    margin: 0 auto
 }
 
 #bk-cat-nav-inner::-webkit-scrollbar {
@@ -645,17 +647,12 @@ body.bk-nav-open {
     position: relative;
     text-decoration: none;
     color: inherit;
-    background: #ffffff;
-    border: 1px solid #dde5ed;
-    border-top: 4px solid #2e6da4;
-    border-radius: 4px;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease
+    background: transparent;
+    overflow: hidden
 }
 
-.bk-lead-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(46, 109, 164, 0.1)
+.bk-lead-card:hover .bk-lead-title {
+    color: #2e6da4
 }
 
 .bk-lead-image {
@@ -762,6 +759,25 @@ body.bk-nav-open {
     font-weight: 600;
     line-height: 1.4;
     color: #2b2d42
+}
+
+.bk-secondary-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px
+}
+
+.bk-secondary-cat {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2e6da4
+}
+
+.bk-secondary-dot {
+    font-size: 11px;
+    color: #ccc
 }
 
 .bk-secondary-date {
@@ -894,6 +910,22 @@ body.bk-nav-open {
     padding-bottom: 0
 }
 
+/* Desktop: 3 across, side by side (like Latest above it) — flat, no
+   card borders. Mobile keeps the single-column stacked-with-divider
+   layout from the base rules above. */
+@media (min-width: 769px) {
+    .bk-stack-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px
+    }
+
+    .bk-stack-row {
+        padding: 0;
+        border-bottom: none
+    }
+}
+
 .bk-stack-row-title {
     font-family: "Oswald", sans-serif;
     font-size: 18px;
@@ -906,8 +938,7 @@ body.bk-nav-open {
 .bk-stack-row-meta {
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 14px
+    gap: 6px
 }
 
 .bk-stack-row-cat {
@@ -933,7 +964,8 @@ body.bk-nav-open {
     aspect-ratio: 16 / 10;
     background: #ebf1f5;
     border-radius: 4px;
-    overflow: hidden
+    overflow: hidden;
+    margin-bottom: 14px
 }
 
 .bk-stack-row-image img {
@@ -955,7 +987,6 @@ body.bk-nav-open {
     text-transform: uppercase;
     text-decoration: none
 }
-
 .bk-latest-seeall:hover {
     opacity: 0.7
 }
@@ -973,9 +1004,9 @@ body.bk-nav-open {
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(46, 109, 164, 0.1);
-    border-top: 4px solid #2e6da4;
     transition: box-shadow 0.2s
 }
+
 #bk-shujaa-card:hover {
     box-shadow: 0 4px 16px rgba(46, 109, 164, 0.15)
 }
@@ -1768,10 +1799,6 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-canvas {
   background: #121212;
 }
-[data-theme="dark"] .bk-lead-card {
-  background: #1a1a1a;
-  border-color: #2a2a2a;
-}
 [data-theme="dark"] .bk-lead-image,
 [data-theme="dark"] .bk-card-image,
 [data-theme="dark"] .bk-secondary-thumb,
@@ -1877,11 +1904,13 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-lead-cat,
 [data-theme="dark"] .bk-latest-row-cat,
 [data-theme="dark"] .bk-stack-row-cat,
+[data-theme="dark"] .bk-secondary-cat,
 [data-theme="dark"] #bk-shujaa-eyebrow {
   color: #90c8f9;
 }
 [data-theme="dark"] .bk-lead-date,
 [data-theme="dark"] .bk-secondary-date,
+[data-theme="dark"] .bk-secondary-dot,
 [data-theme="dark"] .bk-latest-row-date,
 [data-theme="dark"] .bk-latest-row-dot,
 [data-theme="dark"] .bk-stack-row-date,
@@ -1945,3 +1974,4 @@ body.bk-nav-open {
 .bk-secondary-item:hover .bk-secondary-title{color:#2b2d42}
 .bk-secondary-item:hover .bk-secondary-date{color:#888}
 [data-theme="dark"] .bk-secondary-item:hover .bk-secondary-title{color:#e4e6eb}
+[data-theme="dark"] .bk-secondary-item:hover .bk-secondary-date{color:#aaa}
