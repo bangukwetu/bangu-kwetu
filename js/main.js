@@ -447,7 +447,7 @@ function renderHome() {
 
         if (cardsRaw.length === 0) return;
 
-        const cards = orderCardsForLead(cardsRaw).slice(0, 4); // preview only, "See all" links to full category
+        const cards = orderCardsForLead(cardsRaw).slice(0, 3); // always 3, matches Latest — rest live on the category page
 
         html += `
         <div class="bk-home-group">
@@ -486,6 +486,7 @@ let categoryPageState = { category: null, visibleRows: CATEGORY_ROW_BATCH };
 // here on purpose — the breaking bar at the top of the site already covers
 // that story; repeating a "Breaking" tag on its card in every category grid
 // it happens to belong to was redundant and looked odd once we saw it live.
+
 function filterArticles(category, reset) {
     if (reset === undefined) reset = true;
 
@@ -633,21 +634,29 @@ async function loadShujaa() {
         return;
     }
 
-    const response = await fetch('/data/shujaa.json');
-    const data = await response.json();
-    const s = data.shujaa[0];
+    try {
+        const response = await fetch('/data/shujaa.json');
+        const data = await response.json();
+        const s = data.shujaa[0];
 
-    if (!s || !s.name || !s.photo) {
+        if (!s || !s.name || !s.photo) {
+            document.getElementById('bk-shujaa-section').style.display = 'none';
+            return;
+        }
+
+        document.getElementById('bk-shujaa-name').textContent = s.name;
+        document.getElementById('bk-shujaa-eyebrow').textContent = s.eyebrow;
+        document.getElementById('bk-shujaa-desc').textContent = s.desc;
+        document.getElementById('bk-shujaa-link').href = s.link;
+        document.getElementById('bk-shujaa-avatar').src = s.photo;
+        document.getElementById('bk-shujaa-avatar').alt = s.name;
+    } catch (err) {
+        // Slow/failed network request (e.g. weak signal) used to leave the
+        // empty skeleton (banner + label, no content) visible on screen —
+        // now it just hides itself like the "no data" case above.
+        console.error('Could not load Shujaa wa Siku:', err);
         document.getElementById('bk-shujaa-section').style.display = 'none';
-        return;
     }
-
-    document.getElementById('bk-shujaa-name').textContent = s.name;
-    document.getElementById('bk-shujaa-eyebrow').textContent = s.eyebrow;
-    document.getElementById('bk-shujaa-desc').textContent = s.desc;
-    document.getElementById('bk-shujaa-link').href = s.link;
-    document.getElementById('bk-shujaa-avatar').src = s.photo;
-    document.getElementById('bk-shujaa-avatar').alt = s.name;
 }
 
 // ── WHATSAPP FLOAT — hide on scroll down, show on scroll up ──

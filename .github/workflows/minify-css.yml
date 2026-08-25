@@ -1,0 +1,43 @@
+name: Minify CSS
+
+# Runs automatically whenever style.css changes on main. Takes the
+# readable source you edit by hand and produces style.min.css, then
+# points every page at the minified file with a fresh cache-busting
+# version so browsers pick up the change instead of serving a stale
+# cached copy. You never touch style.min.css directly — it's fully
+# generated, same pattern as data/articles.json from compile-articles.js.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'style.css'
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Minify style.css into style.min.css
+        run: npx clean-css-cli style.css -o style.min.css
+
+      - name: Point every page at the fresh minified file
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          for f in index.html article.html about.html privacy.html; do
+            sed -i -E "s#(href=\")\.?/?style(\.min)?\.css(\?v=[^\"]*)?(\")#\1/style.min.css?v=${SHORT_SHA}\4#" "$f"
+          done
+
+      - name: Commit style.min.css and updated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add style.min.css index.html article.html about.html privacy.html
+          git diff --staged --quiet || git commit -m "Auto-minify style.css"
+          git push

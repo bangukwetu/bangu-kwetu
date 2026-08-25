@@ -516,3 +516,5 @@ async function loadArticle() {
         notFoundBlock.style.display = 'block';
     }
 }
+
+loadArticle();

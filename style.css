@@ -805,18 +805,14 @@ body.bk-nav-open {
     flex-direction: column;
     gap: 0;
     padding: 0;
-    border: 1px solid #dde5ed;
-    border-radius: 4px;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
-    background: #ffffff;
-    transition: transform 0.2s ease, box-shadow 0.2s ease
+    background: transparent
 }
 
-.bk-latest-row:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(46, 109, 164, 0.1)
+.bk-latest-row:hover .bk-latest-row-title {
+    color: #2e6da4
 }
 
 .bk-latest-row.bk-is-new {
@@ -987,6 +983,7 @@ body.bk-nav-open {
     text-transform: uppercase;
     text-decoration: none
 }
+
 .bk-latest-seeall:hover {
     opacity: 0.7
 }
@@ -1534,11 +1531,6 @@ body.bk-nav-open {
         border-bottom: none
     }
 
-    .bk-latest-row:hover {
-        transform: none;
-        box-shadow: none
-    }
-
     .bk-latest-row.bk-is-new {
         border-left: none;
         padding-left: 0;
@@ -1820,10 +1812,12 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-secondary-item:hover {
   background: #1e1e1e;
 }
-[data-theme="dark"] .bk-latest-row,
 [data-theme="dark"] .bk-card {
   background: #1a1a1a;
   border-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-latest-row {
+  border-bottom-color: #2a2a2a;
 }
 [data-theme="dark"] .bk-stack-row {
   border-bottom-color: #2a2a2a;
