@@ -1,10 +1,52 @@
-// Converts a stored YYYY-MM-DD date into a readable display format,
+// Parses a stored date value that may be either legacy date-only
+// ("2026-08-18") or a full ISO timestamp with time and offset
+// ("2026-08-25T14:30:00+03:00", once the CMS starts capturing time).
+// Date-only strings get anchored to local midnight (avoids the
+// UTC-midnight-vs-local off-by-one issue bare ISO dates have); full
+// timestamps are trusted as-is since they carry their own offset.
+function parseArticleDate(isoDate) {
+    return isoDate.includes('T') ? new Date(isoDate) : new Date(isoDate + 'T00:00:00');
+}
+
+// Converts a stored date into a readable display format,
 // e.g. "2026-08-18" -> "August 18, 2026". Storage stays ISO (for
 // reliable sorting); only the on-screen text changes.
 function formatDisplayDate(isoDate) {
-    const d = new Date(isoDate + 'T00:00:00');
+    const d = parseArticleDate(isoDate);
     if (isNaN(d)) return isoDate; // fallback: show raw value rather than break
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// ── RELATIVE DATE (e.g. "3 days ago", or "40 minutes ago" once an
+// article carries a real timestamp) ────────────────
+// Mirrors main.js's formatRelativeDate — kept in sync since this file
+// runs on the article page separately from the homepage script.
+function formatRelativeDate(isoDate) {
+    const d = parseArticleDate(isoDate);
+    if (isNaN(d)) return isoDate;
+    const hasTime = isoDate.includes('T');
+    const now = new Date();
+
+    if (hasTime) {
+        const diffMs = now - d;
+        const diffMin = Math.round(diffMs / 60000);
+        if (diffMin < 1) return 'Just now';
+        if (diffMin < 60) return `${diffMin} minute${diffMin === 1 ? '' : 's'} ago`;
+        const diffHours = Math.round(diffMin / 60);
+        if (diffHours < 24) return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+    }
+
+    const startOfDay = function (dt) {
+        return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    };
+    const diffDays = Math.round((startOfDay(now) - startOfDay(d)) / 86400000);
+    if (diffDays < 0) return formatDisplayDate(isoDate);
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 14) return '1 week ago';
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    return formatDisplayDate(isoDate);
 }
 // ── SAFETY: escape any text before inserting into innerHTML ──────
 function escapeHtml(str) {
@@ -124,7 +166,7 @@ function renderMarkdownBody(content, container) {
 // Returns '' (empty string) for "today" so the caller can skip rendering
 // the time element entirely rather than showing a redundant label.
 function formatBreakingTime(isoDate) {
-    const d = new Date(isoDate + 'T00:00:00');
+    const d = parseArticleDate(isoDate);
     const now = new Date();
     const startOfDay = function (dt) {
         return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
@@ -356,7 +398,6 @@ window.addEventListener('scroll', () => {
     }
     bkLastScroll = currentScroll;
 });
-
 async function loadArticle() {
     const params = new URLSearchParams(window.location.search);
     let articleId = params.get('id');
@@ -396,7 +437,7 @@ async function loadArticle() {
         document.getElementById('bk-page-title').textContent = article.title + ' — Bangu Kwetu';
         document.getElementById('bk-article-cat').textContent = article.category;
         document.getElementById('bk-article-title').textContent = article.title;
-        document.getElementById('bk-article-date').textContent = formatDisplayDate(article.date);
+        document.getElementById('bk-article-date').textContent = formatRelativeDate(article.date);
         document.getElementById('bk-article-image').src = article.image;
         document.getElementById('bk-article-image').alt = article.title;
 
@@ -475,5 +516,3 @@ async function loadArticle() {
         notFoundBlock.style.display = 'block';
     }
 }
-
-loadArticle();

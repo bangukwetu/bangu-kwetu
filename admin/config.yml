@@ -34,8 +34,8 @@ collections:
     fields:
       - { label: ID, name: id, widget: string, hint: "Unique, e.g. news-004, no spaces. This becomes the filename — set it once and don't change it later." }
       - { label: Title, name: title, widget: string, pattern: ['^.{1,80}$', "Keep titles under 80 characters so they don't wrap awkwardly on cards."] }
-      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, hint: "Tap to pick the publish date." }
-      - { label: Last Updated, name: updated, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false, hint: "Only set this if you edit the article after publishing. Leave blank otherwise." }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "YYYY-MM-DD", time_format: "HH:mm", picker_utc: false, hint: "Tap to pick the publish date and time — this is your local Nairobi time, not UTC." }
+      - { label: Last Updated, name: updated, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ", date_format: "YYYY-MM-DD", time_format: "HH:mm", picker_utc: false, required: false, hint: "Only set this if you edit the article after publishing (your local Nairobi time). Leave blank otherwise." }
       - { label: Category, name: category, widget: select, options: [news, sports, business, nairobi] }
       - { label: Image, name: image, widget: image }
       - { label: Excerpt, name: desc, widget: text, required: false, pattern: ['^.{0,160}$', "Keep excerpts under 160 characters — this is also used as the search-preview and social-share description, and longer text gets cut off on WhatsApp/Google anyway."], hint: "Also used as the search-preview and social-share description for this article." }

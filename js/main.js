@@ -16,10 +16,58 @@ function escapeHtml(str) {
 // Converts a stored YYYY-MM-DD date into a readable display format,
 // e.g. "2026-08-18" -> "August 18, 2026". Storage stays ISO (for
 // reliable sorting); only the on-screen text changes.
+// Parses a stored date value that may be either legacy date-only
+// ("2026-08-18") or a full ISO timestamp with time and offset
+// ("2026-08-25T14:30:00+03:00", once the CMS starts capturing time).
+// Date-only strings get anchored to local midnight (avoids the
+// UTC-midnight-vs-local off-by-one issue bare ISO dates have); full
+// timestamps are trusted as-is since they carry their own offset.
+function parseArticleDate(isoDate) {
+    return isoDate.includes('T') ? new Date(isoDate) : new Date(isoDate + 'T00:00:00');
+}
+
+// Converts a stored date into a readable display format,
+// e.g. "2026-08-18" -> "August 18, 2026". Storage stays ISO (for
+// reliable sorting); only the on-screen text changes.
 function formatDisplayDate(isoDate) {
-    const d = new Date(isoDate + 'T00:00:00');
+    const d = parseArticleDate(isoDate);
     if (isNaN(d)) return isoDate;
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// ── RELATIVE DATE (e.g. "3 days ago", or "40 minutes ago" once an
+// article carries a real timestamp) ────────────────
+// Legacy date-only articles top out at day-level precision ("Today" /
+// "Yesterday" / "N days ago"). Articles with a real time component get
+// minute/hour precision for same-day posts, then fall into the same
+// day-tier ladder. Falls back to the full absolute date once an
+// article is old enough that "N weeks ago" stops being useful.
+function formatRelativeDate(isoDate) {
+    const d = parseArticleDate(isoDate);
+    if (isNaN(d)) return isoDate;
+    const hasTime = isoDate.includes('T');
+    const now = new Date();
+
+    if (hasTime) {
+        const diffMs = now - d;
+        const diffMin = Math.round(diffMs / 60000);
+        if (diffMin < 1) return 'Just now';
+        if (diffMin < 60) return `${diffMin} minute${diffMin === 1 ? '' : 's'} ago`;
+        const diffHours = Math.round(diffMin / 60);
+        if (diffHours < 24) return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+    }
+
+    const startOfDay = function (dt) {
+        return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    };
+    const diffDays = Math.round((startOfDay(now) - startOfDay(d)) / 86400000);
+    if (diffDays < 0) return formatDisplayDate(isoDate); // future-dated, just show the date
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 14) return '1 week ago';
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    return formatDisplayDate(isoDate);
 }
 
 // ── BREAKING BANNER TIME LABEL ─────────────────────
@@ -35,7 +83,7 @@ function formatDisplayDate(isoDate) {
 // Returns '' (empty string) for "today" so the caller can skip rendering
 // the time element entirely rather than showing a redundant label.
 function formatBreakingTime(isoDate) {
-    const d = new Date(isoDate + 'T00:00:00');
+    const d = parseArticleDate(isoDate);
     const now = new Date();
     const startOfDay = function (dt) {
         return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
@@ -299,7 +347,7 @@ function renderLead() {
     document.getElementById('bk-lead-image').alt = lead.title;
     document.getElementById('bk-lead-cat').textContent = lead.category;
     document.getElementById('bk-lead-title').textContent = lead.title;
-    document.getElementById('bk-lead-date').textContent = formatDisplayDate(lead.date);
+    document.getElementById('bk-lead-date').textContent = formatRelativeDate(lead.date);
 
     const secondaryList = document.getElementById('bk-secondary-list');
     secondaryList.innerHTML = secondary.map(function(a) {
@@ -310,7 +358,7 @@ function renderLead() {
             </div>
             <div class="bk-secondary-body">
                 <h4 class="bk-secondary-title">${escapeHtml(a.title)}</h4>
-                <span class="bk-secondary-date">${formatDisplayDate(a.date)}</span>
+                <span class="bk-secondary-date">${formatRelativeDate(a.date)}</span>
             </div>
         </a>`;
     }).join('');
@@ -334,7 +382,11 @@ function renderLatest() {
             </div>
             <div class="bk-latest-row-body">
                 <h4 class="bk-latest-row-title">${escapeHtml(a.title)}</h4>
-                <span class="bk-latest-row-date">${formatDisplayDate(a.date)}</span>
+                <div class="bk-latest-row-meta">
+                    <span class="bk-latest-row-cat">${escapeHtml(a.category)}</span>
+                    <span class="bk-latest-row-dot">&middot;</span>
+                    <span class="bk-latest-row-date">${formatRelativeDate(a.date)}</span>
+                </div>
             </div>
         </a>`;
     }).join('');
@@ -379,21 +431,22 @@ function renderHome() {
             <div class="bk-section-head">
                 <h3 class="bk-section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
             </div>
-            <div class="bk-card-grid">
+            <div class="bk-latest-list">
                 ${cards.map(function(a) {
                     return `
-                    <a href="/${encodeURIComponent(a.id)}" class="bk-card-link">
-                    <article class="bk-card" data-category="${escapeHtml(a.category)}">
-                        <div class="bk-card-image">
+                    <a href="/${encodeURIComponent(a.id)}" class="bk-latest-row" data-category="${escapeHtml(a.category)}">
+                        <div class="bk-latest-row-thumb">
                             <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
                         </div>
-                        <div class="bk-card-body">
+                        <div class="bk-latest-row-body">
                             ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
-                            <span class="bk-card-cat">${escapeHtml(a.category)}</span>
-                            <h3 class="bk-card-title">${escapeHtml(a.title)}</h3>
-                            <p class="bk-card-date">${formatDisplayDate(a.date)}</p>
+                            <h4 class="bk-latest-row-title">${escapeHtml(a.title)}</h4>
+                            <div class="bk-latest-row-meta">
+                                <span class="bk-latest-row-cat">${escapeHtml(a.category)}</span>
+                                <span class="bk-latest-row-dot">&middot;</span>
+                                <span class="bk-latest-row-date">${formatRelativeDate(a.date)}</span>
+                            </div>
                         </div>
-                    </article>
                     </a>`;
                 }).join('')}
             </div>
@@ -453,7 +506,7 @@ function filterArticles(category, reset) {
             <div class="bk-cat-hero-body">
                 ${heroArticle.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
                 <h3 class="bk-cat-hero-title">${escapeHtml(heroArticle.title)}</h3>
-                <p class="bk-cat-hero-date">${formatDisplayDate(heroArticle.date)}</p>
+                <p class="bk-cat-hero-date">${formatRelativeDate(heroArticle.date)}</p>
             </div>
         </article>
         </a>`;
@@ -468,7 +521,7 @@ function filterArticles(category, reset) {
             <div class="bk-cat-row-body">
                 ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
                 <h3 class="bk-cat-row-title">${escapeHtml(a.title)}</h3>
-                <p class="bk-cat-row-date">${formatDisplayDate(a.date)}</p>
+                <p class="bk-cat-row-date">${formatRelativeDate(a.date)}</p>
             </div>
         </article>
         </a>`;

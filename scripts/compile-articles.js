@@ -30,11 +30,12 @@ function readArticles() {
       throw new Error(`Invalid JSON in ${file}: ${err.message}`);
     }
 
-    // Sveltia's datetime widget outputs an ISO timestamp (e.g.
-    // "2026-08-07T00:00:00.000Z") with the config in this project.
-    // Normalize both date and updated down to plain YYYY-MM-DD so the
-    // frontend (which just displays/sorts the string) keeps working
-    // exactly as before, and old free-text dates parse the same way.
+    // Sveltia's datetime widget outputs an ISO timestamp. The CMS field
+    // is now configured to capture real publish time (previously it was
+    // date-only, so this used to get truncated to plain YYYY-MM-DD here).
+    // Pass the value straight through — the frontend (main.js, article.js)
+    // handles both full timestamps and legacy date-only strings from
+    // older entries, so nothing needs to be normalized/truncated anymore.
     if (parsed.date) parsed.date = normalizeDate(parsed.date);
     if (parsed.updated) parsed.updated = normalizeDate(parsed.updated);
 
@@ -61,7 +62,8 @@ function readArticles() {
 function normalizeDate(value) {
   const d = new Date(value);
   if (isNaN(d)) return value; // leave untouched if unparseable, rather than corrupt it
-  return d.toISOString().slice(0, 10); // YYYY-MM-DD
+  return value; // keep full precision as Sveltia stored it — date-only
+                // strings stay date-only, full timestamps stay intact
 }
 
 function main() {

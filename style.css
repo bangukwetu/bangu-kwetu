@@ -842,6 +842,25 @@ body.bk-nav-open {
     font-family: "IBM Plex Sans", sans-serif
 }
 
+.bk-latest-row-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px
+}
+
+.bk-latest-row-cat {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2e6da4
+}
+
+.bk-latest-row-dot {
+    font-size: 11px;
+    color: #ccc
+}
+
 .bk-latest-row-date {
     font-size: 11.5px;
     color: #888
@@ -914,7 +933,6 @@ body.bk-nav-open {
     font-family: "Oswald", sans-serif;
     z-index: 2
 }
-
 #bk-shujaa-body {
     padding: 26px 30px;
     flex: 1;
@@ -1773,8 +1791,16 @@ body.bk-nav-open {
 }
 [data-theme="dark"] .bk-card-cat,
 [data-theme="dark"] .bk-lead-cat,
+[data-theme="dark"] .bk-latest-row-cat,
 [data-theme="dark"] #bk-shujaa-eyebrow {
   color: #90c8f9;
+}
+[data-theme="dark"] .bk-lead-date,
+[data-theme="dark"] .bk-secondary-date,
+[data-theme="dark"] .bk-latest-row-date,
+[data-theme="dark"] .bk-latest-row-dot,
+[data-theme="dark"] .bk-article-date {
+  color: #aaa;
 }
 [data-theme="dark"] .bk-badge-sponsored {
   color: #e0b84a;
@@ -1832,4 +1858,3 @@ body.bk-nav-open {
 .bk-secondary-item:hover .bk-secondary-title{color:#2b2d42}
 .bk-secondary-item:hover .bk-secondary-date{color:#888}
 [data-theme="dark"] .bk-secondary-item:hover .bk-secondary-title{color:#e4e6eb}
-[data-theme="dark"] .bk-secondary-item:hover .bk-secondary-date{color:#aaa}
