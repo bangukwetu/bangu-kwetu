@@ -866,6 +866,83 @@ body.bk-nav-open {
     color: #888
 }
 
+/* ── HOME CATEGORY SECTIONS (News, Sports, Business, Nairobi) ──────
+   Eastleigh Voice pattern: headline first, then meta line, then a
+   full-width image below — divider between stories, no side thumbnail,
+   no card border. Deliberately kept separate from .bk-latest-row (the
+   Latest section above stays on its small-thumbnail layout untouched). */
+.bk-stack-list {
+    display: flex;
+    flex-direction: column
+}
+
+.bk-stack-row {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    padding: 22px 0;
+    border-bottom: 1px solid #e5e5e5
+}
+
+.bk-stack-row:first-child {
+    padding-top: 0
+}
+
+.bk-stack-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0
+}
+
+.bk-stack-row-title {
+    font-family: "Oswald", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #2b2d42;
+    margin-bottom: 8px
+}
+
+.bk-stack-row-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px
+}
+
+.bk-stack-row-cat {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2e6da4
+}
+
+.bk-stack-row-dot {
+    font-size: 11px;
+    color: #ccc
+}
+
+.bk-stack-row-date {
+    font-size: 11.5px;
+    color: #888
+}
+
+.bk-stack-row-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: #ebf1f5;
+    border-radius: 4px;
+    overflow: hidden
+}
+
+.bk-stack-row-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block
+}
+
 .bk-latest-seeall {
     display: block;
     text-align: center;
@@ -899,7 +976,6 @@ body.bk-nav-open {
     border-top: 4px solid #2e6da4;
     transition: box-shadow 0.2s
 }
-
 #bk-shujaa-card:hover {
     box-shadow: 0 4px 16px rgba(46, 109, 164, 0.15)
 }
@@ -933,6 +1009,7 @@ body.bk-nav-open {
     font-family: "Oswald", sans-serif;
     z-index: 2
 }
+
 #bk-shujaa-body {
     padding: 26px 30px;
     flex: 1;
@@ -1705,6 +1782,7 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-lead-title,
 [data-theme="dark"] .bk-secondary-title,
 [data-theme="dark"] .bk-latest-row-title,
+[data-theme="dark"] .bk-stack-row-title,
 [data-theme="dark"] .bk-card-title,
 [data-theme="dark"] .bk-section-title {
   color: #e4e6eb;
@@ -1719,6 +1797,12 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-card {
   background: #1a1a1a;
   border-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-stack-row {
+  border-bottom-color: #2a2a2a;
+}
+[data-theme="dark"] .bk-stack-row-image {
+  background: #2a2a2a;
 }
 [data-theme="dark"] #bk-shujaa-section {
   background: #1a1a1a;
@@ -1792,6 +1876,7 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-card-cat,
 [data-theme="dark"] .bk-lead-cat,
 [data-theme="dark"] .bk-latest-row-cat,
+[data-theme="dark"] .bk-stack-row-cat,
 [data-theme="dark"] #bk-shujaa-eyebrow {
   color: #90c8f9;
 }
@@ -1799,6 +1884,8 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-secondary-date,
 [data-theme="dark"] .bk-latest-row-date,
 [data-theme="dark"] .bk-latest-row-dot,
+[data-theme="dark"] .bk-stack-row-date,
+[data-theme="dark"] .bk-stack-row-dot,
 [data-theme="dark"] .bk-article-date {
   color: #aaa;
 }

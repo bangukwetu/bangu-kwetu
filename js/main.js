@@ -431,21 +431,19 @@ function renderHome() {
             <div class="bk-section-head">
                 <h3 class="bk-section-title">${cat.charAt(0).toUpperCase() + cat.slice(1)}</h3>
             </div>
-            <div class="bk-latest-list">
+            <div class="bk-stack-list">
                 ${cards.map(function(a) {
                     return `
-                    <a href="/${encodeURIComponent(a.id)}" class="bk-latest-row" data-category="${escapeHtml(a.category)}">
-                        <div class="bk-latest-row-thumb">
-                            <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
+                    <a href="/${encodeURIComponent(a.id)}" class="bk-stack-row" data-category="${escapeHtml(a.category)}">
+                        ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
+                        <h4 class="bk-stack-row-title">${escapeHtml(a.title)}</h4>
+                        <div class="bk-stack-row-meta">
+                            <span class="bk-stack-row-cat">${escapeHtml(a.category)}</span>
+                            <span class="bk-stack-row-dot">&middot;</span>
+                            <span class="bk-stack-row-date">${formatRelativeDate(a.date)}</span>
                         </div>
-                        <div class="bk-latest-row-body">
-                            ${a.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
-                            <h4 class="bk-latest-row-title">${escapeHtml(a.title)}</h4>
-                            <div class="bk-latest-row-meta">
-                                <span class="bk-latest-row-cat">${escapeHtml(a.category)}</span>
-                                <span class="bk-latest-row-dot">&middot;</span>
-                                <span class="bk-latest-row-date">${formatRelativeDate(a.date)}</span>
-                            </div>
+                        <div class="bk-stack-row-image">
+                            <img src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}" loading="lazy">
                         </div>
                     </a>`;
                 }).join('')}
