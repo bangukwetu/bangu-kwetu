@@ -34,7 +34,7 @@ const RESERVED_NAMES = new Set([
 export async function onRequest(context) {
     const { request, env, next } = context;
     const url = new URL(request.url);
-    const slug = url.pathname.replace(/^\/+/, '');
+    const slug = url.pathname.replace(/^\/+/, '').replace(/\/+$/, '');
 
     // Anything with a file extension (.css, .js, .json, .xml, .txt, .svg,
     // .png, .jpg, etc.) or a known reserved name (with or without its own
