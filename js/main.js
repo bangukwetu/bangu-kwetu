@@ -650,6 +650,7 @@ async function loadShujaa() {
         document.getElementById('bk-shujaa-link').href = s.link;
         document.getElementById('bk-shujaa-avatar').src = s.photo;
         document.getElementById('bk-shujaa-avatar').alt = s.name;
+        document.getElementById('bk-shujaa-section').style.display = '';
     } catch (err) {
         // Slow/failed network request (e.g. weak signal) used to leave the
         // empty skeleton (banner + label, no content) visible on screen —
