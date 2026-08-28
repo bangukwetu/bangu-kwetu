@@ -1,21 +1,10 @@
 name: Bump Asset Versions
 
-# Runs whenever style.css, js/main.js, or js/article.js changes on main.
-# Two jobs in one: (1) re-minify style.css into style.min.css, and
-# (2) stamp every asset link/script tag on every page with the current
-# commit's short SHA as a cache-busting ?v=, so browsers and Cloudflare's
-# CDN always fetch the real current file instead of a stale cached copy.
-#
-# Before this workflow existed, every page hardcoded "?v=2" forever —
-# so pushing a fix to main.js or style.css never actually forced anyone's
-# cached copy to update. That's the exact bug this replaces.
 on:
   push:
     branches: [main]
     paths:
       - 'style.css'
-      - 'js/main.js'
-      - 'js/article.js'
 
 jobs:
   bump:
@@ -32,19 +21,10 @@ jobs:
       - name: Minify style.css into style.min.css
         run: npx clean-css-cli style.css -o style.min.css
 
-      - name: Stamp every page with a fresh cache-busting version
-        run: |
-          SHORT_SHA=$(git rev-parse --short HEAD)
-          for f in index.html article.html about.html privacy.html; do
-            sed -i -E "s#(href=\")\.?/?style(\.min)?\.css(\?v=[^\"]*)?(\")#\1/style.min.css?v=${SHORT_SHA}\4#" "$f"
-            sed -i -E "s#(src=\")\.?/?js/main\.js(\?v=[^\"]*)?(\")#\1/js/main.js?v=${SHORT_SHA}\3#" "$f"
-            sed -i -E "s#(src=\")\.?/?js/article\.js(\?v=[^\"]*)?(\")#\1/js/article.js?v=${SHORT_SHA}\3#" "$f"
-          done
-
-      - name: Commit style.min.css and updated pages
+      - name: Commit style.min.css
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add style.min.css index.html article.html about.html privacy.html
-          git diff --staged --quiet || git commit -m "Auto-bump asset cache versions"
+          git add style.min.css
+          git diff --staged --quiet || git commit -m "Auto-minify style.css"
           git push
