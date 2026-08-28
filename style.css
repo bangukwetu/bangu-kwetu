@@ -2011,3 +2011,49 @@ body.bk-nav-open {
 .bk-secondary-item:hover .bk-secondary-date{color:#888}
 [data-theme="dark"] .bk-secondary-item:hover .bk-secondary-title{color:#e4e6eb}
 [data-theme="dark"] .bk-secondary-item:hover .bk-secondary-date{color:#aaa}
+
+/* Skeleton loading state */
+.skeleton-row {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.skeleton-thumb {
+  width: 90px;
+  height: 70px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+.skeleton-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+.skeleton-line.short {
+  width: 40%;
+  height: 10px;
+}
+
+.skeleton-thumb,
+.skeleton-line {
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.5; }
+  100% { opacity: 1; }
+}

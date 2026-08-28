@@ -244,8 +244,12 @@ searchInput.addEventListener('input', function() {
 
 // ── 4. FETCH & RENDER ARTICLES ────────────────────
 let allArticles = [];
-
 async function loadArticles() {
+    // Show skeletons immediately, before the fetch even starts
+    renderSkeleton(document.getElementById('bk-latest-list'), 3);
+    renderSkeleton(document.getElementById('bk-secondary-list'), 3);
+    renderSkeleton(document.getElementById('bk-main-grid'), 3);
+
     try {
         const response = await fetch('/data/articles.json');
         if (!response.ok) throw new Error('Network response was not ok');
