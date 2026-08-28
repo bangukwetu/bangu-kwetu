@@ -244,6 +244,25 @@ searchInput.addEventListener('input', function() {
 
 // ── 4. FETCH & RENDER ARTICLES ────────────────────
 let allArticles = [];
+
+// Renders N skeleton rows into a container while real data loads
+function renderSkeleton(container, count = 3) {
+    if (!container) return;
+    let html = '';
+    for (let i = 0; i < count; i++) {
+        html += `
+            <div class="skeleton-row">
+                <div class="skeleton-thumb"></div>
+                <div class="skeleton-lines">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                </div>
+            </div>
+        `;
+    }
+    container.innerHTML = html;
+}
+
 async function loadArticles() {
     // Show skeletons immediately, before the fetch even starts
     renderSkeleton(document.getElementById('bk-latest-list'), 3);
