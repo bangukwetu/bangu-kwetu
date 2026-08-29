@@ -211,7 +211,7 @@ document.addEventListener('keydown', function(e) {
         searchBtn.style.display = '';
         searchInput.value = '';
         searchResults.classList.remove('show');
-        searchResults.innerHTML = '';
+        searchResults.innerHTML = ''; 
         closeNav();
     }
 });
@@ -652,6 +652,7 @@ document.querySelectorAll('.bk-cat-link').forEach(function(link) {
             setHomepageSectionsVisible(false);
             filterArticles(cat);
         }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
 
