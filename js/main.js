@@ -215,6 +215,16 @@ document.addEventListener('keydown', function(e) {
         closeNav();
     }
 });
+// ── DEBOUNCE ─────────────────────────────────────
+// Delays running fn until the user stops typing for `delay` ms —
+// prevents the search filter from re-running on every single keystroke.
+function debounce(fn, delay) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
 
 // ── SEARCH FILTER ──────────────────────────────────
 
