@@ -834,6 +834,9 @@ body.bk-nav-open {
 #bk-latest-section .bk-section-head {
     margin-bottom: 6px
 }
+#bk-lead-section .bk-section-head {
+    margin-bottom: 16px
+}
 
 .bk-latest-list {
     display: grid;
@@ -1992,7 +1995,7 @@ body.bk-nav-open {
 .bk-nav .bk-cat-link.active{color:#ffffff}
 .bk-cat-hero-link{text-decoration:none;color:inherit;display:block;margin-bottom:8px}
 .bk-cat-hero{display:flex;flex-direction:column}
-.bk-cat-hero-image{width:100%;height:220px;background:#ebf1f5;overflow:hidden}
+.bk-cat-hero-image{width:100%;height:220px;background:#ebf1f5;overflow:hidden} 
 .bk-cat-hero-image img{width:100%;height:100%;object-fit:cover;display:block}
 .bk-cat-hero-body{padding:16px 0 12px}
 .bk-cat-hero-title{font-family:"Oswald",sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#2b2d42}
