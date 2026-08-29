@@ -217,7 +217,19 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ── SEARCH FILTER ──────────────────────────────────
-searchInput.addEventListener('input', function() {
+// Delays running a function until the user stops triggering it for `delay` ms.
+// Prevents expensive work (like filtering on every keystroke) from running
+// more often than needed.
+function debounce(fn, delay) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+            fn.apply(this, args);
+        }, delay);
+    };
+}
+searchInput.addEventListener('input', debounce(function() {
     const query = searchInput.value.trim().toLowerCase();
 
     if (query === '') {
@@ -240,7 +252,7 @@ searchInput.addEventListener('input', function() {
     }
 
     searchResults.classList.add('show');
-});
+}, 200));
 
 // ── 4. FETCH & RENDER ARTICLES ────────────────────
 let allArticles = [];
