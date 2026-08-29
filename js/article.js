@@ -438,6 +438,23 @@ async function loadArticle() {
         document.getElementById('bk-article-cat').textContent = article.category;
         document.getElementById('bk-article-title').textContent = article.title;
         document.getElementById('bk-article-date').textContent = formatRelativeDate(article.date);
+
+        // "Updated" line only shows when dateModified is meaningfully later
+        // than the publish date (10+ min gap) — avoids false positives from
+        // CMS auto-touching the updated field on every save with no real edit.
+        const UPDATE_THRESHOLD_MS = 10 * 60 * 1000;
+        const updatedEl = document.getElementById('bk-article-updated');
+        if (updatedEl) {
+            const published = parseArticleDate(article.date);
+            const modified = article.updated ? parseArticleDate(article.updated) : null;
+            if (modified && !isNaN(modified) && (modified - published) > UPDATE_THRESHOLD_MS) {
+                updatedEl.textContent = `Updated ${formatRelativeDate(article.updated)}`;
+                updatedEl.style.display = 'block';
+            } else {
+                updatedEl.style.display = 'none';
+            }
+        }
+
         document.getElementById('bk-article-image').src = article.image;
         document.getElementById('bk-article-image').alt = article.title;
 

@@ -920,10 +920,11 @@ body.bk-nav-open {
 }
 
 /* ── HOME CATEGORY SECTIONS (News, Sports, Business, Nairobi) ──────
-   Eastleigh Voice pattern: headline first, then meta line, then a
+   pattern: headline first, then meta line, then a
    full-width image below — divider between stories, no side thumbnail,
    no card border. Deliberately kept separate from .bk-latest-row (the
    Latest section above stays on its small-thumbnail layout untouched). */
+
 .bk-stack-list {
     display: flex;
     flex-direction: column
@@ -935,7 +936,7 @@ body.bk-nav-open {
     text-decoration: none;
     color: inherit;
     padding: 22px 0;
-    border-bottom: 1px solid #e5e5e5
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .bk-stack-row:first-child {
@@ -1622,6 +1623,15 @@ body.bk-nav-open {
 .bk-article-date {
     font-size: 12.5px;
     color: #888;
+    margin-bottom: 4px;
+    display: block
+}
+
+.bk-article-updated {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    display: block;
     margin-bottom: 20px
 }
 
@@ -1951,9 +1961,11 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-latest-row-dot,
 [data-theme="dark"] .bk-stack-row-date,
 [data-theme="dark"] .bk-stack-row-dot,
-[data-theme="dark"] .bk-article-date {
+[data-theme="dark"] .bk-article-date,
+[data-theme="dark"] .bk-article-updated {
   color: #aaa;
 }
+
 [data-theme="dark"] .bk-badge-sponsored {
   color: #e0b84a;
   border-color: #e0b84a;
@@ -1984,7 +1996,11 @@ body.bk-nav-open {
 .bk-cat-hero-image img{width:100%;height:100%;object-fit:cover;display:block}
 .bk-cat-hero-body{padding:16px 0 12px}
 .bk-cat-hero-title{font-family:"Oswald",sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#2b2d42}
-.bk-cat-hero-date{font-size:12px;color:#888;margin-top:8px}
+.bk-cat-hero-date{font-size:12px;color:#888}
+.bk-cat-hero-meta{display:flex;align-items:center;gap:6px;margin-top:8px}
+.bk-cat-hero-cat{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#2e6da4}
+.bk-cat-hero-dot{font-size:11px;color:#ccc}
+[data-theme="dark"] .bk-cat-hero-cat{color:#90c8f9}
 .bk-cat-row-list{display:flex;flex-direction:column} 
 .bk-cat-row-link{text-decoration:none;color:inherit;display:block}
 .bk-cat-row{display:flex;flex-direction:row;align-items:stretch;gap:14px;padding:16px 0;border-bottom:1px solid #eaecef}
@@ -2039,7 +2055,7 @@ body.bk-nav-open {
 .skeleton-line {
   height: 12px;
   border-radius: 4px;
-  background: #e0e0e0;
+  background: #e0e0e0; 
 }
 
 .skeleton-line.short {

@@ -217,18 +217,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ── SEARCH FILTER ──────────────────────────────────
-// Delays running a function until the user stops triggering it for `delay` ms.
-// Prevents expensive work (like filtering on every keystroke) from running
-// more often than needed.
-function debounce(fn, delay) {
-    let timer;
-    return function(...args) {
-        clearTimeout(timer);
-        timer = setTimeout(function() {
-            fn.apply(this, args);
-        }, delay);
-    };
-}
+
 searchInput.addEventListener('input', debounce(function() {
     const query = searchInput.value.trim().toLowerCase();
 
@@ -240,7 +229,7 @@ searchInput.addEventListener('input', debounce(function() {
 
     const matches = allArticles.filter(function(a) {
         return a.title.toLowerCase().includes(query) ||
-               a.category.toLowerCase().includes(query);
+               a.category.toLowerCase().includes(query); 
     });
 
     if (matches.length === 0) {
@@ -407,9 +396,7 @@ function renderLead() {
     leadCard.href = `/${encodeURIComponent(lead.id)}`;
     document.getElementById('bk-lead-image').src = lead.image;
     document.getElementById('bk-lead-image').alt = lead.title;
-    document.getElementById('bk-lead-cat').textContent = lead.category;
     document.getElementById('bk-lead-title').textContent = lead.title;
-    document.getElementById('bk-lead-date').textContent = formatRelativeDate(lead.date);
 
     const secondaryList = document.getElementById('bk-secondary-list');
     secondaryList.innerHTML = secondary.map(function(a) {
@@ -559,7 +546,11 @@ function filterArticles(category, reset) {
             <div class="bk-cat-hero-body">
                 ${heroArticle.sponsored ? '<span class="bk-badge-sponsored">Sponsored</span>' : ''}
                 <h3 class="bk-cat-hero-title">${escapeHtml(heroArticle.title)}</h3>
-                <p class="bk-cat-hero-date">${formatRelativeDate(heroArticle.date)}</p>
+                <div class="bk-cat-hero-meta">
+                    <span class="bk-cat-hero-cat">${escapeHtml(heroArticle.category)}</span>
+                    <span class="bk-cat-hero-dot">|</span>
+                    <span class="bk-cat-hero-date">${formatRelativeDate(heroArticle.date)}</span>
+                </div>
             </div>
         </article>
         </a>`;
