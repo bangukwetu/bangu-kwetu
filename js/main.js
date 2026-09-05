@@ -282,12 +282,60 @@ async function loadArticles() {
 
     try {
         const response = await fetch('/data/articles.json');
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) throw new Error('Network response was not ok'); 
         allArticles = (await response.json()).articles;
         renderBreakingBanner();
         renderLead();
         renderLatest();
         renderHome();
+        renderRoad2027();  
+function renderRoad2027() {
+  const phases = [
+    { label: "Resignations", date: "2027-02-10" },
+    { label: "Primaries",    date: "2027-05-08" },
+    { label: "Nominations",  date: "2027-06-11" },
+    { label: "Campaign",     date: "2027-08-07" },
+    { label: "Election Day", date: "2027-08-10" }
+  ];
+  const now = new Date();
+  const start = new Date("2026-08-01"); // roadmap window start
+  const end = new Date(phases[phases.length - 1].date);
+  const totalSpan = end - start;
+  const elapsed = Math.min(Math.max(now - start, 0), totalSpan);
+  const pct = (elapsed / totalSpan) * 100;
+
+  document.getElementById('bk-road-fill').style.width = pct + '%';
+
+  const track = document.getElementById('bk-road-checkpoints');
+  track.innerHTML = '';
+  let activePhase = phases[0];
+
+  phases.forEach((phase, i) => {
+    const phaseDate = new Date(phase.date);
+    const pos = ((phaseDate - start) / totalSpan) * 100;
+    const isDone = now > phaseDate;
+    const isActive = !isDone && (i === 0 || now > new Date(phases[i - 1].date));
+    if (isActive) activePhase = phase;
+
+    const dot = document.createElement('div');
+    dot.className = 'bk-checkpoint' + (isDone ? ' done' : isActive ? ' active' : '');
+    dot.style.left = pos + '%';
+    track.appendChild(dot);
+
+    const label = document.createElement('div');
+    label.className = 'bk-checkpoint-label'
+        + (i % 2 === 1 ? ' bk-label-low' : '')
+        + (isActive ? ' bk-label-current' : '');
+    label.style.left = pos + '%';
+    label.textContent = phase.label;
+    track.appendChild(label);
+  });
+
+  const daysLeft = Math.ceil((new Date(activePhase.date) - now) / 86400000);
+  document.getElementById('bk-road-status').innerHTML =
+    `<strong>${daysLeft} days</strong> until ${activePhase.label.toLowerCase()} — Kenya votes August 10, 2027`;
+}
+
         applyCategoryFromUrl();
     } catch (err) {
         console.error('Could not load articles:', err);
@@ -509,7 +557,7 @@ function renderHome() {
 // ── CATEGORY PAGE PAGINATION ──────────────────────
 // First article = hero (image + headline). Everything after = plain
 // divider rows, thumbnail + text, no card box/border/shadow — matches
-// the BBC-style list pattern. Same structure on mobile and desktop;
+// the list pattern. Same structure on mobile and desktop;
 // desktop CSS arranges the rows into 2 columns via media query.
 const CATEGORY_ROW_BATCH = 6;
 let categoryPageState = { category: null, visibleRows: CATEGORY_ROW_BATCH };

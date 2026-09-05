@@ -6,37 +6,38 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangu Kwetu</title>
-    <link rel="preload" href="/fonts/oswald-700.woff2" as="font" type="font/woff2" crossorigin>
-          <link rel="stylesheet" href="/style.min.css?v=c6e3e5f">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="manifest" href="/manifest.json">
+    <title>Road to 2027 — Bangu Kwetu</title>
+    <meta name="description" content="Track every stage of Kenya's 2027 General Election — resignations, primaries, nominations, campaigns, and voting day — with a focus on Eastlands and Embakasi North.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.min.css?v=c6e3e5f">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2E6DA4">
+    <link rel="canonical" href="https://bangukwetu.co.ke/road-to-2027.html">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Bangu Kwetu — Nairobi News"> 
+    <meta property="og:title" content="Road to 2027 — Bangu Kwetu">
     <meta property="og:site_name" content="Bangu Kwetu">
-    <meta property="og:description" content="Independent news covering Nairobi — local government, business, sports, and the people shaping the city.">
+    <meta property="og:description" content="Track every stage of Kenya's 2027 General Election, with a focus on Eastlands and Embakasi North.">
     <meta property="og:image" content="https://bangukwetu.co.ke/images/icons/icon-512.png">
-    <meta property="og:url" content="https://bangukwetu.co.ke/">
+    <meta property="og:url" content="https://bangukwetu.co.ke/road-to-2027.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@bangukwetu">
-    <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"NewsMediaOrganization","name":"Bangu Kwetu","alternateName":"Bangu Kwetu News","url":"https://bangukwetu.co.ke","logo":{"@type":"ImageObject","url":"https://bangukwetu.co.ke/images/icons/icon-512.png","width":512,"height":512},"sameAs":["https://x.com/bangukwetu","https://facebook.com/bangukwetu","https://instagram.com/bangukwetu","https://youtube.com/@bangukwetu"],"foundingLocation":{"@type":"Place","name":"Nairobi, Kenya"},"areaServed":[{"@type":"Place","name":"Eastlands, Nairobi"},{"@type":"Place","name":"Embakasi North, Nairobi"},{"@type":"Place","name":"Outer Ring Road, Nairobi"}]}
-    </script>
 </head>
-<body> 
+<body>
+
+    <div id="bk-breaking-banner"></div>
 
     <div class="bk-header-block">
-
-        <!-- BREAKING — always above the header, only renders when a story is flagged breaking -->
-        <div id="bk-breaking-banner"></div>
-
         <header class="bk-header">
             <div class="bk-container">
                 <div class="bk-logo">
-                    <h1>
-                        <span class="bk-logo-bangu">Bangu</span><span class="bk-logo-kwetu">Kwetu</span>
-                    </h1>
+                    <a href="index.html" style="text-decoration:none;">
+                        <h1>
+                            <span class="bk-logo-bangu">Bangu</span><span class="bk-logo-kwetu">Kwetu</span>
+                        </h1>
+                    </a>
                 </div>
                 <nav class="bk-nav" id="bk-nav">
                     <div class="bk-nav-header">
@@ -79,99 +80,34 @@
                 </div>
             </div>
         </header>
+    </div>
 
-    </div><!-- end header block -->
-
-    <nav id="bk-cat-nav">
+    <!-- HERO -->
+    <section class="bk-road-hero">
         <div class="bk-container">
-            <div id="bk-cat-nav-inner">
-                <a href="index.html" class="bk-cat-link" data-cat="home">Home</a>
-                <a href="index.html?cat=news" class="bk-cat-link" data-cat="news">News</a>
-                <a href="index.html?cat=sports" class="bk-cat-link" data-cat="sports">Sports</a>
-                <a href="index.html?cat=business" class="bk-cat-link" data-cat="business">Business</a>
-                <a href="index.html?cat=nairobi" class="bk-cat-link" data-cat="nairobi">Nairobi</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- LEAD + SECONDARY — editorial pick, comes before Latest -->
-    <section id="bk-lead-section">
-        <div class="bk-container">
-           <div class="bk-section-head">
-              <h2 class="bk-section-title">Top Stories</h2>
-            </div>  
-            <div class="bk-lead-layout">
-                <a href="#" class="bk-lead-card" id="bk-lead-card">
-                    <div class="bk-lead-image">
-                        <img id="bk-lead-image" src="" alt="">
-                    </div>
-                    <div class="bk-lead-body">
-                        <h2 class="bk-lead-title" id="bk-lead-title"></h2>
-                    </div>
-                </a>
-                <div class="bk-secondary-list" id="bk-secondary-list">
-                    <!-- 2-3 bk-secondary-item entries injected here -->
-                </div>
-            </div>
+            <h1 class="bk-road-hero-title">Road to 2027</h1>
+            <p class="bk-road-hero-status" id="bk-road-hero-status"></p>
         </div>
     </section>
 
-    <!-- LATEST — vertical list, sits below the editorial lead -->
-    <div id="bk-latest-section">
-        <div class="bk-container">
-           <div class="bk-section-head">
-                <h2 class="bk-section-title">Latest</h2>
-           </div>
-           <div class="bk-latest-list" id="bk-latest-list"></div>
-        </div>
-    </div>
-
-    <!-- SHUJAA WA SIKU -->
-    <div id="bk-shujaa-section">
-        <div class="bk-container">
-            <div id="bk-shujaa-card">
-                <div id="bk-shujaa-media">
-                    <span id="bk-shujaa-badge">Shujaa wa Siku</span>
-                    <img id="bk-shujaa-avatar" src="" alt="">
-                </div>
-                <div id="bk-shujaa-body">
-                    <span id="bk-shujaa-eyebrow"></span>
-                    <h3 id="bk-shujaa-name"></h3>
-                    <p id="bk-shujaa-desc"></p>
-                    <a href="#" id="bk-shujaa-link">Read his story →</a>
-                </div>
-            </div>
-        </div>
-    </div>
-<section class="bk-road2027" id="bk-road2027">
- <div class="bk-container">
-        <div class="bk-road-head">
-          <h2 class="bk-road-title">Road to 2027</h2>
-          <a href="/road-to-2027" class="bk-road-link">Full timeline →</a> 
-        </div>
-    <div class="bk-road-track" id="bk-road-track">
-      <div class="bk-road-fill" id="bk-road-fill"></div>
-      <div class="bk-road-checkpoints" id="bk-road-checkpoints"></div>
-    </div>
-    <p class="bk-road-status" id="bk-road-status"></p>
-  </div>
-</section>
-
-    <!-- WHITE CANVAS -->
+    <!-- TIMELINE -->
     <div class="bk-canvas">
-
-<section id="bk-content" class="bk-section">
-    <div class="bk-container">
-        <div class="bk-section-head">
-            <h2 class="bk-section-title" id="bk-active-label">News</h2>
-        </div>
-        <div id="bk-main-grid"></div>
+        <section class="bk-road-timeline-section">
+            <div class="bk-container">
+                <div class="bk-timeline" id="bk-timeline"></div>
+            </div>
+        </section>
     </div>
-</section>
 
-    </div><!-- end canvas -->
+    <!-- CTA -->
+    <section class="bk-road-cta">
+        <div class="bk-container">
+            <h2>Following this story?</h2>
+            <p>We're tracking every stage of the 2027 election as it affects Eastlands and Embakasi North.</p>
+            <a href="index.html?cat=news" class="bk-road-cta-btn">See our coverage →</a>
+        </div>
+    </section>
 
-    <!-- FOOTER -->
     <footer class="bk-footer">
         <div class="bk-container">
             <div class="bk-footer-grid">
@@ -186,7 +122,6 @@
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="privacy.html">Privacy policy</a></li>
                         <li><a href="mailto:info@bangukwetu.co.ke?subject=Advertising%20Inquiry">Advertise with Us</a></li>
-
                     </ul>
                 </div>
                 <div class="bk-footer-col">
@@ -210,6 +145,55 @@
         </svg>
     </a>
     <script src="/js/main.js?v=c6e3e5f"></script>
+
+    <script>
+    // NOTE: this list is duplicated from renderRoad2027() in main.js.
+    // If the IEBC roadmap changes, update both places until this is
+    // moved to a shared data/road2027.json file both pages can fetch.
+    const roadPhases = [
+        { label: "Resignations", date: "2027-02-10",
+          desc: "Public officers seeking elective office must resign by this date to be eligible to run.",
+          local: "Any sitting county or national officials from  Eastlands or Embakasi North intending to contest must step down by now." },
+        { label: "Primaries", date: "2027-05-08",
+          desc: "Political parties must conclude their internal primaries and resolve any disputes arising from them." },
+        { label: "Nominations", date: "2027-06-11",
+          desc: "IEBC opens the formal nomination window for confirmed candidates, including independents." },
+        { label: "Campaign Period", date: "2027-08-07",
+          desc: "Official campaigning runs from May 29 through August 7 — the final stretch before voting, restricted to 7am–6pm daily." },
+        { label: "Election Day", date: "2027-08-10",
+          desc: "Kenyans vote for President, Governors, Senators, MPs, Women Representatives, and MCAs nationwide." }
+    ];
+
+    function renderTimeline() {
+        const now = new Date();
+        let activePhase = roadPhases[0];
+        const container = document.getElementById('bk-timeline');
+        if (!container) return;
+
+        container.innerHTML = roadPhases.map(function(p, i) {
+            const d = new Date(p.date);
+            const isDone = now > d;
+            const isActive = !isDone && (i === 0 || now > new Date(roadPhases[i - 1].date));
+            if (isActive) activePhase = p;
+
+            return `
+                <div class="bk-timeline-item ${isDone ? 'done' : isActive ? 'active' : ''}">
+                    <div class="bk-timeline-dot"></div>
+                    <div class="bk-timeline-date">${d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                    <h3 class="bk-timeline-title">${p.label}</h3>
+                    <p class="bk-timeline-desc">${p.desc}</p>
+                    ${p.local ? `<div class="bk-timeline-local">${p.local}</div>` : ''}
+                </div>`;
+        }).join('');
+
+        const daysLeft = Math.ceil((new Date(activePhase.date) - now) / 86400000);
+        const statusEl = document.getElementById('bk-road-hero-status');
+        if (statusEl) {
+            statusEl.innerHTML = `<strong>${daysLeft} days</strong> until ${activePhase.label.toLowerCase()} — Kenya votes August 10, 2027`;
+        }
+    }
+    renderTimeline();
+    </script>
 
 </body>
 </html>
