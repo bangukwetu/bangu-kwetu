@@ -22,6 +22,7 @@ const RESERVED_NAMES = new Set([
     'contact', 'contact.html',
     'privacy', 'privacy.html',
     '404', '404.html',
+    'road-to-2027', 'road-to-2027.html',
     'admin',
     'favicon.svg',
     'manifest.json',
