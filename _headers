@@ -14,11 +14,14 @@
 /style.css
   Cache-Control: public, max-age=0, must-revalidate
 
-  /style.min.css
+/style.min.css
   Cache-Control: public, max-age=0, must-revalidate
 
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
+
+/data/categories/*.json
+  Cache-Control: public, max-age=60, stale-while-revalidate=300
 
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable

@@ -3,6 +3,10 @@
 // the homepage script, and feed.js already read. Nothing on the frontend
 // needs to change; this script just replaces how the file gets built.
 //
+// Also writes small per-category paginated files to data/categories/
+// (e.g. nairobi-1.json, nairobi-2.json) so category pages on the site
+// only download a batch at a time instead of the whole archive.
+//
 // Run manually with: node scripts/compile-articles.js
 // In CI, this is triggered automatically on push to content/articles/**
 // (see .github/workflows/compile-articles.yml)
@@ -12,6 +16,8 @@ const path = require('path');
 
 const ARTICLES_DIR = path.join(__dirname, '..', 'content', 'articles');
 const OUTPUT_FILE = path.join(__dirname, '..', 'data', 'articles.json');
+const PAGE_SIZE = 10;
+const CATEGORIES_DIR = path.join(__dirname, '..', 'data', 'categories');
 
 function readArticles() {
   if (!fs.existsSync(ARTICLES_DIR)) {
@@ -30,20 +36,12 @@ function readArticles() {
       throw new Error(`Invalid JSON in ${file}: ${err.message}`);
     }
 
-    // Sveltia's datetime widget outputs an ISO timestamp. The CMS field
-    // is now configured to capture real publish time (previously it was
-    // date-only, so this used to get truncated to plain YYYY-MM-DD here).
-    // Pass the value straight through — the frontend (main.js, article.js)
-    // handles both full timestamps and legacy date-only strings from
-    // older entries, so nothing needs to be normalized/truncated anymore.
     if (parsed.date) parsed.date = normalizeDate(parsed.date);
     if (parsed.updated) parsed.updated = normalizeDate(parsed.updated);
 
     return parsed;
   });
 
-  // Basic sanity checks so a bad entry fails the build loudly instead of
-  // silently shipping a broken articles.json.
   const seenIds = new Set();
   for (const a of articles) {
     if (!a.id) throw new Error(`Article in a file is missing an "id" field.`);
@@ -53,7 +51,6 @@ function readArticles() {
     if (!a.date) throw new Error(`Article "${a.id}" is missing a date.`);
   }
 
-  // Newest first, matching how the site and feed already expect articles.
   articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return articles;
@@ -61,19 +58,47 @@ function readArticles() {
 
 function normalizeDate(value) {
   const d = new Date(value);
-  if (isNaN(d)) return value; // leave untouched if unparseable, rather than corrupt it
-  return value; // keep full precision as Sveltia stored it — date-only
-                // strings stay date-only, full timestamps stay intact
+  if (isNaN(d)) return value;
+  return value;
+}
+
+// Splits the already-sorted (newest-first) article list into small
+// per-category page files: data/categories/<category>-<page>.json
+// Each file holds up to PAGE_SIZE articles plus its page number and
+// the category's total page count, so the frontend knows when to stop
+// fetching more.
+function writeCategoryPages(articles) {
+  const byCategory = {};
+  for (const a of articles) {
+    const cat = (a.category || 'uncategorized').toLowerCase();
+    (byCategory[cat] = byCategory[cat] || []).push(a);
+  }
+
+  fs.mkdirSync(CATEGORIES_DIR, { recursive: true });
+
+  for (const [cat, list] of Object.entries(byCategory)) {
+    const totalPages = Math.ceil(list.length / PAGE_SIZE);
+    for (let page = 1; page <= totalPages; page++) {
+      const slice = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+      fs.writeFileSync(
+        path.join(CATEGORIES_DIR, `${cat}-${page}.json`),
+        JSON.stringify({ page, totalPages, articles: slice }, null, 2)
+      );
+    }
+  }
 }
 
 function main() {
   const articles = readArticles();
+  writeCategoryPages(articles);
+
   const output = { articles };
 
   fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(output, null, 2));
 
   console.log(`data/articles.json compiled with ${articles.length} article(s).`);
+  console.log(`Category pages written to ${CATEGORIES_DIR}`);
 }
 
 main();
