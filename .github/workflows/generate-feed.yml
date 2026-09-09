@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'data/articles.json'
+  workflow_dispatch:    
 
 jobs:
   build-feed:
@@ -19,7 +20,7 @@ jobs:
         run: node scripts/generate-feed.js
 
       - name: Generate sitemap.xml
-       run: node scripts/generate-sitemap.js  
+        run: node scripts/generate-sitemap.js  
 
       - name: Commit feed.xml
         run: |
