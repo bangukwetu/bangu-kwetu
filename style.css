@@ -1190,7 +1190,6 @@ body.bk-nav-open {
   transform: translateX(-50%); 
   font-size: 10px;
   color: #2B2D42;
-  opacity: 0.65;
   white-space: nowrap;
 }
 
