@@ -27,7 +27,7 @@ button:focus-visible {
   font-family: 'Oswald';
   src: url('/fonts/oswald-600.woff2') format('woff2');
   font-weight: 600;
-  font-style: normal;
+  font-style: normal; 
   font-display: swap;
 }
 @font-face {
@@ -1208,7 +1208,7 @@ body.bk-nav-open {
   color: #2B2D42;
   margin: 22px 0 0;
 }
-.bk-road-status strong { color: #2E6DA4; }
+.bk-road-status strong { color: #2E6DA4; } 
     @media (max-width: 480px) {
     .bk-checkpoint-label { display: none; }
     .bk-checkpoint-label.bk-label-current {
@@ -1968,7 +1968,8 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-stack-row-image {
   background: #2a2a2a;
 }
-[data-theme="dark"] #bk-shujaa-section {
+[data-theme="dark"] #bk-shujaa-section 
+
   background: #1a1a1a;
   border-bottom-color: #2a2a2a;
 }
@@ -2055,6 +2056,10 @@ body.bk-nav-open {
 [data-theme="dark"] .bk-article-date,
 [data-theme="dark"] .bk-article-updated {
   color: #aaa;
+}
+[data-theme="dark"] .bk-checkpoint-label {
+  color: #e4e6eb;
+  opacity: 1;
 }
 
 [data-theme="dark"] .bk-badge-sponsored {
